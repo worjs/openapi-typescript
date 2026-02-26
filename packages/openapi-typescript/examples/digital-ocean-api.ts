@@ -166,6 +166,126 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/add-ons/apps": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Available Add-On Applications
+         * @description To fetch details of all available Add-On Applications, send a GET request to `/v2/add-ons/apps`.
+         */
+        get: operations["addons_get_app"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/add-ons/apps/{app_slug}/metadata": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Metadata for an Add-On Application
+         * @description To find out what metadata is required for a specific add-on, send a GET request to `/v2/add-ons/apps/{app_slug}/metadata`.
+         *     Metadata varies by application.
+         */
+        get: operations["addons_get_app_metadata"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/add-ons/saas": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List all Add-On Resources
+         * @description To fetch all Add-On Resources under your team, send a GET request to `/v2/add-ons/saas`.
+         */
+        get: operations["addons_list"];
+        put?: never;
+        /**
+         * Create/Provision a New Add-on Resource
+         * @description To create an add-on resource, send a POST request to `/v2/add-ons/saas` with required parameters.
+         *     Some add-ons require additional metadata to be provided in the request body. To find out
+         *     what metadata is required for a specific add-on, send a GET request to `/v2/add-ons/apps/{app_slug}/metadata`.
+         */
+        post: operations["addons_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/add-ons/saas/{resource_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get details on an Add-On Resource
+         * @description To fetch details of a specific Add-On Resource, send a GET request to `/v2/add-ons/saas/{resource_uuid}`.
+         *     Replace `{resource_uuid}` with the UUID of the resource you want to retrieve.
+         */
+        get: operations["addons_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete/Deprovision an Add-on Resource
+         * @description To delete an add-on resource, send a DELETE request to `/v2/add-ons/saas/{resource_uuid}` with the UUID of the resource to delete.
+         *     You cannot retrieve the resource after it has been deleted. The response indicates a request was sent to the 3rd party add-on provider to delete the resource.
+         *     You will no longer be billed for this resource.
+         */
+        delete: operations["addons_delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update the name for an Add-On Resource
+         * @description To change the name of an Add-On Resource, send a PATCH request to `/v2/add-ons/saas/{resource_uuid}`.
+         *     Replace `{resource_uuid}` with the UUID of the resource for which you want to change the name.
+         */
+        patch: operations["addons_patch"];
+        trace?: never;
+    };
+    "/v2/add-ons/saas/{resource_uuid}/plan": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update the plan for an Add-On Resource
+         * @description To change the plan associated with an Add-On Resource, send a PATCH request to `/v2/add-ons/saas/{resource_uuid}/plan`.
+         *     Replace `{resource_uuid}` with the UUID of the resource for which you want to change the plan.
+         */
+        patch: operations["addons_patch_plan"];
+        trace?: never;
+    };
     "/v2/apps": {
         parameters: {
             query?: never;
@@ -270,6 +390,26 @@ export interface paths {
          * @description Returns a websocket URL that allows sending/receiving console input and output to a component of the active deployment if one exists.
          */
         get: operations["apps_get_exec_active_deployment"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/apps/{app_id}/instances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve App Instances
+         * @description Retrieve the list of running instances for a given application, including instance names and component types. Please note that these instances are ephemeral and may change over time. It is recommended not to make persistent changes or develop scripts that rely on their persistence.
+         */
+        get: operations["apps_get_instances"];
         put?: never;
         post?: never;
         delete?: never;
@@ -391,7 +531,7 @@ export interface paths {
         };
         /**
          * Retrieve Exec URL for Deployment
-         * @description Returns a websocket URL that allows sending/receiving console input and output to a component of the specified deployment if one exists.
+         * @description Returns a websocket URL that allows sending/receiving console input and output to a component of the specified deployment if one exists. Optionally, the instance_name parameter can be provided to retrieve the exec URL for a specific instance. Note that instances are ephemeral; therefore, we recommended to avoid making persistent changes or such scripting around them.
          */
         get: operations["apps_get_exec"];
         put?: never;
@@ -414,6 +554,86 @@ export interface paths {
          * @description Retrieve the logs of the active deployment if one exists. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment. Note log_type=BUILD logs will return logs associated with the current active deployment (being served). To view build logs associated with in-progress build, the query must explicitly reference the deployment id.
          */
         get: operations["apps_get_logs_active_deployment_aggregate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/apps/{app_id}/job-invocations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Job Invocations
+         * @description List all job invocations for an app.
+         */
+        get: operations["apps_list_job_invocations"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/apps/{app_id}/job-invocations/{job_invocation_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Job Invocations
+         * @description Get a specific job invocation for an app.
+         */
+        get: operations["apps_get_job_invocation"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/apps/{app_id}/job-invocations/{job_invocation_id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Cancel Job Invocation
+         * @description Cancel a specific job invocation for an app.
+         */
+        post: operations["apps_cancel_job_invocation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/apps/{app_id}/jobs/{job_name}/invocations/{job_invocation_id}/logs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Job Invocation Logs
+         * @description Retrieve the logs of a past, in-progress, or active deployment. If a component name is specified, the logs will be limited to only that component. If deployment is omitted the active deployment will be selected (if available). The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
+         */
+        get: operations["apps_get_job_invocation_logs"];
         put?: never;
         post?: never;
         delete?: never;
@@ -666,6 +886,26 @@ export interface paths {
          * @description Retrieve daily bandwidth usage metrics for multiple apps.
          */
         post: operations["apps_list_metrics_bandwidth_daily"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/apps/{app_id}/health": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve App Health
+         * @description Retrieve information like health status, cpu and memory utilization of app components.
+         */
+        get: operations["apps_get_health"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -961,6 +1201,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/billing/{account_urn}/insights/{start_date}/{end_date}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Billing Insights
+         * @description This endpoint returns day-over-day changes in billing resource usage based on nightly invoice items, including total amount, region, SKU, and description for a specified date range. It is important to note that the daily resource usage may not reflect month-end billing totals when totaled for a given month as nightly invoice item estimates do not necessarily encompass all invoicing factors for the entire month.
+         */
+        get: operations["billingInsights_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/databases/options": {
         parameters: {
             query?: never;
@@ -1003,13 +1263,14 @@ export interface paths {
         put?: never;
         /**
          * Create a New Database Cluster
-         * @description To create a database cluster, send a POST request to `/v2/databases`.
-         *     The response will be a JSON object with a key called `database`. The value of this will be an object that contains the standard attributes associated with a database cluster. The initial value of the database cluster's `status` attribute will be `creating`. When the cluster is ready to receive traffic, this will transition to `online`.
+         * @description To create a database cluster, send a POST request to `/v2/databases`. To see a list  of options for each engine, such as available regions, size slugs, and versions, send a GET request to the `/v2/databases/options` endpoint. The available sizes for  the `storage_size_mib` field depends on the cluster's size. To see a list of available sizes, see [Managed Database Pricing](https://www.digitalocean.com/pricing/managed-databases).
          *
-         *     The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster. For multi-node clusters, the `standby_connection` and `standby_private_connection` objects will contain the information needed to connect to the cluster's standby node(s).
+         *     The create response returns a JSON object with a key called `database`. The value of this is an object that contains the standard attributes associated with a database cluster. The initial value of the database cluster's `status` attribute is `creating`. When the cluster is ready to receive traffic, this changes to `online`.
+         *
+         *     The embedded `connection` and `private_connection` objects contains the information needed to access the database cluster. For multi-node clusters, the `standby_connection` and `standby_private_connection` objects contain the information needed to connect to the cluster's standby node(s).
          *
          *     DigitalOcean managed PostgreSQL and MySQL database clusters take automated daily backups. To create a new database cluster based on a backup of an existing cluster, send a POST request to `/v2/databases`. In addition to the standard database cluster attributes, the JSON body must include a key named `backup_restore` with the name of the original database cluster and the timestamp of the backup to be restored. Creating a database from a backup is the same as forking a database in the control panel.
-         *     Note: Backups are not supported for Redis clusters.
+         *     Note: Caching cluster creates are no longer supported as of 2025-04-30T00:00:00Z. Backups are also not supported for Caching or Valkey clusters.
          */
         post: operations["databases_create_cluster"];
         delete?: never;
@@ -1115,7 +1376,8 @@ export interface paths {
         get: operations["databases_get_migrationStatus"];
         /**
          * Start an Online Migration
-         * @description To start an online migration, send a PUT request to `/v2/databases/$DATABASE_ID/online-migration` endpoint. Migrating a cluster establishes a connection with an existing cluster and replicates its contents to the target cluster. Online migration is only available for MySQL, PostgreSQL, and Redis clusters.
+         * @description To start an online migration, send a PUT request to `/v2/databases/$DATABASE_ID/online-migration` endpoint. Migrating a cluster establishes a connection with an existing cluster and replicates its contents to the target cluster. Online migration is only available for MySQL, PostgreSQL, Caching, and Valkey clusters.
+         *     If the existing database is continuously being written to,  the migration process will continue for up to two weeks unless it is manually stopped. Online migration is only available for [MySQL](https://docs.digitalocean.com/products/databases/mysql/how-to/migrate/#:~:text=To%20migrate%20a%20MySQL%20database,then%20select%20Set%20Up%20Migration),  [PostgreSQL](https://docs.digitalocean.com/products/databases/postgresql/how-to/migrate/),  [Caching](https://docs.digitalocean.com/products/databases/redis/how-to/migrate/), and [Valkey](https://docs.digitalocean.com/products/databases/valkey/how-to/migrate/) clusters.
          */
         put: operations["databases_update_onlineMigration"];
         post?: never;
@@ -1273,7 +1535,7 @@ export interface paths {
         /**
          * List Backups for a Database Cluster
          * @description To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.
-         *     **Note**: Backups are not supported for Redis clusters.
+         *     **Note**: Backups are not supported for Caching or Valkey clusters.
          *     The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
          */
         get: operations["databases_list_backups"];
@@ -1296,7 +1558,7 @@ export interface paths {
          * List All Read-only Replicas
          * @description To list all of the read-only replicas associated with a database cluster, send a GET request to `/v2/databases/$DATABASE_ID/replicas`.
          *
-         *     **Note**: Read-only replicas are not supported for Redis clusters.
+         *     **Note**: Read-only replicas are not supported for Caching or Valkey clusters.
          *
          *     The result will be a JSON object with a `replicas` key. This will be set to an array of database replica objects, each of which will contain the standard database replica attributes.
          */
@@ -1306,7 +1568,7 @@ export interface paths {
          * Create a Read-only Replica
          * @description To create a read-only replica for a PostgreSQL or MySQL database cluster, send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the name it should be given, the size of the node to be used, and the region where it will be located.
          *
-         *     **Note**: Read-only replicas are not supported for Redis clusters.
+         *     **Note**: Read-only replicas are not supported for Caching or Valkey clusters.
          *
          *     The response will be a JSON object with a key called `replica`. The value of this will be an object that contains the standard attributes associated with a database replica. The initial value of the read-only replica's `status` attribute will be `forking`. When the replica is ready to receive traffic, this will transition to `active`.
          */
@@ -1351,7 +1613,7 @@ export interface paths {
          * Retrieve an Existing Read-only Replica
          * @description To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
          *
-         *     **Note**: Read-only replicas are not supported for Redis clusters.
+         *     **Note**: Read-only replicas are not supported for Caching or Valkey clusters.
          *
          *     The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
          */
@@ -1362,7 +1624,7 @@ export interface paths {
          * Destroy a Read-only Replica
          * @description To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
          *
-         *     **Note**: Read-only replicas are not supported for Redis clusters.
+         *     **Note**: Read-only replicas are not supported for Caching or Valkey clusters.
          *
          *     A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
          */
@@ -1384,7 +1646,7 @@ export interface paths {
          * Promote a Read-only Replica to become a Primary Cluster
          * @description To promote a specific read-only replica, send a PUT request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME/promote`.
          *
-         *     **Note**: Read-only replicas are not supported for Redis clusters.
+         *     **Note**: Read-only replicas are not supported for Caching or Valkey clusters.
          *
          *     A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
          */
@@ -1408,12 +1670,15 @@ export interface paths {
          * @description To list all of the users for your database cluster, send a GET request to
          *     `/v2/databases/$DATABASE_ID/users`.
          *
-         *     Note: User management is not supported for Redis clusters.
+         *     Note: User management is not supported for Caching or Valkey clusters.
          *
          *     The result will be a JSON object with a `users` key. This will be set to an array
          *     of database user objects, each of which will contain the standard database user attributes.
+         *     User passwords will not show without the `database:view_credentials` scope.
          *
          *     For MySQL clusters, additional options will be contained in the mysql_settings object.
+         *
+         *     For MongoDB clusters, additional information will be contained in the mongo_user_settings object
          */
         get: operations["databases_list_users"];
         put?: never;
@@ -1422,13 +1687,16 @@ export interface paths {
          * @description To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`
          *     with the desired username.
          *
-         *     Note: User management is not supported for Redis clusters.
+         *     Note: User management is not supported for Caching or Valkey clusters.
          *
          *     When adding a user to a MySQL cluster, additional options can be configured in the
          *     `mysql_settings` object.
          *
          *     When adding a user to a Kafka cluster, additional options can be configured in
          *     the `settings` object.
+         *
+         *      When adding a user to a MongoDB cluster, additional options can be configured in
+         *     the `settings.mongo_user_settings` object.
          *
          *     The response will be a JSON object with a key called `user`. The value of this will be an
          *     object that contains the standard attributes associated with a database user including
@@ -1453,15 +1721,18 @@ export interface paths {
          * @description To show information about an existing database user, send a GET request to
          *     `/v2/databases/$DATABASE_ID/users/$USERNAME`.
          *
-         *     Note: User management is not supported for Redis clusters.
+         *     Note: User management is not supported for Caching or Valkey clusters.
          *
          *     The response will be a JSON object with a `user` key. This will be set to an object
-         *     containing the standard database user attributes.
+         *     containing the standard database user attributes. The user's password will not show
+         *     up unless the `database:view_credentials` scope is present.
          *
          *     For MySQL clusters, additional options will be contained in the `mysql_settings`
          *     object.
          *
          *     For Kafka clusters, additional options will be contained in the `settings` object.
+         *
+         *     For MongoDB clusters, additional information will be contained in the mongo_user_settings object
          */
         get: operations["databases_get_user"];
         /**
@@ -1486,7 +1757,7 @@ export interface paths {
          *     A status of 204 will be given. This indicates that the request was processed
          *     successfully, but that no response body is needed.
          *
-         *     Note: User management is not supported for Redis clusters.
+         *     Note: User management is not supported for Caching or Valkey clusters.
          */
         delete: operations["databases_delete_user"];
         options?: never;
@@ -1537,7 +1808,7 @@ export interface paths {
          *     The result will be a JSON object with a `dbs` key. This will be set to an array
          *     of database objects, each of which will contain the standard database attributes.
          *
-         *     Note: Database management is not supported for Redis clusters.
+         *     Note: Database management is not supported for Caching or Valkey clusters.
          */
         get: operations["databases_list"];
         put?: never;
@@ -1546,7 +1817,7 @@ export interface paths {
          * @description To add a new database to an existing cluster, send a POST request to
          *     `/v2/databases/$DATABASE_ID/dbs`.
          *
-         *     Note: Database management is not supported for Redis clusters.
+         *     Note: Database management is not supported for Caching or Valkey clusters.
          *
          *     The response will be a JSON object with a key called `db`. The value of this will be
          *     an object that contains the standard attributes associated with a database.
@@ -1570,7 +1841,7 @@ export interface paths {
          * @description To show information about an existing database cluster, send a GET request to
          *     `/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.
          *
-         *     Note: Database management is not supported for Redis clusters.
+         *     Note: Database management is not supported for Caching or Valkey clusters.
          *
          *     The response will be a JSON object with a `db` key. This will be set to an object
          *     containing the standard database attributes.
@@ -1586,7 +1857,7 @@ export interface paths {
          *     A status of 204 will be given. This indicates that the request was processed
          *     successfully, but that no response body is needed.
          *
-         *     Note: Database management is not supported for Redis clusters.
+         *     Note: Database management is not supported for Caching or Valkey clusters.
          */
         delete: operations["databases_delete"];
         options?: never;
@@ -1669,14 +1940,14 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Retrieve the Eviction Policy for a Redis Cluster
-         * @description To retrieve the configured eviction policy for an existing Redis cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.
+         * Retrieve the Eviction Policy for a Caching or Valkey Cluster
+         * @description To retrieve the configured eviction policy for an existing Caching or Valkey cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.
          *     The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
          */
         get: operations["databases_get_evictionPolicy"];
         /**
-         * Configure the Eviction Policy for a Redis Cluster
-         * @description To configure an eviction policy for an existing Redis cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
+         * Configure the Eviction Policy for a Caching or Valkey Cluster
+         * @description To configure an eviction policy for an existing Caching or Valkey cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
          */
         put: operations["databases_update_evictionPolicy"];
         post?: never;
@@ -1726,6 +1997,32 @@ export interface paths {
          *     A successful request will receive a 204 No Content status code with no body in response.
          */
         put: operations["databases_update_major_version"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/autoscale": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Autoscale Configuration for a Database Cluster
+         * @description To retrieve the autoscale configuration for an existing database cluster, send a GET request to `/v2/databases/$DATABASE_ID/autoscale`.
+         *     The response will be a JSON object with autoscaling configuration details.
+         */
+        get: operations["databases_get_autoscale"];
+        /**
+         * Configure Autoscale Settings for a Database Cluster
+         * @description To configure autoscale settings for an existing database cluster, send a PUT request to `/v2/databases/$DATABASE_ID/autoscale`, specifying the autoscale configuration.
+         *     A successful request will receive a 204 No Content status code with no body in response.
+         */
+        put: operations["databases_update_autoscale"];
         post?: never;
         delete?: never;
         options?: never;
@@ -1853,6 +2150,139 @@ export interface paths {
          *     `/v2/databases/$DATABASE_ID/logsink/$LOGSINK_ID`.
          */
         delete: operations["databases_delete_logsink"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/schema-registry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Schemas for Kafka Cluster
+         * @description To list all schemas for a Kafka cluster, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/schema-registry`.
+         */
+        get: operations["databases_list_kafka_schemas"];
+        put?: never;
+        /**
+         * Create Schema Registry for Kafka Cluster
+         * @description To create a Kafka schema for a database cluster, send a POST request to
+         *     `/v2/databases/$DATABASE_ID/schema-registry`.
+         */
+        post: operations["databases_create_kafka_schema"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/schema-registry/{subject_name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a Kafka Schema by Subject Name
+         * @description To get a specific schema by subject name for a Kafka cluster, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/schema-registry/$SUBJECT_NAME`.
+         */
+        get: operations["databases_get_kafka_schema"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete a Kafka Schema by Subject Name
+         * @description To delete a specific schema by subject name for a Kafka cluster, send a DELETE request to
+         *     `/v2/databases/$DATABASE_ID/schema-registry/$SUBJECT_NAME`.
+         */
+        delete: operations["databases_delete_kafka_schema"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/schema-registry/{subject_name}/versions/{version}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Kafka Schema by Subject Version
+         * @description To get a specific schema by subject name for a Kafka cluster, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/schema-registry/$SUBJECT_NAME/versions/$VERSION`.
+         */
+        get: operations["databases_get_kafka_schema_version"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/schema-registry/config": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Schema Registry Configuration for a kafka Cluster
+         * @description To retrieve the Schema Registry configuration for a Kafka cluster, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/schema-registry/config`.
+         *     The response is a JSON object with a `compatibility_level` key, which is set to an object
+         *     containing any database configuration parameters.
+         */
+        get: operations["databases_get_kafka_schema_config"];
+        /**
+         * Update Schema Registry Configuration for a kafka Cluster
+         * @description To update the Schema Registry configuration for a Kafka cluster, send a PUT request to
+         *     `/v2/databases/$DATABASE_ID/schema-registry/config`.
+         *     The response is a JSON object with a `compatibility_level` key, which is set to an object
+         *     containing any database configuration parameters.
+         */
+        put: operations["databases_update_kafka_schema_config"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/schema-registry/config/{subject_name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Schema Registry Configuration for a Subject of kafka Cluster
+         * @description To retrieve the Schema Registry configuration for a Subject of a Kafka cluster, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/schema-registry/config/$SUBJECT_NAME`.
+         *     The response is a JSON object with a `compatibility_level` key, which is set to an object
+         *     containing any database configuration parameters.
+         */
+        get: operations["databases_get_kafka_schema_subject_config"];
+        /**
+         * Update Schema Registry Configuration for a Subject of kafka Cluster
+         * @description To update the Schema Registry configuration for a Subject of a Kafka cluster, send a PUT request to
+         *     `/v2/databases/$DATABASE_ID/schema-registry/config/$SUBJECT_NAME`.
+         *     The response is a JSON object with a `compatibility_level` key, which is set to an object
+         *     containing any database configuration parameters.
+         */
+        put: operations["databases_update_kafka_schema_subject_config"];
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -2120,7 +2550,9 @@ export interface paths {
          * Deleting Droplets by Tag
          * @description To delete **all** Droplets assigned to a specific tag, include the `tag_name`
          *     query parameter set to the name of the tag in your DELETE request. For
-         *     example,  `/v2/droplets?tag_name=$TAG_NAME`.
+         *     example, `/v2/droplets?tag_name=$TAG_NAME`.
+         *
+         *     This endpoint requires `tag:read` scope.
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
@@ -2296,24 +2728,24 @@ export interface paths {
          *     `/v2/droplets/$DROPLET_ID/actions`. In the JSON body to the request,
          *     set the `type` attribute to on of the supported action types:
          *
-         *     | Action                                   | Details |
-         *     | ---------------------------------------- | ----------- |
-         *     | <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet |
-         *     | <nobr>`disable_backups`</nobr>           | Disables backups for a Droplet |
-         *     | <nobr>`change_backup_policy`</nobr>      | Update the backup policy for a Droplet |
-         *     | <nobr>`reboot`</nobr>                    | Reboots a Droplet. A `reboot` action is an attempt to reboot the Droplet in a graceful way, similar to using the `reboot` command from the console. |
-         *     | <nobr>`power_cycle`</nobr>               | Power cycles a Droplet. A `powercycle` action is similar to pushing the reset button on a physical machine, it's similar to booting from scratch. |
-         *     | <nobr>`shutdown`</nobr>                  | Shutsdown a Droplet. A shutdown action is an attempt to shutdown the Droplet in a graceful way, similar to using the `shutdown` command from the console. Since a `shutdown` command can fail, this action guarantees that the command is issued, not that it succeeds. The preferred way to turn off a Droplet is to attempt a shutdown, with a reasonable timeout, followed by a `power_off` action to ensure the Droplet is off. |
-         *     | <nobr>`power_off`</nobr>                 | Powers off a Droplet. A `power_off` event is a hard shutdown and should only be used if the `shutdown` action is not successful. It is similar to cutting the power on a server and could lead to complications. |
-         *     | <nobr>`power_on`</nobr>                  | Powers on a Droplet. |
-         *     | <nobr>`restore`</nobr>                   | Restore a Droplet using a backup image. The image ID that is passed in must be a backup of the current Droplet instance. The operation will leave any embedded SSH keys intact. |
-         *     | <nobr>`password_reset`</nobr>            | Resets the root password for a Droplet. A new password will be provided via email. It must be changed after first use. |
-         *     | <nobr>`resize`</nobr>                    | Resizes a Droplet. Set the `size` attribute to a size slug. If a permanent resize with disk changes included is desired, set the `disk` attribute to `true`. |
-         *     | <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. |
-         *     | <nobr>`rename`</nobr>                    | Renames a Droplet. |
-         *     | <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. |
-         *     | <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. Once enabled for a Droplet, IPv6 can not be disabled. When enabling IPv6 on an existing Droplet, [additional OS-level configuration](https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets) is required. |
-         *     | <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. |
+         *     | Action                                   | Details | Additionally Required Permission |
+         *     | ---------------------------------------- | ----------- | ----------- |
+         *     | <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet | |
+         *     | <nobr>`disable_backups`</nobr>           | Disables backups for a Droplet | |
+         *     | <nobr>`change_backup_policy`</nobr>      | Update the backup policy for a Droplet | |
+         *     | <nobr>`reboot`</nobr>                    | Reboots a Droplet. A `reboot` action is an attempt to reboot the Droplet in a graceful way, similar to using the `reboot` command from the console. | |
+         *     | <nobr>`power_cycle`</nobr>               | Power cycles a Droplet. A `powercycle` action is similar to pushing the reset button on a physical machine, it's similar to booting from scratch. | |
+         *     | <nobr>`shutdown`</nobr>                  | Shutsdown a Droplet. A shutdown action is an attempt to shutdown the Droplet in a graceful way, similar to using the `shutdown` command from the console. Since a `shutdown` command can fail, this action guarantees that the command is issued, not that it succeeds. The preferred way to turn off a Droplet is to attempt a shutdown, with a reasonable timeout, followed by a `power_off` action to ensure the Droplet is off. | |
+         *     | <nobr>`power_off`</nobr>                 | Powers off a Droplet. A `power_off` event is a hard shutdown and should only be used if the `shutdown` action is not successful. It is similar to cutting the power on a server and could lead to complications. | |
+         *     | <nobr>`power_on`</nobr>                  | Powers on a Droplet. | |
+         *     | <nobr>`restore`</nobr>                   | Restore a Droplet using a backup image. The image ID that is passed in must be a backup of the current Droplet instance. The operation will leave any embedded SSH keys intact. | droplet:admin |
+         *     | <nobr>`password_reset`</nobr>            | Resets the root password for a Droplet. A new password will be provided via email. It must be changed after first use. | droplet:admin |
+         *     | <nobr>`resize`</nobr>                    | Resizes a Droplet. Set the `size` attribute to a size slug. If a permanent resize with disk changes included is desired, set the `disk` attribute to `true`. | droplet:create |
+         *     | <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. | droplet:admin |
+         *     | <nobr>`rename`</nobr>                    | Renames a Droplet. | |
+         *     | <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. | |
+         *     | <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. Once enabled for a Droplet, IPv6 can not be disabled. When enabling IPv6 on an existing Droplet, [additional OS-level configuration](https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets) is required. | |
+         *     | <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. | image:create |
          */
         post: operations["dropletActions_post"];
         delete?: never;
@@ -2346,7 +2778,7 @@ export interface paths {
          *     - `enable_ipv6`
          *     - `enable_backups`
          *     - `disable_backups`
-         *     - `snapshot`
+         *     - `snapshot` (also requires `image:create` permission)
          */
         post: operations["dropletActions_post_byTag"];
         delete?: never;
@@ -2468,6 +2900,9 @@ export interface paths {
          * @description To list the associated billable resources that can be destroyed along with a
          *     Droplet, send a GET request to the
          *     `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources` endpoint.
+         *
+         *     This endpoint will only return resources that you are authorized to see. For
+         *     example, to see associated Reserved IPs, include the `reserved_ip:read` scope.
          *
          *     The response will be a JSON object containing `snapshots`, `volumes`, and
          *     `volume_snapshots` keys. Each will be set to an array of objects containing
@@ -2761,6 +3196,8 @@ export interface paths {
          *     `/v2/firewalls/$FIREWALL_ID`. The request should contain a full representation
          *     of the firewall including existing attributes. **Note that any attributes that
          *     are not provided will be reset to their default values.**
+         *     <br><br>You must have read access (e.g. `droplet:read`) to all resources attached
+         *     to the firewall to successfully update the firewall.
          */
         put: operations["firewalls_update"];
         post?: never;
@@ -2909,8 +3346,6 @@ export interface paths {
          *
          *     * To create a new floating IP reserved to a region, send a POST request to
          *       `/v2/floating_ips` with the `region` attribute.
-         *
-         *     **Note**:  In addition to the standard rate limiting, only 12 floating IPs may be created per 60 seconds.
          */
         post: operations["floatingIPs_create"];
         delete?: never;
@@ -3406,6 +3841,12 @@ export interface paths {
          *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/kubeconfig?expiry_seconds=$DURATION_IN_SECONDS`.
          *     If not set or 0, then the token will have a 7 day expiry. The query parameter
          *     has no impact in certificate-based authentication.
+         *
+         *     Kubernetes Roles granted to a user with a token-based kubeconfig are derived from that user's
+         *     DigitalOcean role. Predefined roles (Owner, Member, Modifier etc.) have an automatic mapping
+         *     to Kubernetes roles. Custom roles are not automatically mapped to any Kubernetes roles,
+         *     and require [additional configuration](https://docs.digitalocean.com/products/kubernetes/how-to/set-up-custom-rolebindings/)
+         *     by a cluster administrator.
          */
         get: operations["kubernetes_get_kubeconfig"];
         put?: never;
@@ -3713,6 +4154,51 @@ export interface paths {
          * @description To remove the container registry from Kubernetes clusters, send a DELETE request to `/v2/kubernetes/registry`.
          */
         delete: operations["kubernetes_remove_registry"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/kubernetes/registries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add Container Registries to Kubernetes Clusters
+         * @description To integrate the container registries with Kubernetes clusters, send a POST request to `/v2/kubernetes/registries`.
+         */
+        post: operations["kubernetes_add_registries"];
+        /**
+         * Remove Container Registries from Kubernetes Clusters
+         * @description To remove the container registries from Kubernetes clusters, send a DELETE request to `/v2/kubernetes/registries`.
+         */
+        delete: operations["kubernetes_remove_registries"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/kubernetes/clusters/{cluster_id}/status_messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Fetch Status Messages for a Kubernetes Cluster
+         * @description To retrieve status messages for a Kubernetes cluster, send a GET request to
+         *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/status_messages`. Status messages inform users of any issues that come up during the cluster lifecycle.
+         */
+        get: operations["kubernetes_get_status_messages"];
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -4887,6 +5373,226 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/monitoring/metrics/database/mysql/cpu_usage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL CPU Usage Metrics
+         * @description Retrieve CPU usage (percent) for a MySQL cluster. Response is a time series of cluster-level CPU usage. Use **aggregate** to get avg, max, or min over the range.
+         */
+        get: operations["monitoring_get_database_mysql_cpu_usage"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/load": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Load Average Metrics
+         * @description Retrieve load metrics for a MySQL cluster. Use **metric** for the window: **load1** (1-minute), **load5** (5-minute), or **load15** (15-minute). Use **aggregate** to get either the average (avg) or maximum (max) over that window over the time range.
+         */
+        get: operations["monitoring_get_database_mysql_load"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/memory_usage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Memory Usage Metrics
+         * @description Retrieve memory usage (percent) for a MySQL cluster. Use **aggregate** (avg, max, or min) over the time range.
+         */
+        get: operations["monitoring_get_database_mysql_memory_usage"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/disk_usage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Disk Usage Metrics
+         * @description Retrieve disk usage (percent) for a MySQL cluster. Use **aggregate** (avg, max, or min) over the time range.
+         */
+        get: operations["monitoring_get_database_mysql_disk_usage"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/threads_connected": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Threads Connected Metrics
+         * @description Retrieve current threads connected for a MySQL service (gauge).
+         */
+        get: operations["monitoring_get_database_mysql_threads_connected"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/threads_created_rate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Threads Created Rate Metrics
+         * @description Retrieve threads created rate for a MySQL service (per second).
+         */
+        get: operations["monitoring_get_database_mysql_threads_created_rate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/threads_active": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Threads Active Metrics
+         * @description Retrieve active (running) threads for a MySQL service.
+         */
+        get: operations["monitoring_get_database_mysql_threads_active"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/index_vs_sequential_reads": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Index vs Sequential Reads Metrics
+         * @description Retrieve index vs sequential reads ratio (percent) for a MySQL service — i.e. percentage of reads using an index.
+         */
+        get: operations["monitoring_get_database_mysql_index_vs_sequential_reads"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/op_rates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Operations Throughput Metrics
+         * @description Retrieve operations rate (per second) for a MySQL service. Use **metric** to choose select, insert, update, or delete.
+         */
+        get: operations["monitoring_get_database_mysql_op_rates"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/schema_throughput": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Schema Throughput Metrics
+         * @description Retrieve table I/O throughput (rows per second) for a schema. Requires **schema** and **metric** (insert, fetch, update, delete).
+         */
+        get: operations["monitoring_get_database_mysql_schema_throughput"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/database/mysql/schema_latency": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Database MySQL Schema Latency Metrics
+         * @description Retrieve table I/O latency (seconds) for a schema. Requires **schema** and **metric** (insert, fetch, update, delete).
+         */
+        get: operations["monitoring_get_database_mysql_schema_latency"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/monitoring/sinks/destinations": {
         parameters: {
             query?: never;
@@ -4983,6 +5689,267 @@ export interface paths {
          * @description To delete a sink, send a DELETE request to `/v2/monitoring/sinks/${sink_uuid}`.
          */
         delete: operations["monitoring_delete_sink"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/nfs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List NFS shares per region
+         * @description To list NFS shares, send a GET request to `/v2/nfs?region=${region}`.
+         *
+         *     A successful request will return all NFS shares belonging to the authenticated user.
+         */
+        get: operations["nfs_list"];
+        put?: never;
+        /**
+         * Create a new NFS share
+         * @description To create a new NFS share, send a POST request to `/v2/nfs`.
+         */
+        post: operations["nfs_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/nfs/{nfs_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get an NFS share
+         * @description To get an NFS share, send a GET request to `/v2/nfs/{nfs_id}?region=${region}`.
+         *
+         *     A successful request will return the NFS share.
+         */
+        get: operations["nfs_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete an NFS share
+         * @description To delete an NFS share, send a DELETE request to `/v2/nfs/{nfs_id}?region=${region}`.
+         *
+         *     A successful request will return a `204 No Content` status code.
+         */
+        delete: operations["nfs_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/nfs/{nfs_id}/actions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Initiate an NFS action
+         * @description To execute an action (such as resize) on a specified NFS share,
+         *     send a POST request to `/v2/nfs/{nfs_id}/actions`. In the JSON body
+         *     to the request, set the `type` attribute to on of the supported action types:
+         *
+         *     | Action                           | Details |
+         *     | -------------------------------- | ----------- |
+         *     | <nobr>`resize`</nobr>            | Resizes an NFS share. Set the size_gib attribute to a desired value in GiB |
+         *     | <nobr>`snapshot`</nobr>          | Takes a snapshot of an NFS share |
+         *     | <nobr>`attach`</nobr>            | Attaches an NFS share to a VPC. Set the vpc_id attribute to the desired VPC ID |
+         *     | <nobr>`detach`</nobr>            | Detaches an NFS share from a VPC. Set the vpc_id attribute to the desired VPC ID |
+         *     | <nobr>`switch_performance_tier`</nobr> | Switches the performance tier of an NFS share. Set the performance_tier attribute to the desired tier (e.g., standard, high) |
+         */
+        post: operations["nfs_create_action"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/nfs/snapshots": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List NFS snapshots per region
+         * @description To list all NFS snapshots, send a GET request to `/v2/nfs/snapshots?region=${region}&share_id={share_id}`.
+         *
+         *     A successful request will return all NFS snapshots belonging to the authenticated user in the specified region.
+         *
+         *     Optionally, you can filter snapshots by a specific NFS share by including the `share_id` query parameter.
+         */
+        get: operations["nfs_list_snapshot"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/nfs/snapshots/{nfs_snapshot_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get an NFS snapshot by ID
+         * @description To get an NFS snapshot, send a GET request to `/v2/nfs/snapshots/{nfs_snapshot_id}?region=${region}`.
+         *
+         *     A successful request will return the NFS snapshot.
+         */
+        get: operations["nfs_get_snapshot"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete an NFS snapshot
+         * @description To delete an NFS snapshot, send a DELETE request to `/v2/nfs/snapshots/{nfs_snapshot_id}?region=${region}`.
+         *
+         *     A successful request will return a `204 No Content` status code.
+         */
+        delete: operations["nfs_delete_snapshot"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/partner_network_connect/attachments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List all partner attachments
+         * @description To list all of the Partner Attachments on your account, send a `GET` request to `/v2/partner_network_connect/attachments`.
+         */
+        get: operations["partnerAttachments_list"];
+        put?: never;
+        /**
+         * Create a new partner attachment
+         * @description To create a new partner attachment, send a `POST` request to
+         *     `/v2/partner_network_connect/attachments` with a JSON object containing the
+         *     required configuration details.
+         */
+        post: operations["partnerAttachments_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/partner_network_connect/attachments/{pa_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve an existing partner attachment
+         * @description To get the details of a partner attachment, send a `GET` request to
+         *     `/v2/partner_network_connect/attachments/{pa_id}`.
+         */
+        get: operations["partnerAttachments_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete an existing partner attachment
+         * @description To delete an existing partner attachment, send a `DELETE` request to
+         *     `/v2/partner_network_connect/attachments/{pa_id}`.
+         */
+        delete: operations["partnerAttachments_delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update an existing partner attachment
+         * @description To update an existing partner attachment, send a `PATCH` request to
+         *     `/v2/partner_network_connect/attachments/{pa_id}` with a JSON object containing the
+         *     fields to be updated.
+         */
+        patch: operations["partnerAttachments_patch"];
+        trace?: never;
+    };
+    "/v2/partner_network_connect/attachments/{pa_id}/bgp_auth_key": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get current BGP auth key for the partner attachment
+         * @description To get the current BGP auth key for a partner attachment, send a `GET` request to
+         *     `/v2/partner_network_connect/attachments/{pa_id}/bgp_auth_key`.
+         */
+        get: operations["partnerAttachments_get_bgp_auth_key"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/partner_network_connect/attachments/{pa_id}/remote_routes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List remote routes for a partner attachment
+         * @description To list all remote routes associated with a partner attachment, send a `GET` request to
+         *     `/v2/partner_network_connect/attachments/{pa_id}/remote_routes`.
+         */
+        get: operations["partnerAttachments_list_remote_routes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/partner_network_connect/attachments/{pa_id}/service_key": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get the current service key for the partner attachment
+         * @description To get the current service key for a partner attachment, send a `GET` request to
+         *     `/v2/partner_network_connect/attachments/{pa_id}/service_key`.
+         */
+        get: operations["partnerAttachments_get_service_key"];
+        put?: never;
+        /**
+         * Regenerate the service key for the partner attachment
+         * @description This operation generates a new service key for the specified partner attachment. The operation is asynchronous, and the response is an empty JSON object returned with a 202 status code. To poll for the new service key, send a `GET` request to `/v2/partner_network_connect/attachments/{pa_id}/service_key`.
+         */
+        post: operations["partnerAttachments_create_service_key"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -5087,12 +6054,16 @@ export interface paths {
         /**
          * List Project Resources
          * @description To list all your resources in a project, send a GET request to `/v2/projects/$PROJECT_ID/resources`.
+         *
+         *     This endpoint will only return resources that you are authorized to see. For example, to see Droplets in a project, include the `droplet:read` scope.
          */
         get: operations["projects_list_resources"];
         put?: never;
         /**
          * Assign Resources to a Project
          * @description To assign resources to a project, send a POST request to `/v2/projects/$PROJECT_ID/resources`.
+         *
+         *     You must have both `project:update` and `<resource>:read` scopes to assign new resources. For example, to assign a Droplet to a project, include both the `project:update` and `droplet:read` scopes.
          */
         post: operations["projects_assign_resources"];
         delete?: never;
@@ -5111,12 +6082,16 @@ export interface paths {
         /**
          * List Default Project Resources
          * @description To list all your resources in your default project, send a GET request to `/v2/projects/default/resources`.
+         *
+         *     Only resources that you are authorized to see will be returned. For example, to see Droplets in a project, include the `droplet:read` scope.
          */
         get: operations["projects_list_resources_default"];
         put?: never;
         /**
          * Assign Resources to Default Project
          * @description To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.
+         *
+         *     You must have both project:update and <resource>:read scopes to assign new resources. For example, to assign a Droplet to the default project, include both the `project:update` and `droplet:read` scopes.
          */
         post: operations["projects_assign_resources_default"];
         delete?: never;
@@ -5146,6 +6121,417 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/registries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All Container Registries
+         * @description To get information about any container registry in your account, send a GET request to `/v2/registries/`.
+         */
+        get: operations["registries_list"];
+        put?: never;
+        /**
+         * Create Container Registry
+         * @description To create your container registry, send a POST request to `/v2/registries`.
+         *
+         *     The `name` becomes part of the URL for images stored in the registry. For
+         *     example, if your registry is called `example`, an image in it will have the
+         *     URL `registry.digitalocean.com/example/image:tag`.
+         */
+        post: operations["registries_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a Container Registry By Name
+         * @description To get information about any container registry in your account, send a GET request to `/v2/registries/{registry_name}`.
+         */
+        get: operations["registries_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete Container Registry By Name
+         * @description To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registries/{registry_name}`.
+         */
+        delete: operations["registries_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/docker-credentials": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Docker Credentials By Registry Name
+         * @description In order to access your container registry with the Docker client or from a
+         *     Kubernetes cluster, you will need to configure authentication. The necessary
+         *     JSON configuration can be retrieved by sending a GET request to
+         *     `/v2/registries/{registry_name}/docker-credentials`.
+         *
+         *     The response will be in the format of a Docker `config.json` file. To use the
+         *     config in your Kubernetes cluster, create a Secret with:
+         *
+         *         kubectl create secret generic docr \
+         *           --from-file=.dockerconfigjson=config.json \
+         *           --type=kubernetes.io/dockerconfigjson
+         *
+         *     By default, the returned credentials have read-only access to your registry
+         *     and cannot be used to push images. This is appropriate for most Kubernetes
+         *     clusters. To retrieve read/write credentials, suitable for use with the Docker
+         *     client or in a CI system, read_write may be provided as query parameter. For
+         *     example: `/v2/registries/{registry_name}/docker-credentials?read_write=true`
+         *
+         *     By default, the returned credentials will not expire. To retrieve credentials
+         *     with an expiry set, expiry_seconds may be provided as a query parameter. For
+         *     example: `/v2/registries/{registry_name}/docker-credentials?expiry_seconds=3600` will return
+         *     credentials that expire after one hour.
+         */
+        get: operations["registries_get_dockerCredentials"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/subscription": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Subscription Information
+         * @description A subscription is automatically created when you configure your container registry. To get information about your subscription, send a GET request to `/v2/registries/subscription`. It is similar to GET `/v2/registry/subscription`.
+         */
+        get: operations["registries_get_subscription"];
+        put?: never;
+        /**
+         * Update Subscription Tier
+         * @description After creating your registry, you can switch to a different subscription tier to better suit your needs. To do this, send a POST request to `/v2/registries/subscription`. It is similar to POST `/v2/registry/subscription`.
+         */
+        post: operations["registries_update_subscription"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Registry Options (Subscription Tiers and Available Regions)
+         * @description This endpoint serves to provide additional information as to which option values are available when creating a container registry.
+         *     There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.
+         *     There are multiple regions available for container registry and controls where your data is stored.
+         *     To list the available options, send a GET request to `/v2/registries/options`. This is similar to GET `/v2/registry/options`.
+         */
+        get: operations["registries_get_options"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/garbage-collection": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Active Garbage Collection
+         * @description To get information about the currently-active garbage collection for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
+         */
+        get: operations["registries_get_garbageCollection"];
+        put?: never;
+        /**
+         * Start Garbage Collection
+         * @description Garbage collection enables users to clear out unreferenced blobs (layer &
+         *     manifest data) after deleting one or more manifests from a repository. If
+         *     there are no unreferenced blobs resulting from the deletion of one or more
+         *     manifests, garbage collection is effectively a noop.
+         *     [See here for more information](https://docs.digitalocean.com/products/container-registry/how-to/clean-up-container-registry/)
+         *     about how and why you should clean up your container registry periodically.
+         *
+         *     To request a garbage collection run on your registry, send a POST request to
+         *     `/v2/registries/$REGISTRY_NAME/garbage-collection`. This will initiate the
+         *     following sequence of events on your registry.
+         *
+         *     * Set the registry to read-only mode, meaning no further write-scoped
+         *       JWTs will be issued to registry clients. Existing write-scoped JWTs will
+         *       continue to work until they expire which can take up to 15 minutes.
+         *     * Wait until all existing write-scoped JWTs have expired.
+         *     * Scan all registry manifests to determine which blobs are unreferenced.
+         *     * Delete all unreferenced blobs from the registry.
+         *     * Record the number of blobs deleted and bytes freed, mark the garbage
+         *       collection status as `success`.
+         *     * Remove the read-only mode restriction from the registry, meaning write-scoped
+         *       JWTs will once again be issued to registry clients.
+         */
+        post: operations["registries_run_garbageCollection"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/garbage-collections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Garbage Collections
+         * @description To get information about past garbage collections for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
+         */
+        get: operations["registries_list_garbageCollections"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/garbage-collection/{garbage_collection_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update Garbage Collection
+         * @description To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below. It is similar to PUT `/v2/registries/$REGISTRY_NAME/garbage-collection/$GC_UUID`.
+         */
+        put: operations["registries_update_garbageCollection"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/repositoriesV2": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All Container Registry Repositories (V2)
+         * @description To list all repositories in your container registry, send a GET request to `/v2/registries/$REGISTRY_NAME/repositoriesV2`. It is similar to GET `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
+         */
+        get: operations["registries_list_repositoriesV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/repositories/{repository_name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Container Registry Repository
+         * @description To delete a container repository including all of its tags, send a DELETE request to
+         *     `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME`.
+         *
+         *     A successful request will receive a 204 status code with no body in response.
+         *     This indicates that the request was processed successfully.
+         */
+        delete: operations["registries_delete_repository"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/repositories/{repository_name}/tags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All Container Registry Repository Tags
+         * @description To list all tags in one of your container registry's repository, send a GET
+         *     request to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.
+         *
+         *     Note that if your repository name contains `/` characters, it must be
+         *     URL-encoded in the request URL. For example, to list tags for
+         *     `registry.digitalocean.com/example/my/repo`, the path would be
+         *     `/v2/registry/example/repositories/my%2Frepo/tags`.
+         *
+         *     It is similar to GET `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.
+         */
+        get: operations["registries_list_repositoryTags"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/repositories/{repository_name}/tags/{repository_tag}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Container Registry Repository Tag
+         * @description To delete a container repository tag in on of our container registries, send a DELETE request to
+         *     `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags/$TAG`.
+         *
+         *     Note that if your repository name contains `/` characters, it must be
+         *     URL-encoded in the request URL. For example, to delete
+         *     `registry.digitalocean.com/example/my/repo:mytag`, the path would be
+         *     `/v2/registry/example/repositories/my%2Frepo/tags/mytag`.
+         *
+         *     A successful request will receive a 204 status code with no body in response.
+         *     This indicates that the request was processed successfully. It is similar to DELETE `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags/$TAG`.
+         */
+        delete: operations["registries_delete_repositoryTag"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/repositories/{repository_name}/digests": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All Container Registry Repository Manifests
+         * @description To list all manifests in your container registry repository, send a GET
+         *     request to `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.
+         *
+         *     Note that if your repository name contains `/` characters, it must be
+         *     URL-encoded in the request URL. For example, to list manifests for
+         *     `registry.digitalocean.com/example/my/repo`, the path would be
+         *     `/v2/registry/example/repositories/my%2Frepo/digests`.
+         *
+         *     It is similar to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.
+         */
+        get: operations["registries_list_repositoryManifests"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/{registry_name}/repositories/{repository_name}/digests/{manifest_digest}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Container Registry Repository Manifest
+         * @description To delete a container repository manifest by digest in one of your registries, send a DELETE request to
+         *     `/v2/registries/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.
+         *
+         *     Note that if your repository name contains `/` characters, it must be
+         *     URL-encoded in the request URL. For example, to delete
+         *     `registry.digitalocean.com/example/my/repo@sha256:abcd`, the path would be
+         *     `/v2/registry/example/repositories/my%2Frepo/digests/sha256:abcd`.
+         *
+         *     A successful request will receive a 204 status code with no body in response.
+         *     This indicates that the request was processed successfully.
+         *
+         *     It is similar to DELETE `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.
+         */
+        delete: operations["registries_delete_repositoryManifest"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/registries/validate-name": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Validate a Container Registry Name
+         * @description To validate that a container registry name is available for use, send a POST
+         *     request to `/v2/registries/validate-name`.
+         *
+         *     If the name is both formatted correctly and available, the response code will
+         *     be 204 and contain no body. If the name is already in use, the response will
+         *     be a 409 Conflict.
+         *
+         *     It is similar to `/v2/registry/validate-name`.
+         */
+        post: operations["registries_validate_name"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/registry": {
         parameters: {
             query?: never;
@@ -5155,13 +6541,22 @@ export interface paths {
         };
         /**
          * Get Container Registry Information
-         * @description To get information about your container registry, send a GET request to `/v2/registry`.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To get information about your container registry, send a GET
+         *     request to `/v2/registry`.
+         *
+         *     This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
          */
         get: operations["registry_get"];
         put?: never;
         /**
          * Create Container Registry
-         * @description To create your container registry, send a POST request to `/v2/registry`.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To create your container registry, send a POST request to `/v2/registry`.
          *
          *     The `name` becomes part of the URL for images stored in the registry. For
          *     example, if your registry is called `example`, an image in it will have the
@@ -5170,7 +6565,13 @@ export interface paths {
         post: operations["registry_create"];
         /**
          * Delete Container Registry
-         * @description To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To delete your container registry, destroying all container image
+         *     data stored in it, send a DELETE request to `/v2/registry`.
+         *
+         *     This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
          */
         delete: operations["registry_delete"];
         options?: never;
@@ -5186,14 +6587,24 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Get Subscription Information
-         * @description A subscription is automatically created when you configure your container registry. To get information about your subscription, send a GET request to `/v2/registry/subscription`.
+         * Get Subscription
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     A subscription is automatically created when you configure your
+         *     container registry. To get information about your subscription, send a GET
+         *     request to `/v2/registry/subscription`.
          */
         get: operations["registry_get_subscription"];
         put?: never;
         /**
          * Update Subscription Tier
-         * @description After creating your registry, you can switch to a different subscription tier to better suit your needs. To do this, send a POST request to `/v2/registry/subscription`.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     After creating your registry, you can switch to a different
+         *     subscription tier to better suit your needs. To do this, send a POST request
+         *     to `/v2/registry/subscription`.
          */
         post: operations["registry_update_subscription"];
         delete?: never;
@@ -5211,7 +6622,10 @@ export interface paths {
         };
         /**
          * Get Docker Credentials for Container Registry
-         * @description In order to access your container registry with the Docker client or from a
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     In order to access your container registry with the Docker client or from a
          *     Kubernetes cluster, you will need to configure authentication. The necessary
          *     JSON configuration can be retrieved by sending a GET request to
          *     `/v2/registry/docker-credentials`.
@@ -5254,12 +6668,15 @@ export interface paths {
         put?: never;
         /**
          * Validate a Container Registry Name
-         * @description To validate that a container registry name is available for use, send a POST
-         *     request to `/v2/registry/validate-name`.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
          *
-         *     If the name is both formatted correctly and available, the response code will
-         *     be 204 and contain no body. If the name is already in use, the response will
-         *     be a 409 Conflict.
+         *      To validate that a container registry name is available for use, send a POST
+         *      request to `/v2/registry/validate-name`.
+         *
+         *      If the name is both formatted correctly and available, the response code will
+         *      be 204 and contain no body. If the name is already in use, the response will
+         *      be a 409 Conflict.
          */
         post: operations["registry_validate_name"];
         delete?: never;
@@ -5278,7 +6695,9 @@ export interface paths {
         /**
          * List All Container Registry Repositories
          * @deprecated
-         * @description This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.
          *
          *     To list all repositories in your container registry, send a GET
          *     request to `/v2/registry/$REGISTRY_NAME/repositories`.
@@ -5301,7 +6720,11 @@ export interface paths {
         };
         /**
          * List All Container Registry Repositories (V2)
-         * @description To list all repositories in your container registry, send a GET request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To list all repositories in your container registry, send a GET
+         *     request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
          */
         get: operations["registry_list_repositoriesV2"];
         put?: never;
@@ -5321,7 +6744,10 @@ export interface paths {
         };
         /**
          * List All Container Registry Repository Tags
-         * @description To list all tags in your container registry repository, send a GET
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To list all tags in your container registry repository, send a GET
          *     request to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.
          *
          *     Note that if your repository name contains `/` characters, it must be
@@ -5350,7 +6776,10 @@ export interface paths {
         post?: never;
         /**
          * Delete Container Registry Repository Tag
-         * @description To delete a container repository tag, send a DELETE request to
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To delete a container repository tag, send a DELETE request to
          *     `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags/$TAG`.
          *
          *     Note that if your repository name contains `/` characters, it must be
@@ -5376,7 +6805,10 @@ export interface paths {
         };
         /**
          * List All Container Registry Repository Manifests
-         * @description To list all manifests in your container registry repository, send a GET
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To list all manifests in your container registry repository, send a GET
          *     request to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.
          *
          *     Note that if your repository name contains `/` characters, it must be
@@ -5405,7 +6837,10 @@ export interface paths {
         post?: never;
         /**
          * Delete Container Registry Repository Manifest
-         * @description To delete a container repository manifest by digest, send a DELETE request to
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To delete a container repository manifest by digest, send a DELETE request to
          *     `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.
          *
          *     Note that if your repository name contains `/` characters, it must be
@@ -5431,13 +6866,20 @@ export interface paths {
         };
         /**
          * Get Active Garbage Collection
-         * @description To get information about the currently-active garbage collection for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To get information about the currently-active garbage collection
+         *     for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
          */
         get: operations["registry_get_garbageCollection"];
         put?: never;
         /**
          * Start Garbage Collection
-         * @description Garbage collection enables users to clear out unreferenced blobs (layer &
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     Garbage collection enables users to clear out unreferenced blobs (layer &
          *     manifest data) after deleting one or more manifests from a repository. If
          *     there are no unreferenced blobs resulting from the deletion of one or more
          *     manifests, garbage collection is effectively a noop.
@@ -5475,7 +6917,11 @@ export interface paths {
         };
         /**
          * List Garbage Collections
-         * @description To get information about past garbage collections for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To get information about past garbage collections for a registry,
+         *     send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
          */
         get: operations["registry_list_garbageCollections"];
         put?: never;
@@ -5496,7 +6942,12 @@ export interface paths {
         get?: never;
         /**
          * Update Garbage Collection
-         * @description To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     To cancel the currently-active garbage collection for a registry,
+         *     send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID`
+         *     and specify one or more of the attributes below.
          */
         put: operations["registry_update_garbageCollection"];
         post?: never;
@@ -5515,10 +6966,21 @@ export interface paths {
         };
         /**
          * List Registry Options (Subscription Tiers and Available Regions)
-         * @description This endpoint serves to provide additional information as to which option values are available when creating a container registry.
-         *     There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.
-         *     There are multiple regions available for container registry and controls where your data is stored.
-         *     To list the available options, send a GET request to `/v2/registry/options`.
+         * @deprecated
+         * @description **Note: This endpoint is deprecated and may be removed in a future version. There is no alternative.****Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+         *
+         *     This endpoint serves to provide additional information as to which option values
+         *     are available when creating a container registry.
+         *
+         *     There are multiple subscription tiers available for container registry. Each
+         *     tier allows a different number of image repositories to be created in your
+         *     registry, and has a different amount of storage and transfer included.
+         *
+         *     There are multiple regions available for container registry and controls
+         *     where your data is stored.
+         *
+         *     To list the available options, send a GET request to
+         *     `/v2/registry/options`.
          */
         get: operations["registry_get_options"];
         put?: never;
@@ -5577,8 +7039,6 @@ export interface paths {
          *
          *     * To create a new reserved IP reserved to a region, send a POST request to
          *       `/v2/reserved_ips` with the `region` attribute.
-         *
-         *     **Note**:  In addition to the standard rate limiting, only 12 reserved IPs may be created per 60 seconds.
          */
         post: operations["reservedIPs_create"];
         delete?: never;
@@ -5658,6 +7118,174 @@ export interface paths {
          * @description To retrieve the status of a reserved IP action, send a GET request to `/v2/reserved_ips/$RESERVED_IP/actions/$ACTION_ID`.
          */
         get: operations["reservedIPsActions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/reserved_ipv6": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All Reserved IPv6s
+         * @description To list all of the reserved IPv6s available on your account, send a GET request to `/v2/reserved_ipv6`.
+         */
+        get: operations["reservedIPv6_list"];
+        put?: never;
+        /**
+         * Create a New Reserved IPv6
+         * @description On creation, a reserved IPv6 must be reserved to a region.
+         *     * To create a new reserved IPv6 reserved to a region, send a POST request to
+         *       `/v2/reserved_ipv6` with the `region_slug` attribute.
+         */
+        post: operations["reservedIPv6_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/reserved_ipv6/{reserved_ipv6}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve an Existing Reserved IPv6
+         * @description To show information about a reserved IPv6, send a GET request to `/v2/reserved_ipv6/$RESERVED_IPV6`.
+         */
+        get: operations["reservedIPv6_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete a Reserved IPv6
+         * @description To delete a reserved IP and remove it from your account, send a DELETE request
+         *     to `/v2/reserved_ipv6/$RESERVED_IPV6`.
+         *
+         *     A successful request will receive a 204 status code with no body in response.
+         *     This indicates that the request was processed successfully.
+         */
+        delete: operations["reservedIPv6_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/reserved_ipv6/{reserved_ipv6}/actions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Initiate a Reserved IPv6 Action
+         * @description To initiate an action on a reserved IPv6 send a POST request to
+         *     `/v2/reserved_ipv6/$RESERVED_IPV6/actions`. In the JSON body to the request,
+         *     set the `type` attribute to on of the supported action types:
+         *
+         *     | Action     | Details
+         *     |------------|--------
+         *     | `assign`   | Assigns a reserved IPv6 to a Droplet
+         *     | `unassign` | Unassign a reserved IPv6 from a Droplet
+         */
+        post: operations["reservedIPv6Actions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/byoip_prefixes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List BYOIP Prefixes
+         * @description To list all BYOIP prefixes, send a GET request to `/v2/byoip_prefixes`.
+         *     A successful response will return a list of all BYOIP prefixes associated with the account.
+         */
+        get: operations["byoipPrefixes_list"];
+        put?: never;
+        /**
+         * Create a BYOIP Prefix
+         * @description To create a BYOIP prefix, send a POST request to `/v2/byoip_prefixes`.
+         *
+         *     A successful request will initiate the process of bringing your BYOIP Prefix into your account.
+         *     The response will include the details of the created prefix, including its UUID and status.
+         */
+        post: operations["byoipPrefixes_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/byoip_prefixes/{byoip_prefix_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a BYOIP Prefix
+         * @description To get a BYOIP prefix, send a GET request to `/v2/byoip_prefixes/$byoip_prefix_uuid`.
+         *
+         *     A successful response will return the details of the specified BYOIP prefix.
+         */
+        get: operations["byoipPrefixes_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete a BYOIP Prefix
+         * @description To delete a BYOIP prefix and remove it from your account, send a DELETE request
+         *     to `/v2/byoip_prefixes/$byoip_prefix_uuid`.
+         *
+         *     A successful request will receive a 202 status code with no body in response.
+         *     This indicates that the request was accepted and the prefix is being deleted.
+         */
+        delete: operations["byoipPrefixes_delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update a BYOIP Prefix
+         * @description To update a BYOIP prefix, send a PATCH request to `/v2/byoip_prefixes/$byoip_prefix_uuid`.
+         *
+         *     Currently, you can update the advertisement status of the prefix.
+         *     The response will include the updated details of the prefix.
+         */
+        patch: operations["byoipPrefixes_patch"];
+        trace?: never;
+    };
+    "/v2/byoip_prefixes/{byoip_prefix_uuid}/ips": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List BYOIP Prefix Resources
+         * @description To list resources associated with BYOIP prefixes, send a GET request to `/v2/byoip_prefixes/{byoip_prefix_uuid}/ips`.
+         *
+         *     A successful response will return a list of resources associated with the specified BYOIP prefix.
+         */
+        get: operations["byoipPrefixes_list_resources"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5759,6 +7387,70 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/spaces/keys": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Spaces Access Keys
+         * @description To list Spaces Access Key, send a GET request to `/v2/spaces/keys`. Sort parameter must be used with Sort Direction.
+         */
+        get: operations["spacesKey_list"];
+        put?: never;
+        /**
+         * Create a New Spaces Access Key
+         * @description To create a new Spaces Access Key, send a POST request to `/v2/spaces/keys`.
+         *     At the moment, you cannot mix a fullaccess permission with scoped permissions.
+         *     A fullaccess permission will be prioritized if fullaccess and scoped permissions are both added.
+         */
+        post: operations["spacesKey_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/spaces/keys/{access_key}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a Spaces Access Key
+         * @description To get a Spaces Access Key, send a GET request to `/v2/spaces/keys/$ACCESS_KEY`.
+         *
+         *     A successful request will return the Access Key.
+         */
+        get: operations["spacesKey_get"];
+        /**
+         * Update Spaces Access Keys
+         * @description To update Spaces Access Key, send a PUT or PATCH request to `/v2/spaces/keys/$ACCESS_KEY`. At the moment, you cannot convert a
+         *     fullaccess key to a scoped key or vice versa. You can only update the name of the key.
+         */
+        put: operations["spacesKey_update"];
+        post?: never;
+        /**
+         * Delete a Spaces Access Key
+         * @description To delete a Spaces Access Key, send a DELETE request to `/v2/spaces/keys/$ACCESS_KEY`.
+         *
+         *     A successful request will return a `204 No Content` status code.
+         */
+        delete: operations["spacesKey_delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Spaces Access Keys
+         * @description To update Spaces Access Key, send a PUT or PATCH request to `/v2/spaces/keys/$ACCESS_KEY`. At the moment, you cannot convert a
+         *     fullaccess key to a scoped key or vice versa. You can only update the name of the key.
+         */
+        patch: operations["spacesKey_patch"];
+        trace?: never;
+    };
     "/v2/tags": {
         parameters: {
             query?: never;
@@ -5769,6 +7461,9 @@ export interface paths {
         /**
          * List All Tags
          * @description To list all of your tags, you can send a GET request to `/v2/tags`.
+         *
+         *     This endpoint will only return tagged resources that you are authorized to see
+         *     (e.g. Droplets will only be returned if you have `droplet:read`).
          */
         get: operations["tags_list"];
         put?: never;
@@ -5792,7 +7487,11 @@ export interface paths {
         };
         /**
          * Retrieve a Tag
-         * @description To retrieve an individual tag, you can send a `GET` request to `/v2/tags/$TAG_NAME`.
+         * @description To retrieve an individual tag, you can send a `GET` request to
+         *     `/v2/tags/$TAG_NAME`.
+         *
+         *     This endpoint will only return tagged resources that you are authorized to see.
+         *     For example, to see tagged Droplets, include the `droplet:read` scope.
          */
         get: operations["tags_get"];
         put?: never;
@@ -5818,14 +7517,32 @@ export interface paths {
         put?: never;
         /**
          * Tag a Resource
-         * @description Resources can be tagged by sending a POST request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.
-         *     Currently only tagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
+         * @description Resources can be tagged by sending a POST request to
+         *     `/v2/tags/$TAG_NAME/resources` with an array of json objects containing
+         *     `resource_id` and `resource_type` attributes.
+         *
+         *     Currently only tagging of Droplets, Databases, Images, Volumes, and Volume
+         *     Snapshots is supported. `resource_type` is expected to be the string `droplet`,
+         *     `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected
+         *     to be the ID of the resource as a string.
+         *
+         *     In order to tag a resource, you must have both `tag:create` and `<resource type>:update` scopes. For example,
+         *     to tag a Droplet, you must have `tag:create` and `droplet:update`.
          */
         post: operations["tags_assign_resources"];
         /**
          * Untag a Resource
-         * @description Resources can be untagged by sending a DELETE request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.
-         *     Currently only untagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
+         * @description Resources can be untagged by sending a DELETE request to
+         *     `/v2/tags/$TAG_NAME/resources` with an array of json objects containing
+         *     `resource_id` and `resource_type` attributes.
+         *
+         *     Currently only untagging of Droplets, Databases, Images, Volumes, and Volume
+         *     Snapshots is supported. `resource_type` is expected to be the string `droplet`,
+         *     `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected
+         *     to be the ID of the resource as a string.
+         *
+         *     In order to untag a resource, you must have both `tag:delete` and `<resource type>:update` scopes. For example,
+         *     to untag a Droplet, you must have `tag:delete` and `droplet:update`.
          */
         delete: operations["tags_unassign_resources"];
         options?: never;
@@ -6156,6 +7873,9 @@ export interface paths {
          *     To only list resources of a specific type that are members of the VPC,
          *     included a `resource_type` query parameter. For example, to only list Droplets
          *     in the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.
+         *
+         *     Only resources that you are authorized to see will be returned (e.g. to see Droplets,
+         *     you must have `droplet:read`).
          */
         get: operations["vpcs_list_members"];
         put?: never;
@@ -6267,6 +7987,67 @@ export interface paths {
          * @description To update the name of a VPC peering, send a PATCH request to `/v2/vpc_peerings/$VPC_PEERING_ID` with the new `name` in the request body.
          */
         patch: operations["vpcPeerings_patch"];
+        trace?: never;
+    };
+    "/v2/vpc_nat_gateways": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All VPC NAT Gateways
+         * @description To list all VPC NAT gateways in your team, send a GET request to `/v2/vpc_nat_gateways`.
+         *     The response body will be a JSON object with a key of `vpc_nat_gateways` containing an array of VPC NAT gateway objects.
+         *     These each contain the standard VPC NAT gateway attributes.
+         */
+        get: operations["vpcnatgateways_list"];
+        put?: never;
+        /**
+         * Create a New VPC NAT Gateway
+         * @description To create a new VPC NAT gateway, send a POST request to `/v2/vpc_nat_gateways` setting the required attributes.
+         *
+         *     The response body will contain a JSON object with a key called `vpc_nat_gateway` containing the standard attributes for the new VPC NAT gateway.
+         */
+        post: operations["vpcnatgateways_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/vpc_nat_gateways/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve an Existing VPC NAT Gateway
+         * @description To show information about an individual VPC NAT gateway, send a GET request to
+         *     `/v2/vpc_nat_gateways/$VPC_NAT_GATEWAY_ID`.
+         */
+        get: operations["vpcnatgateways_get"];
+        /**
+         * Update VPC NAT Gateway
+         * @description To update the configuration of an existing VPC NAT Gateway, send a PUT request to
+         *     `/v2/vpc_nat_gateways/$VPC_NAT_GATEWAY_ID`. The request must contain a full representation
+         *     of the VPC NAT Gateway including existing attributes.
+         */
+        put: operations["vpcnatgateways_update"];
+        post?: never;
+        /**
+         * Delete VPC NAT Gateway
+         * @description To destroy a VPC NAT Gateway, send a DELETE request to the `/v2/vpc_nat_gateways/$VPC_NAT_GATEWAY_ID` endpoint.
+         *
+         *     A successful response will include a 202 response code and no content.
+         */
+        delete: operations["vpcnatgateways_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/v2/uptime/checks": {
@@ -6536,6 +8317,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/gen-ai/agents/{agent_uuid}/guardrails": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Attach Guardrails to an Agent
+         * @description To attach guardrails to an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/guardrails`.
+         */
+        post: operations["genai_attach_agent_guardrails"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{agent_uuid}/guardrails/{guardrail_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Detach a Guardrail from an Agent
+         * @description To detach a guardrail from an agent, send a DELETE request to `/v2/gen-ai/agents/{agent_uuid}/guardrails/{guardrail_uuid}`.
+         */
+        delete: operations["genai_detach_agent_guardrail"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{agent_uuid}/knowledge_bases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Attach Knowledge Bases to an Agent
+         * @description To attach knowledge bases to an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/knowledge_bases`
+         */
+        post: operations["genai_attach_knowledge_bases"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}": {
         parameters: {
             query?: never;
@@ -6645,10 +8486,334 @@ export interface paths {
         };
         get?: never;
         /**
-         * Check Agent Status
-         * @description Check whether an agent is public or private. To get the agent status, send a PUT request to `/v2/gen-ai/agents/{uuid}/deployment_visibility`.
+         * Update Agent Status
+         * @description Check whether an agent is public or private. To update the agent status, send a PUT request to `/v2/gen-ai/agents/{uuid}/deployment_visibility`.
          */
         put: operations["genai_update_agent_deployment_visibility"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{uuid}/usage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Agent Usage
+         * @description To get agent usage, send a GET request to `/v2/gen-ai/agents/{uuid}/usage`. Returns usage metrics for the specified agent within the provided time range.
+         */
+        get: operations["genai_get_agent_usage"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{uuid}/versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Agent Versions
+         * @description To list all agent versions, send a GET request to `/v2/gen-ai/agents/{uuid}/versions`.
+         */
+        get: operations["genai_list_agent_versions"];
+        /**
+         * Rollback to Agent Version
+         * @description To update to a specific agent version, send a PUT request to `/v2/gen-ai/agents/{uuid}/versions`.
+         */
+        put: operations["genai_rollback_to_agent_version"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/anthropic/keys": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Anthropic API Keys
+         * @description To list all Anthropic API keys, send a GET request to `/v2/gen-ai/anthropic/keys`.
+         */
+        get: operations["genai_list_anthropic_api_keys"];
+        put?: never;
+        /**
+         * Create Anthropic API Key
+         * @description To create an Anthropic API key, send a POST request to `/v2/gen-ai/anthropic/keys`.
+         */
+        post: operations["genai_create_anthropic_api_key"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/anthropic/keys/{api_key_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Anthropic API Key
+         * @description To retrieve details of an Anthropic API key, send a GET request to `/v2/gen-ai/anthropic/keys/{api_key_uuid}`.
+         */
+        get: operations["genai_get_anthropic_api_key"];
+        /**
+         * Update Anthropic API Key
+         * @description To update an Anthropic API key, send a PUT request to `/v2/gen-ai/anthropic/keys/{api_key_uuid}`.
+         */
+        put: operations["genai_update_anthropic_api_key"];
+        post?: never;
+        /**
+         * Delete Anthropic API Key
+         * @description To delete an Anthropic API key, send a DELETE request to `/v2/gen-ai/anthropic/keys/{api_key_uuid}`.
+         */
+        delete: operations["genai_delete_anthropic_api_key"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/anthropic/keys/{uuid}/agents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List agents by Anthropic key
+         * @description List Agents by Anthropic Key.
+         */
+        get: operations["genai_list_agents_by_anthropic_key"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_datasets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Evaluation Dataset
+         * @description To create an evaluation dataset, send a POST request to `/v2/gen-ai/evaluation_datasets`.
+         */
+        post: operations["genai_create_evaluation_dataset"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_datasets/file_upload_presigned_urls": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Presigned URLs for Evaluation Dataset File Upload
+         * @description To create presigned URLs for evaluation dataset file upload, send a POST request to `/v2/gen-ai/evaluation_datasets/file_upload_presigned_urls`.
+         */
+        post: operations["genai_create_evaluation_dataset_file_upload_presigned_urls"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_metrics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Evaluation Metrics
+         * @description To list all evaluation metrics, send a GET request to `/v2/gen-ai/evaluation_metrics`.
+         */
+        get: operations["genai_list_evaluation_metrics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Run an Evaluation Test Case
+         * @description To run an evaluation test case, send a POST request to `/v2/gen-ai/evaluation_runs`.
+         */
+        post: operations["genai_run_evaluation_test_case"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_runs/{evaluation_run_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Information About an Existing Evaluation Run
+         * @description To retrive information about an existing evaluation run, send a GET request to `/v2/gen-ai/evaluation_runs/{evaluation_run_uuid}`.
+         */
+        get: operations["genai_get_evaluation_run"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_runs/{evaluation_run_uuid}/results": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Results of an Evaluation Run
+         * @description To retrieve results of an evaluation run, send a GET request to `/v2/gen-ai/evaluation_runs/{evaluation_run_uuid}/results`.
+         */
+        get: operations["genai_get_evaluation_run_results"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_runs/{evaluation_run_uuid}/results/{prompt_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Results of an Evaluation Run Prompt
+         * @description To retrieve results of an evaluation run, send a GET request to `/v2/gen-ai/evaluation_runs/{evaluation_run_uuid}/results/{prompt_id}`.
+         */
+        get: operations["genai_get_evaluation_run_prompt_results"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_test_cases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Evaluation Test Cases
+         * @description To list all evaluation test cases, send a GET request to `/v2/gen-ai/evaluation_test_cases`.
+         */
+        get: operations["genai_list_evaluation_test_cases"];
+        put?: never;
+        /**
+         * Create Evaluation Test Case.
+         * @description To create an evaluation test-case send a POST request to `/v2/gen-ai/evaluation_test_cases`.
+         */
+        post: operations["genai_create_evaluation_test_case"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_test_cases/{evaluation_test_case_uuid}/evaluation_runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Evaluation Runs by Test Case
+         * @description To list all evaluation runs by test case, send a GET request to `/v2/gen-ai/evaluation_test_cases/{evaluation_test_case_uuid}/evaluation_runs`.
+         */
+        get: operations["genai_list_evaluation_runs_by_test_case"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/evaluation_test_cases/{test_case_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Information About an Existing Evaluation Test Case
+         * @description To retrive information about an existing evaluation test case, send a GET request to `/v2/gen-ai/evaluation_test_case/{test_case_uuid}`.
+         */
+        get: operations["genai_get_evaluation_test_case"];
+        /**
+         * Update an Evaluation Test Case.
+         * @description To update an evaluation test-case send a PUT request to `/v2/gen-ai/evaluation_test_cases/{test_case_uuid}`.
+         */
+        put: operations["genai_update_evaluation_test_case"];
         post?: never;
         delete?: never;
         options?: never;
@@ -6692,6 +8857,26 @@ export interface paths {
          * @description To list all datasources for an indexing job, send a GET request to `/v2/gen-ai/indexing_jobs/{indexing_job_uuid}/data_sources`.
          */
         get: operations["genai_list_indexing_job_data_sources"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/indexing_jobs/{indexing_job_uuid}/details_signed_url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Signed URL for Indexing Job Details
+         * @description To get a signed URL for indexing job details, send a GET request to `/v2/gen-ai/indexing_jobs/{uuid}/details_signed_url`.
+         */
+        get: operations["genai_get_indexing_job_details_signed_url"];
         put?: never;
         post?: never;
         delete?: never;
@@ -6749,7 +8934,7 @@ export interface paths {
         };
         /**
          * List Knowledge Bases
-         * @description To attach a knowledge base to an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}`.
+         * @description To list all knowledge bases, send a GET request to `/v2/gen-ai/knowledge_bases`.
          */
         get: operations["genai_list_knowledge_bases"];
         put?: never;
@@ -6758,6 +8943,26 @@ export interface paths {
          * @description To create a knowledge base, send a POST request to `/v2/gen-ai/knowledge_bases`.
          */
         post: operations["genai_create_knowledge_base"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/knowledge_bases/data_sources/file_upload_presigned_urls": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Presigned URLs for Data Source File Upload
+         * @description To create presigned URLs for knowledge base data source file upload, send a POST request to `/v2/gen-ai/knowledge_bases/data_sources/file_upload_presigned_urls`.
+         */
+        post: operations["genai_create_data_source_file_upload_presigned_urls"];
         delete?: never;
         options?: never;
         head?: never;
@@ -6796,13 +9001,37 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        put?: never;
+        /**
+         * Update Data Source options
+         * @description To update a data source (e.g. chunking options), send a PUT request to `/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources/{data_source_uuid}`.
+         */
+        put: operations["genai_update_knowledge_base_data_source"];
         post?: never;
         /**
          * Delete a Data Source from a Knowledge Base
          * @description To delete a data source from a knowledge base, send a DELETE request to `/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources/{data_source_uuid}`.
          */
         delete: operations["genai_delete_knowledge_base_data_source"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/indexing_jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Indexing Jobs for a Knowledge Base
+         * @description To list latest 15 indexing jobs for a knowledge base, send a GET request to `/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/indexing_jobs`.
+         */
+        get: operations["genai_list_indexing_jobs_by_knowledge_base"];
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -6856,6 +9085,186 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/gen-ai/models/api_keys": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Model API Keys
+         * @description To list all model API keys, send a GET request to `/v2/gen-ai/models/api_keys`.
+         */
+        get: operations["genai_list_model_api_keys"];
+        put?: never;
+        /**
+         * Create a Model API Key
+         * @description To create a model API key, send a POST request to `/v2/gen-ai/models/api_keys`.
+         */
+        post: operations["genai_create_model_api_key"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/models/api_keys/{api_key_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update API Key for a Model
+         * @description To update a model API key, send a PUT request to `/v2/gen-ai/models/api_keys/{api_key_uuid}`.
+         */
+        put: operations["genai_update_model_api_key"];
+        post?: never;
+        /**
+         * Delete API Key for a Model
+         * @description To delete an API key for a model, send a DELETE request to `/v2/gen-ai/models/api_keys/{api_key_uuid}`.
+         */
+        delete: operations["genai_delete_model_api_key"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/models/api_keys/{api_key_uuid}/regenerate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Regenerate API Key for a Model
+         * @description To regenerate a model API key, send a PUT request to `/v2/gen-ai/models/api_keys/{api_key_uuid}/regenerate`.
+         */
+        put: operations["genai_regenerate_model_api_key"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/oauth2/dropbox/tokens": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Get Oauth2 Dropbox Tokens
+         * @description To obtain the refresh token, needed for creation of data sources, send a GET request to `/v2/gen-ai/oauth2/dropbox/tokens`. Pass the code you obtrained from the oauth flow in the field 'code'
+         */
+        post: operations["genai_create_oauth2_dropbox_tokens"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/oauth2/url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Oauth2 URL
+         * @description To generate an Oauth2-URL for use with your localhost, send a GET request to `/v2/gen-ai/oauth2/url`. Pass 'http://localhost:3000 as redirect_url
+         */
+        get: operations["genai_get_oauth2_url"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/openai/keys": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List OpenAI API Keys
+         * @description To list all OpenAI API keys, send a GET request to `/v2/gen-ai/openai/keys`.
+         */
+        get: operations["genai_list_openai_api_keys"];
+        put?: never;
+        /**
+         * Create OpenAI API Key
+         * @description To create an OpenAI API key, send a POST request to `/v2/gen-ai/openai/keys`.
+         */
+        post: operations["genai_create_openai_api_key"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/openai/keys/{api_key_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get OpenAI API Key
+         * @description To retrieve details of an OpenAI API key, send a GET request to `/v2/gen-ai/openai/keys/{api_key_uuid}`.
+         */
+        get: operations["genai_get_openai_api_key"];
+        /**
+         * Update OpenAI API Key
+         * @description To update an OpenAI API key, send a PUT request to `/v2/gen-ai/openai/keys/{api_key_uuid}`.
+         */
+        put: operations["genai_update_openai_api_key"];
+        post?: never;
+        /**
+         * Delete OpenAI API Key
+         * @description To delete an OpenAI API key, send a DELETE request to `/v2/gen-ai/openai/keys/{api_key_uuid}`.
+         */
+        delete: operations["genai_delete_openai_api_key"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/openai/keys/{uuid}/agents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List agents by OpenAI key
+         * @description List Agents by OpenAI Key.
+         */
+        get: operations["genai_list_agents_by_openai_key"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/gen-ai/regions": {
         parameters: {
             query?: never;
@@ -6868,6 +9277,162 @@ export interface paths {
          * @description To list all datacenter regions, send a GET request to `/v2/gen-ai/regions`.
          */
         get: operations["genai_list_datacenter_regions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/scheduled-indexing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create scheduled indexing for knowledge base
+         * @description To create scheduled indexing for a knowledge base, send a POST request to `/v2/gen-ai/scheduled-indexing`.
+         */
+        post: operations["genai_create_scheduled_indexing"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/scheduled-indexing/knowledge-base/{knowledge_base_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Scheduled Indexing for Knowledge Base
+         * @description Get Scheduled Indexing for knowledge base using knoweldge base uuid, send a GET request to `/v2/gen-ai/scheduled-indexing/knowledge-base/{knowledge_base_uuid}`.
+         */
+        get: operations["genai_get_scheduled_indexing"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/scheduled-indexing/{uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Scheduled Indexing
+         * @description Delete Scheduled Indexing for knowledge base, send a DELETE request to `/v2/gen-ai/scheduled-indexing/{uuid}`.
+         */
+        delete: operations["genai_delete_scheduled_indexing"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/workspaces": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Workspaces
+         * @description To list all workspaces, send a GET request to `/v2/gen-ai/workspaces`.
+         */
+        get: operations["genai_list_workspaces"];
+        put?: never;
+        /**
+         * Create a Workspace
+         * @description To create a new workspace, send a POST request to `/v2/gen-ai/workspaces`. The response body contains a JSON object with the newly created workspace object.
+         */
+        post: operations["genai_create_workspace"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/workspaces/{workspace_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve an Existing Workspace
+         * @description To retrieve details of a workspace, GET request to `/v2/gen-ai/workspaces/{workspace_uuid}`. The response body is a JSON object containing the workspace.
+         */
+        get: operations["genai_get_workspace"];
+        /**
+         * Update a Workspace
+         * @description To update a workspace, send a PUT request to `/v2/gen-ai/workspaces/{workspace_uuid}`. The response body is a JSON object containing the workspace.
+         */
+        put: operations["genai_update_workspace"];
+        post?: never;
+        /**
+         * Delete a Workspace
+         * @description To delete a workspace, send a DELETE request to `/v2/gen-ai/workspace/{workspace_uuid}`.
+         */
+        delete: operations["genai_delete_workspace"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/workspaces/{workspace_uuid}/agents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List agents by Workspace
+         * @description To list all agents by a Workspace, send a GET request to `/v2/gen-ai/workspaces/{workspace_uuid}/agents`.
+         */
+        get: operations["genai_list_agents_by_workspace"];
+        /**
+         * Move Agents to a Workspace
+         * @description To move all listed agents a given workspace, send a PUT request to `/v2/gen-ai/workspaces/{workspace_uuid}/agents`.
+         */
+        put: operations["genai_update_agents_workspace"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/workspaces/{workspace_uuid}/evaluation_test_cases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Evaluation Test Cases by Workspace
+         * @description To list all evaluation test cases by a workspace, send a GET request to `/v2/gen-ai/workspaces/{workspace_uuid}/evaluation_test_cases`.
+         */
+        get: operations["genai_list_evaluation_test_cases_by_workspace"];
         put?: never;
         post?: never;
         delete?: never;
@@ -6932,11 +9497,13 @@ export interface components {
         account: {
             /**
              * @description The total number of Droplets current user or team may have active at one time.
+             *     <br><br>Requires `droplet:read` scope.
              * @example 25
              */
             droplet_limit: number;
             /**
              * @description The total number of Floating IPs the current user or team may have.
+             *     <br><br>Requires `reserved_ip:read` scope.
              * @example 5
              */
             floating_ip_limit: number;
@@ -7090,14 +9657,14 @@ export interface components {
              *       "image_transfer"
              *     ]
              */
-            features: unknown;
+            features: string[];
             /**
              * @description This is a boolean value that represents whether new Droplets can be created in this region.
              * @example true
              */
             available: boolean;
             /**
-             * @description This attribute is set to an array which contains the identifying slugs for the sizes available in this region.
+             * @description This attribute is set to an array which contains the identifying slugs for the sizes available in this region. sizes:read is required to view.
              * @example [
              *       "s-1vcpu-1gb",
              *       "s-1vcpu-2gb",
@@ -7115,7 +9682,7 @@ export interface components {
              *       "s-32vcpu-192g"
              *     ]
              */
-            sizes: unknown;
+            sizes: string[];
         };
         action: {
             /**
@@ -7163,6 +9730,401 @@ export interface components {
              * @example nyc3
              */
             region_slug?: string | null;
+        };
+        addons_feature: {
+            /**
+             * id
+             * @description Unique identifier for the app feature.
+             * @example 1
+             */
+            id: number;
+            /**
+             * name
+             * @description Name of the feature.
+             * @example Support
+             */
+            name: string;
+            /**
+             * type
+             * @description Feature type, indicating the kind of data it holds.
+             * @example string
+             * @enum {string}
+             */
+            type: "unknown" | "string" | "boolean" | "allowance";
+            /**
+             * unit
+             * @description Unit of measurement for the feature, if applicable. Units apply to allowance features.
+             * @example GB
+             * @enum {string}
+             */
+            unit?: "unit_unknown" | "GB" | "GIB" | "count" | "byte" | "byte_second";
+            /**
+             * @description Value of the feature, which can vary based on the type.
+             * @example Unlimited
+             */
+            value: string | boolean;
+            /**
+             * created_at
+             * Format: date-time
+             * @description Timestamp when the feature was created.
+             * @example 2023-10-01T12:00:00Z
+             */
+            created_at: string;
+            /**
+             * updated_at
+             * Format: date-time
+             * @description Timestamp when the feature was last updated.
+             * @example 2023-10-01T12:00:00Z
+             */
+            updated_at: string;
+        };
+        addons_dimension_volume_with_price: {
+            /**
+             * id
+             * @description Unique identifier for the addon.
+             * @example 123
+             */
+            id: number;
+            /**
+             * low_volume
+             * @description The minimum volume for the volume pricing tier.
+             * @example 1
+             */
+            low_volume: number;
+            /**
+             * max_volume
+             * @description The maximum volume for the volume pricing tier.
+             * @example 100
+             */
+            max_volume: number;
+            /**
+             * price_per_unit
+             * @description The price per unit for the volume tier in US dollars.
+             * @example 0.10
+             */
+            price_per_unit: string;
+        };
+        addons_dimension_with_price: {
+            /**
+             * id
+             * @description Unique identifier for the dimension.
+             * @example 1
+             */
+            id: number;
+            /**
+             * sku
+             * @description Unique string identifier for the dimension, tied to a price.
+             * @example addon_sku_123
+             */
+            sku: string;
+            /**
+             * slug
+             * @description Slug identifier for the dimension.
+             * @example addon_dimension_slug
+             */
+            slug: string;
+            /**
+             * display_name
+             * @description Display name for the dimension.
+             * @example Addon Dimension Display Name
+             */
+            display_name: string;
+            /**
+             * feature_name
+             * @description Name of the feature associated with the dimension.
+             * @example Feature Name
+             */
+            feature_name: string;
+            /**
+             * volumes
+             * @description A list of volumes associated with the dimension, each with its own price.
+             */
+            volumes: components["schemas"]["addons_dimension_volume_with_price"][];
+        };
+        addons_plan: {
+            /**
+             * id
+             * @description ID of a given plan.
+             * @example 1
+             */
+            id: number;
+            /**
+             * app_id
+             * @description ID of the app associated with this plan.
+             * @example 2
+             */
+            app_id: number;
+            /**
+             * display_name
+             * @description Display name for a given plan.
+             * @example Basic Plan
+             */
+            display_name: string;
+            /**
+             * description
+             * @description Description of an app plan.
+             * @example Description of the app plan.
+             */
+            description?: string;
+            /**
+             * slug
+             * @description Slug identifier for the plan.
+             * @example plan_basic
+             */
+            slug: string;
+            /**
+             * price_per_month
+             * @description Price of a month's usage of the plan in US dollars.
+             * @example 10
+             */
+            price_per_month: number;
+            /**
+             * active
+             * @description Indicates if the plan is currently active.
+             * @example true
+             */
+            active: boolean;
+            /**
+             * state
+             * @description Current state of the plan.
+             * @example approved
+             * @enum {string}
+             */
+            state: "unknown" | "draft" | "in_review" | "approved" | "suspended" | "archived";
+            /**
+             * features
+             * @description List of features included in the plan.
+             * @example []
+             */
+            features?: components["schemas"]["addons_feature"][];
+            /**
+             * created_at
+             * Format: date-time
+             * @description Timestamp when the plan was created.
+             * @example 2023-10-01T12:00:00Z
+             */
+            created_at: string;
+            /**
+             * updated_at
+             * Format: date-time
+             * @description Timestamp when the plan was last updated.
+             * @example 2023-10-01T12:00:00Z
+             */
+            updated_at: string;
+            /**
+             * available
+             * @description Indicates if the plan is available for selection.
+             * @example true
+             */
+            available: boolean;
+            /**
+             * uuid
+             * @description Unique identifier for the plan.
+             * @example 123e4567-e89b-12d3-a456-426 614174000
+             */
+            uuid: string;
+            /**
+             * by_default
+             * @description Indicates if this plan is the default option for the app.
+             * @example false
+             */
+            by_default: boolean;
+            /**
+             * dimensions
+             * @description List of dimensions associated with the plan, each with its own pricing.
+             */
+            dimensions?: components["schemas"]["addons_dimension_with_price"][];
+        };
+        addons_app_info: {
+            /**
+             * app_slug
+             * @description The slug identifier for the application associated with the resource.
+             * @example example-app
+             */
+            app_slug: string;
+            /**
+             * tos
+             * @description The Terms of Service URL for the resource.
+             * @example https://example.com/tos
+             */
+            tos: string;
+            /**
+             * eula
+             * @description The End User License Agreement URL for the resource.
+             * @example https://example.com/eula
+             */
+            eula: string;
+            /**
+             * plans
+             * @description A list of plans available for the resource.
+             */
+            plans: components["schemas"]["addons_plan"][];
+        };
+        addons_app_metadata: {
+            /**
+             * id
+             * @description Unique identifier for the addon metadata item.
+             * @example 1
+             */
+            id: number;
+            /**
+             * name
+             * @description The name of the metadata item.
+             * @example country_of_origin
+             */
+            name: string;
+            /**
+             * display_name
+             * @description The display name of the metadata item.
+             * @example Country of Origin
+             */
+            display_name: string;
+            /**
+             * description
+             * @description A brief description of the metadata item.
+             * @example Country for localization
+             */
+            description: string;
+            /**
+             * type
+             * @description The data type of the metadata value.
+             * @example string
+             * @enum {string}
+             */
+            type: "string" | "boolean";
+            /**
+             * options
+             * @example [
+             *       "US",
+             *       "UK",
+             *       "CA"
+             *     ]
+             */
+            options?: string[];
+        };
+        addons_resource_metadata: {
+            /**
+             * name
+             * @description The name of the metadata item to be set.
+             * @example property_name
+             */
+            name: string;
+            /**
+             * @description The value to be set for the metadata item, which can be a string or boolean.
+             * @example example_value
+             */
+            value: string | boolean;
+        };
+        addons_resource: {
+            /**
+             * uuid
+             * @description The unique identifier for the addon resource.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            uuid: string;
+            /**
+             * name
+             * @description The name of the addon resource.
+             * @example my-resource-01
+             */
+            name: string;
+            /**
+             * state
+             * @description The state the resource is currently in.
+             * @example provisioned
+             * @enum {string}
+             */
+            state: "pending" | "provisioning" | "provisioned" | "deprovisioning" | "deprovisioned" | "provisioning-failed" | "deprovisioning-failed" | "suspended";
+            /**
+             * app_name
+             * @description The name of the application associated with the resource.
+             * @example Example App
+             */
+            app_name?: string;
+            /**
+             * app_slug
+             * @description The slug identifier for the application associated with the resource.
+             * @example example_app
+             */
+            app_slug: string;
+            /**
+             * plan_name
+             * @description The name of the plan associated with the resource.
+             * @example Basic Plan
+             */
+            plan_name?: string;
+            /**
+             * plan_slug
+             * @description The slug identifier for the plan associated with the resource.
+             * @example basic_plan
+             */
+            plan_slug: string;
+            /**
+             * plan_price_per_month
+             * @description The price of the plan per month in US dollars.
+             * @example 10
+             */
+            plan_price_per_month?: number;
+            /**
+             * has_config
+             * @description Indicates if the resource has configuration values set by the vendor.
+             * @example true
+             */
+            has_config: boolean;
+            /**
+             * metadata
+             * @description Metadata associated with the resource, set by the user.
+             */
+            metadata?: components["schemas"]["addons_resource_metadata"][];
+            /**
+             * sso_url
+             * @description The Single Sign-On URL for the resource, if applicable.
+             * @example https://example.com/sso
+             */
+            sso_url?: string;
+            /**
+             * message
+             * @description A message related to the resource, if applicable.
+             * @example Resource is provisioned successfully.
+             */
+            message?: string;
+        };
+        addons_resource_new: {
+            /**
+             * app_slug
+             * @description The slug identifier for the application associated with the resource.
+             * @example example-app
+             */
+            app_slug: string;
+            /**
+             * plan_slug
+             * @description The slug identifier for the plan associated with the resource.
+             * @example basic_plan
+             */
+            plan_slug: string;
+            /**
+             * name
+             * @description The name of the addon resource.
+             * @example my-resource-01
+             */
+            name: string;
+            /**
+             * metadata
+             * @description Metadata associated with the resource, set by the user. Metadata expected varies per app, and can be verified with a GET request to "/v2/add-ons/apps/{app_slug}/metadata"
+             */
+            metadata: components["schemas"]["addons_resource_metadata"][];
+            /**
+             * linked_droplet_id
+             * @description ID of the droplet to be linked to this resource, if applicable.
+             * @example 12345678
+             */
+            linked_droplet_id?: number;
+            /**
+             * fleet_uuid
+             * @description UUID of the fleet/project to which this resource will belong.
+             * @example f1234567-89ab-cdef-0123-456789abcdef01
+             */
+            fleet_uuid?: string;
         };
         apps_deployment_job: {
             /**
@@ -7519,7 +10481,7 @@ export interface components {
              *     Cannot be set if using a DigitalOcean DBaaS OpenSearch cluster.
              * @example password1
              */
-            password?: unknown;
+            password?: string;
         };
         /** @description OpenSearch configuration. */
         app_log_destination_open_search_spec: {
@@ -7748,6 +10710,49 @@ export interface components {
              */
             timeout_seconds?: number;
         };
+        app_health_check_spec: {
+            /**
+             * Format: int32
+             * @description The number of failed health checks before considered unhealthy.
+             * @example 18
+             */
+            failure_threshold?: number;
+            /**
+             * Format: int64
+             * @description The port on which the health check will be performed.
+             * @example 80
+             */
+            port?: number;
+            /**
+             * @description The route path used for the HTTP health check ping. If not set, the HTTP health check will be disabled and a TCP health check used instead.
+             * @example /health
+             */
+            http_path?: string;
+            /**
+             * Format: int32
+             * @description The number of seconds to wait before beginning health checks.
+             * @example 30
+             */
+            initial_delay_seconds?: number;
+            /**
+             * Format: int32
+             * @description The number of seconds to wait between health checks.
+             * @example 10
+             */
+            period_seconds?: number;
+            /**
+             * Format: int32
+             * @description The number of successful health checks before considered healthy.
+             * @example 1
+             */
+            success_threshold?: number;
+            /**
+             * Format: int32
+             * @description The number of seconds after which the check times out.
+             * @example 1
+             */
+            timeout_seconds?: number;
+        };
         /** A criterion for routing HTTP traffic to a component. */
         app_route_spec: {
             /**
@@ -7778,6 +10783,7 @@ export interface components {
         app_service_spec: components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"] & {
             cors?: components["schemas"]["apps_cors_policy"] & unknown & unknown;
             health_check?: components["schemas"]["app_service_spec_health_check"];
+            liveness_health_check?: components["schemas"]["app_health_check_spec"];
             /**
              * @description The protocol which the service uses to serve traffic on the http_port.
              *
@@ -7870,13 +10876,14 @@ export interface components {
         };
         app_worker_spec: WithRequired<components["schemas"]["app_component_base"], "name"> & components["schemas"]["app_component_instance_base"] & {
             termination?: components["schemas"]["app_worker_spec_termination"];
+            liveness_health_check?: components["schemas"]["app_health_check_spec"];
         };
         /**
          * @default UNSPECIFIED_RULE
          * @example CPU_UTILIZATION
          * @enum {string}
          */
-        app_alert_spec_rule: "UNSPECIFIED_RULE" | "CPU_UTILIZATION" | "MEM_UTILIZATION" | "RESTART_COUNT" | "DEPLOYMENT_FAILED" | "DEPLOYMENT_LIVE" | "DOMAIN_FAILED" | "DOMAIN_LIVE" | "FUNCTIONS_ACTIVATION_COUNT" | "FUNCTIONS_AVERAGE_DURATION_MS" | "FUNCTIONS_ERROR_RATE_PER_MINUTE" | "FUNCTIONS_AVERAGE_WAIT_TIME_MS" | "FUNCTIONS_ERROR_COUNT" | "FUNCTIONS_GB_RATE_PER_SECOND";
+        app_alert_spec_rule: "UNSPECIFIED_RULE" | "CPU_UTILIZATION" | "MEM_UTILIZATION" | "RESTART_COUNT" | "DEPLOYMENT_FAILED" | "DEPLOYMENT_LIVE" | "DOMAIN_FAILED" | "DOMAIN_LIVE" | "AUTOSCALE_FAILED" | "AUTOSCALE_SUCCEEDED" | "FUNCTIONS_ACTIVATION_COUNT" | "FUNCTIONS_AVERAGE_DURATION_MS" | "FUNCTIONS_ERROR_RATE_PER_MINUTE" | "FUNCTIONS_AVERAGE_WAIT_TIME_MS" | "FUNCTIONS_ERROR_COUNT" | "FUNCTIONS_GB_RATE_PER_SECOND";
         /**
          * @default UNSPECIFIED_OPERATOR
          * @example GREATER_THAN
@@ -7951,15 +10958,16 @@ export interface components {
             /**
              * @description - MYSQL: MySQL
              *     - PG: PostgreSQL
-             *     - REDIS: Redis
+             *     - REDIS: Caching
              *     - MONGODB: MongoDB
              *     - KAFKA: Kafka
              *     - OPENSEARCH: OpenSearch
+             *     - VALKEY: ValKey
              * @default UNSET
              * @example PG
              * @enum {string}
              */
-            engine: "UNSET" | "MYSQL" | "PG" | "REDIS" | "MONGODB" | "KAFKA" | "OPENSEARCH";
+            engine: "UNSET" | "MYSQL" | "PG" | "REDIS" | "MONGODB" | "KAFKA" | "OPENSEARCH" | "VALKEY";
             /**
              * @description The database's name. The name must be unique across all components within the same app and cannot use capital letters.
              * @example prod-db
@@ -7977,16 +10985,22 @@ export interface components {
             version?: string;
         };
         /** @description The path to match on. */
-        app_ingress_spec_rule_string_match: {
+        app_ingress_spec_rule_string_match_prefix: {
             /**
              * @description Prefix-based match. For example, `/api` will match `/api`, `/api/`, and any nested paths such as `/api/v1/endpoint`.
              * @example /api
              */
             prefix: string;
         };
+        /** @description The authority to match on. */
+        app_ingress_spec_rule_string_match_exact: {
+            /** @example example.com */
+            exact: string;
+        };
         /** @description The match configuration for the rule. */
         app_ingress_spec_rule_match: {
-            path: components["schemas"]["app_ingress_spec_rule_string_match"];
+            path?: components["schemas"]["app_ingress_spec_rule_string_match_prefix"];
+            authority?: components["schemas"]["app_ingress_spec_rule_string_match_exact"];
         };
         /** @description The component to route to. Only one of `component` or `redirect` may be set. */
         app_ingress_spec_rule_routing_component: {
@@ -8066,7 +11080,7 @@ export interface components {
              */
             enabled?: boolean;
             /**
-             * @description Indicates whether the app should be archived. Setting this to true implies that enabled is set to true. Note that this feature is currently in closed beta.
+             * @description Indicates whether the app should be archived. Setting this to true implies that enabled is set to true.
              * @example true
              */
             archive?: boolean;
@@ -8075,6 +11089,19 @@ export interface components {
              * @example https://example.com/offline.html
              */
             offline_page_url?: string;
+        };
+        apps_vpc_egress_ip: {
+            /** @example 10.0.0.1 */
+            ip?: string;
+        };
+        apps_vpc: {
+            /**
+             * The ID of the VPC.
+             * @example c22d8f48-4bc4-49f5-8ca0-58e7164427ac
+             */
+            id?: string;
+            /** The egress ips associated with the VPC. */
+            egress_ips?: components["schemas"]["apps_vpc_egress_ip"][];
         };
         /**
          * AppSpec
@@ -8091,7 +11118,25 @@ export interface components {
              * @example nyc
              * @enum {string}
              */
-            region?: "ams" | "nyc" | "fra" | "sfo" | "sgp" | "blr" | "tor" | "lon" | "syd";
+            region?: "atl" | "nyc" | "sfo" | "tor" | "ams" | "fra" | "lon" | "blr" | "sgp" | "syd";
+            /**
+             * @description If set to `true`, the app will **not** be cached at the edge (CDN). Enable this option if you want to manage CDN configuration yourself—whether by using an external CDN provider or by handling static content and caching within your app. This setting is also recommended for apps that require real-time data or serve dynamic content, such as those using Server-Sent Events (SSE) over GET, or hosting an MCP (Model Context Protocol) Server that utilizes SSE.
+             *     **Note:** This feature is not available for static site components.
+             *     For more information, see [Disable CDN Cache](https://docs.digitalocean.com/products/app-platform/how-to/cache-content/#disable-cdn-cache).
+             * @default false
+             */
+            disable_edge_cache: boolean;
+            /**
+             * @description If set to `true`, email addresses in the app will not be obfuscated. This is
+             *     useful for apps that require email addresses to be visible (in the HTML markup).
+             * @default false
+             */
+            disable_email_obfuscation: boolean;
+            /**
+             * @description If set to `true`, suspicious requests will go through additional security checks to help mitigate layer 7 DDoS attacks.
+             * @default false
+             */
+            enhanced_threat_control_enabled: boolean;
             /** @description A set of hostnames where the application will be available. */
             domains?: components["schemas"]["app_domain_spec"][];
             /** @description Workloads which expose publicly-accessible HTTP services. */
@@ -8112,6 +11157,7 @@ export interface components {
             ingress?: components["schemas"]["app_ingress_spec"];
             egress?: components["schemas"]["app_egress_spec"];
             maintenance?: components["schemas"]["app_maintenance_spec"];
+            vpc?: components["schemas"]["apps_vpc"];
         };
         apps_deployment_static_site: {
             /**
@@ -8349,6 +11395,7 @@ export interface components {
             pending_deployment?: unknown & components["schemas"]["apps_deployment"];
             /**
              * The ID of the project the app is assigned to. This will be empty if there is a lookup failure.
+             * @description Requires `project:read` scope.
              * @example 88b72d1a-b78a-4d9f-9090-b53c4399073f
              */
             readonly project_id?: string;
@@ -8368,6 +11415,7 @@ export interface components {
             pinned_deployment?: unknown & components["schemas"]["apps_deployment"];
             /** The dedicated egress IP addresses associated with the app. */
             readonly dedicated_ips?: components["schemas"]["apps_dedicated_egress_ip"][];
+            vpc?: components["schemas"]["apps_vpc"];
         };
         apps_response: {
             /** A list of apps */
@@ -8375,7 +11423,10 @@ export interface components {
         } & components["schemas"]["pagination"] & components["schemas"]["meta"];
         apps_create_app_request: {
             spec: components["schemas"]["app_spec"];
-            /** @description The ID of the project the app should be assigned to. If omitted, it will be assigned to your default project. */
+            /**
+             * @description The ID of the project the app should be assigned to. If omitted, it will be assigned to your default project.
+             *     <br><br>Requires `project:update` scope.
+             */
             project_id?: string;
         };
         app_response: {
@@ -8426,6 +11477,32 @@ export interface components {
              */
             url?: string;
         };
+        app_instance: {
+            /**
+             * @description Name of the component, from the app spec.
+             * @example sample-golang
+             */
+            component_name?: string;
+            /**
+             * @description Supported compute component by DigitalOcean App Platform.
+             * @example SERVICE
+             * @enum {string}
+             */
+            component_type?: "SERVICE" | "WORKER" | "JOB";
+            /**
+             * @description Name of the instance, which is a unique identifier for the instance.
+             * @example sample-golang-76b84c7fb8-6p8kq
+             */
+            instance_name?: string;
+            /**
+             * @description Readable identifier, an alias of the instance name, reference for mapping insights to instance names.
+             * @example sample-golang-0
+             */
+            instance_alias?: string;
+        };
+        app_instances: {
+            instances?: components["schemas"]["app_instance"][];
+        };
         apps_deployments_response: {
             /** A list of deployments */
             deployments?: components["schemas"]["apps_deployment"][];
@@ -8437,6 +11514,116 @@ export interface components {
              */
             force_build?: boolean;
         };
+        schema: string;
+        app_job_invocation: {
+            /**
+             * The ID of the job invocation
+             * @example ba32b134-569c-4c0c-ba02-8ffdb0492ece
+             */
+            id?: string;
+            /**
+             * The name of the job this invocation belongs to.
+             * @example good-job
+             */
+            job_name?: string;
+            /**
+             * The deployment ID this job invocation belongs to.
+             * @example c020763f-ddb7-4112-a0df-7f01c69fc00b
+             */
+            deployment_id?: string;
+            /**
+             * @description The phase of the job invocation
+             * @example SUCCEEDED
+             * @enum {string}
+             */
+            phase?: "UNKNOWN" | "PENDING" | "RUNNING" | "SUCCEEDED" | "FAILED" | "CANCELED" | "SKIPPED";
+            /** The JobInvocation Trigger */
+            trigger?: {
+                /**
+                 * @description The type of trigger that initiated the job invocation.
+                 * @default UNKNOWN
+                 * @example MANUAL
+                 * @enum {string}
+                 */
+                type: "MANUAL" | "SCHEDULE" | "UNKNOWN";
+                /**
+                 * @description The schedule for the job
+                 * @example {
+                 *       "schedule": {
+                 *         "cron": "0 0 * * *",
+                 *         "time_zone": "America/New_York"
+                 *       }
+                 *     }
+                 */
+                scheduled?: {
+                    schedule?: {
+                        /**
+                         * @description The cron expression defining the schedule
+                         * @example 0 0 * * *
+                         */
+                        cron?: string;
+                        /**
+                         * @description The time zone for the schedule
+                         * @example America/New_York
+                         */
+                        time_zone?: string;
+                    };
+                };
+                /**
+                 * @description Details about the manual trigger, if applicable
+                 * @example {
+                 *       "user": {
+                 *         "uuid": "550e8400-e29b-41d4-a716-446655440000",
+                 *         "email": "user@example.com",
+                 *         "full_name": "John Doe"
+                 *       }
+                 *     }
+                 */
+                manual?: {
+                    /** @description The user who triggered the job */
+                    user?: {
+                        /**
+                         * The ID of the user who triggered the job
+                         * @example 550e8400-e29b-41d4-a716-446655440000
+                         */
+                        uuid?: string;
+                        /**
+                         * The email of the user who triggered the job
+                         * Format: email
+                         * @example user@example.com
+                         */
+                        email?: string;
+                        /**
+                         * The name of the user who triggered the job
+                         * @example John Doe
+                         */
+                        full_name?: string;
+                    };
+                };
+            };
+            /**
+             * The time when the job invocation was created
+             * Format: date-time
+             * @example 2023-10-01T12:00:00Z
+             */
+            created_at?: string;
+            /**
+             * The time when the job invocation started
+             * Format: date-time
+             * @example 2023-10-01T12:05:00Z
+             */
+            started_at?: string;
+            /**
+             * The time when the job invocation completed
+             * Format: date-time
+             * @example 2023-10-01T12:10:00Z
+             */
+            completed_at?: string;
+        };
+        app_job_invocations: {
+            /** A list of job invocations */
+            job_invocations?: components["schemas"]["app_job_invocation"][];
+        } & components["schemas"]["pagination"];
         /**
          * - SHARED: Shared vCPU cores
          *      - DEDICATED: Dedicated vCPU cores
@@ -8763,6 +11950,58 @@ export interface components {
              * @example 2023-01-17T00:00:00Z
              */
             date?: string;
+        };
+        app_component_health: {
+            /** @example sample_app */
+            name?: string;
+            /**
+             * Format: double
+             * @example 30
+             */
+            cpu_usage_percent?: number;
+            /**
+             * Format: double
+             * @example 25
+             */
+            memory_usage_percent?: number;
+            /**
+             * Format: int64
+             * @example 1
+             */
+            replicas_desired?: number;
+            /**
+             * Format: int64
+             * @example 1
+             */
+            replicas_ready?: number;
+            /**
+             * @default UNKNOWN
+             * @example HEALTHY
+             * @enum {string}
+             */
+            state: "UNKNOWN" | "HEALTHY" | "UNHEALTHY";
+        };
+        app_functions_component_health: {
+            /** @example sample_function */
+            name?: string;
+            functions_component_health_metrics?: {
+                /** @example activations_count */
+                metric_label?: string;
+                /**
+                 * Format: double
+                 * @example 100
+                 */
+                metric_value?: number;
+                /** @example 1h */
+                time_window?: string;
+            }[];
+        };
+        app_health: {
+            components?: components["schemas"]["app_component_health"][];
+            functions_components?: components["schemas"]["app_functions_component_health"][];
+        };
+        app_health_response: {
+            app_health?: components["schemas"]["app_health"];
         };
         cdn_endpoint: {
             /**
@@ -9330,6 +12569,44 @@ export interface components {
             taxes?: unknown & components["schemas"]["simple_charge"];
             credits_and_adjustments?: unknown & components["schemas"]["simple_charge"];
         };
+        billing_data_point: {
+            /**
+             * @description URN of the team that incurred the usage
+             * @example do:team:12345678-1234-1234-1234-123456789012
+             */
+            usage_team_urn?: string;
+            /**
+             * Format: date
+             * @description Start date of the billing data point in YYYY-MM-DD format
+             * @example 2025-01-15
+             */
+            start_date?: string;
+            /**
+             * @description Total amount for this data point in USD
+             * @example 12.45
+             */
+            total_amount?: string;
+            /**
+             * @description Region where the usage occurred
+             * @example nyc3
+             */
+            region?: string;
+            /**
+             * @description Unique SKU identifier for the billed resource
+             * @example 1-DO-DROP-0109
+             */
+            sku?: string;
+            /**
+             * @description Description of the billed resource or service as shown on an invoice item
+             * @example droplet name (c-2-4GiB)
+             */
+            description?: string;
+            /**
+             * @description Optional invoice item group name of the billed resource or service, blank when not part an invoice item group
+             * @example kubernetes cluster name
+             */
+            group_description?: string;
+        };
         database_region_options: {
             /**
              * @description An array of strings containing the names of available regions
@@ -9392,6 +12669,7 @@ export interface components {
                 pg?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
                 mysql?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
                 redis?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
+                valkey?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
                 opensearch?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
             };
             version_availability?: {
@@ -9399,6 +12677,7 @@ export interface components {
                 pg?: components["schemas"]["database_version_availabilities"];
                 mysql?: components["schemas"]["database_version_availabilities"];
                 redis?: components["schemas"]["database_version_availabilities"];
+                valkey?: components["schemas"]["database_version_availabilities"];
                 mongodb?: components["schemas"]["database_version_availabilities"];
                 opensearch?: components["schemas"]["database_version_availabilities"];
             };
@@ -9420,12 +12699,44 @@ export interface components {
              */
             readonly port?: number;
             /**
-             * @description The default user for the opensearch dashboard.
+             * @description The default user for the opensearch dashboard.<br><br>Requires `database:view_credentials` scope.
              * @example doadmin
              */
             readonly user?: string;
             /**
-             * @description The randomly generated password for the default user.
+             * @description The randomly generated password for the default user.<br><br>Requires `database:view_credentials` scope.
+             * @example wv78n3zpz42xezdk
+             */
+            readonly password?: string;
+            /**
+             * @description A boolean value indicating if the connection should be made over SSL.
+             * @example true
+             */
+            readonly ssl?: boolean;
+        };
+        schema_registry_connection: {
+            /**
+             * @description This is provided as a convenience and should be able to be constructed by the other attributes.
+             * @example https://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060
+             */
+            readonly uri?: string;
+            /**
+             * @description The FQDN pointing to the schema registry connection uri.
+             * @example backend-do-user-19081923-0.db.ondigitalocean.com
+             */
+            readonly host?: string;
+            /**
+             * @description The port on which the schema registry is listening.
+             * @example 20835
+             */
+            readonly port?: number;
+            /**
+             * @description The default user for the schema registry.<br><br>Requires `database:view_credentials` scope.
+             * @example doadmin
+             */
+            readonly user?: string;
+            /**
+             * @description The randomly generated password for the schema registry.<br><br>Requires `database:view_credentials` scope.
              * @example wv78n3zpz42xezdk
              */
             readonly password?: string;
@@ -9457,12 +12768,12 @@ export interface components {
              */
             readonly port?: number;
             /**
-             * @description The default user for the database.
+             * @description The default user for the database.<br><br>Requires `database:view_credentials` scope.
              * @example doadmin
              */
             readonly user?: string;
             /**
-             * @description The randomly generated password for the default user.
+             * @description The randomly generated password for the default user.<br><br>Requires `database:view_credentials` scope.
              * @example wv78n3zpz42xezdk
              */
             readonly password?: string;
@@ -9524,6 +12835,23 @@ export interface components {
                  */
                 permission: "admin" | "consume" | "produce" | "produceconsume";
             }[];
+            /** @description MongoDB-specific settings for the user. This option is not currently supported for other database engines. */
+            mongo_user_settings?: {
+                /**
+                 * @description A list of databases to which the user should have access. When the database is set to `admin`, the user will have access to all databases based on the user's role i.e. a user with the role `readOnly` assigned to the `admin` database will have read access to all databases.
+                 * @example [
+                 *       "my-db",
+                 *       "my-db-2"
+                 *     ]
+                 */
+                databases?: string[];
+                /**
+                 * @description The role to assign to the user with each role mapping to a MongoDB built-in role.  `readOnly` maps to a [read](https://www.mongodb.com/docs/manual/reference/built-in-roles/#mongodb-authrole-read) role. `readWrite` maps to a [readWrite](https://www.mongodb.com/docs/manual/reference/built-in-roles/#mongodb-authrole-readWrite) role. `dbAdmin` maps to a [dbAdmin](https://www.mongodb.com/docs/manual/reference/built-in-roles/#mongodb-authrole-dbAdmin) role.
+                 * @example readOnly
+                 * @enum {string}
+                 */
+                role?: "readOnly" | "readWrite" | "dbAdmin";
+            };
         };
         database_user: {
             /**
@@ -9539,7 +12867,7 @@ export interface components {
              */
             readonly role?: "primary" | "normal";
             /**
-             * @description A randomly generated password for the database user.
+             * @description A randomly generated password for the database user.<br>Requires `database:view_credentials` scope.
              * @example jge5lfxtzhx42iff
              */
             readonly password?: string;
@@ -9665,6 +12993,11 @@ export interface components {
              * @example 2019-01-11T18:37:36Z
              */
             readonly created_at?: string;
+            /**
+             * @description A human-readable description of the rule.
+             * @example an IP address for local development
+             */
+            description?: string;
         };
         database_service_endpoint: {
             /**
@@ -9678,7 +13011,18 @@ export interface components {
              */
             readonly port?: number;
         };
-        database_cluster: {
+        /** @description DigitalOcean-specific settings for the database cluster. */
+        do_settings: {
+            /**
+             * @description An array of custom CNAMEs for the database cluster. Each CNAME must be a valid RFC 1123 hostname (e.g., "db.example.com"). Maximum of 16 CNAMEs allowed, each up to 253 characters.
+             * @example [
+             *       "db.example.com",
+             *       "database.myapp.io"
+             *     ]
+             */
+            service_cnames?: string[];
+        };
+        database_cluster_read: {
             /**
              * Format: uuid
              * @description A unique ID that can be used to identify and reference a database cluster.
@@ -9691,11 +13035,11 @@ export interface components {
              */
             name: string;
             /**
-             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka, and "opensearch" for OpenSearch.
+             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
              * @example mysql
              * @enum {string}
              */
-            engine: "pg" | "mysql" | "redis" | "mongodb" | "kafka" | "opensearch";
+            engine: "pg" | "mysql" | "redis" | "valkey" | "mongodb" | "kafka" | "opensearch";
             /**
              * @description A string representing the version of the database engine in use for the cluster.
              * @example 8
@@ -9734,12 +13078,12 @@ export interface components {
              */
             readonly created_at?: string;
             /**
-             * @description A string specifying the UUID of the VPC to which the database cluster will be assigned. If excluded, the cluster when creating a new database cluster, it will be assigned to your account's default VPC for the region.
+             * @description A string specifying the UUID of the VPC to which the database cluster will be assigned. If excluded, the cluster when creating a new database cluster, it will be assigned to your account's default VPC for the region. <br><br>Requires `vpc:read` scope.
              * @example d455e75d-4858-4eec-8c95-da2f0a5f93a7
              */
             private_network_uuid?: string;
             /**
-             * @description An array of tags that have been applied to the database cluster.
+             * @description An array of tags that have been applied to the database cluster. <br><br>Requires `tag:read` scope.
              * @example [
              *       "production"
              *     ]
@@ -9754,6 +13098,8 @@ export interface components {
             readonly db_names?: string[] | null;
             /** @description The connection details for OpenSearch dashboard. */
             ui_connection?: components["schemas"]["opensearch_connection"] & unknown;
+            /** @description The connection details for Schema Registry. */
+            schema_registry_connection?: components["schemas"]["schema_registry_connection"] & unknown;
             connection?: components["schemas"]["database_connection"] & unknown;
             private_connection?: components["schemas"]["database_connection"] & unknown;
             standby_connection?: components["schemas"]["database_connection"] & unknown;
@@ -9762,7 +13108,7 @@ export interface components {
             maintenance_window?: components["schemas"]["database_maintenance_window"] & unknown;
             /**
              * Format: uuid
-             * @description The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.
+             * @description The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.<br><br>Requires `project:read` scope.
              * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
              */
             project_id?: string;
@@ -9784,6 +13130,141 @@ export interface components {
             storage_size_mib?: number;
             /** @description Public hostname and port of the cluster's metrics endpoint(s). Includes one record for the cluster's primary node and a second entry for the cluster's standby node(s). */
             readonly metrics_endpoints?: components["schemas"]["database_service_endpoint"][];
+            do_settings?: components["schemas"]["do_settings"] & unknown;
+        };
+        /** @description Configuration for database cluster storage autoscaling */
+        database_storage_autoscale_params: {
+            /**
+             * @description Whether storage autoscaling is enabled for the cluster
+             * @example true
+             */
+            enabled: boolean;
+            /**
+             * @description The storage usage threshold percentage that triggers autoscaling. When storage usage exceeds this percentage, additional storage will be added automatically.
+             * @example 80
+             */
+            threshold_percent?: number;
+            /**
+             * @description The amount of additional storage to add (in GiB) when autoscaling is triggered
+             * @example 10
+             */
+            increment_gib?: number;
+        };
+        /** @description Contains all autoscaling configuration for a database cluster */
+        database_autoscale_params: {
+            storage?: components["schemas"]["database_storage_autoscale_params"] & unknown;
+        };
+        database_cluster: {
+            /**
+             * Format: uuid
+             * @description A unique ID that can be used to identify and reference a database cluster.
+             * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+             */
+            readonly id?: string;
+            /**
+             * @description A unique, human-readable name referring to a database cluster.
+             * @example backend
+             */
+            name: string;
+            /**
+             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB, "kafka" for Kafka, "opensearch" for OpenSearch, and "valkey" for Valkey.
+             * @example mysql
+             * @enum {string}
+             */
+            engine: "pg" | "mysql" | "redis" | "valkey" | "mongodb" | "kafka" | "opensearch";
+            /**
+             * @description A string representing the version of the database engine in use for the cluster.
+             * @example 8
+             */
+            version?: string;
+            /**
+             * @description A string representing the semantic version of the database engine in use for the cluster.
+             * @example 8.0.28
+             */
+            readonly semantic_version?: string;
+            /**
+             * @description The number of nodes in the database cluster.
+             * @example 2
+             */
+            num_nodes: number;
+            /**
+             * @description The slug identifier representing the size of the nodes in the database cluster.
+             * @example db-s-2vcpu-4gb
+             */
+            size: string;
+            /**
+             * @description The slug identifier for the region where the database cluster is located.
+             * @example nyc3
+             */
+            region: string;
+            /**
+             * @description A string representing the current status of the database cluster.
+             * @example creating
+             * @enum {string}
+             */
+            readonly status?: "creating" | "online" | "resizing" | "migrating" | "forking";
+            /**
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created.
+             * @example 2019-01-11T18:37:36Z
+             */
+            readonly created_at?: string;
+            /**
+             * @description A string specifying the UUID of the VPC to which the database cluster will be assigned. If excluded, the cluster when creating a new database cluster, it will be assigned to your account's default VPC for the region. <br><br>Requires `vpc:read` scope.
+             * @example d455e75d-4858-4eec-8c95-da2f0a5f93a7
+             */
+            private_network_uuid?: string;
+            /**
+             * @description An array of tags (as strings) to apply to the database cluster. <br><br>Requires `tag:create` scope.
+             * @example [
+             *       "production"
+             *     ]
+             */
+            tags?: string[] | null;
+            /**
+             * @description An array of strings containing the names of databases created in the database cluster.
+             * @example [
+             *       "doadmin"
+             *     ]
+             */
+            readonly db_names?: string[] | null;
+            /** @description The connection details for OpenSearch dashboard. */
+            ui_connection?: components["schemas"]["opensearch_connection"] & unknown;
+            /** @description The connection details for Schema Registry. */
+            schema_registry_connection?: components["schemas"]["schema_registry_connection"] & unknown;
+            connection?: components["schemas"]["database_connection"] & unknown;
+            private_connection?: components["schemas"]["database_connection"] & unknown;
+            standby_connection?: components["schemas"]["database_connection"] & unknown;
+            standby_private_connection?: components["schemas"]["database_connection"] & unknown;
+            readonly users?: components["schemas"]["database_user"][] | null;
+            maintenance_window?: components["schemas"]["database_maintenance_window"] & unknown;
+            /**
+             * Format: uuid
+             * @description The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.<br><br>Requires `project:update` scope.
+             * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+             */
+            project_id?: string;
+            rules?: components["schemas"]["firewall_rule"][];
+            /**
+             * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline.
+             * @example 2023-11-09T00:00:00Z
+             */
+            readonly version_end_of_life?: string;
+            /**
+             * @description A timestamp referring to the date when the particular version will no longer be available for creating new clusters. If null, the version does not have an end of availability timeline.
+             * @example 2023-05-09T00:00:00Z
+             */
+            readonly version_end_of_availability?: string;
+            /**
+             * @description Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond what is provided as a base amount from the 'size' and any previously added additional storage.
+             * @example 61440
+             */
+            storage_size_mib?: number;
+            /** @description Public hostname and port of the cluster's metrics endpoint(s). Includes one record for the cluster's primary node and a second entry for the cluster's standby node(s). */
+            readonly metrics_endpoints?: components["schemas"]["database_service_endpoint"][];
+            /** @description Autoscaling configuration for the database cluster. Currently only supports storage autoscaling. If null, autoscaling is not configured for the cluster. */
+            autoscale?: components["schemas"]["database_autoscale_params"];
+            do_settings?: components["schemas"]["do_settings"] & unknown;
         };
         database_backup: {
             /**
@@ -9797,6 +13278,16 @@ export interface components {
              * @example 2019-01-31T19:25:22Z
              */
             backup_created_at?: string;
+        };
+        /** @description MySQL Incremental Backup configuration settings */
+        mysql_incremental_backup: {
+            /** @description Enable periodic incremental backups. When enabled, full_backup_week_schedule must be set. Incremental backups only store changes since the last backup, making them faster and more storage-efficient than full backups. This is particularly useful for large databases where daily full backups would be too time-consuming or expensive. */
+            enabled?: boolean;
+            /**
+             * @description Comma-separated list of days of the week when full backups should be created. Valid values: mon, tue, wed, thu, fri, sat, sun. Default is null. Example : "mon,fri,sun".
+             * @example mon,thu
+             */
+            full_backup_week_schedule?: string;
         };
         mysql_advanced_config: {
             /**
@@ -9976,6 +13467,7 @@ export interface components {
              * @enum {string}
              */
             log_output: "INSIGHTS" | "TABLE" | "INSIGHTS,TABLE" | "NONE";
+            mysql_incremental_backup?: components["schemas"]["mysql_incremental_backup"];
         };
         /** @description PGBouncer connection pooling settings */
         pgbouncer_advanced_config: {
@@ -10308,22 +13800,31 @@ export interface components {
              * @example 50
              */
             max_failover_replication_time_lag?: number;
+            /**
+             * @description Sets the PostgreSQL maximum number of concurrent connections to the database server. This is a limited-release parameter. Contact your account team to confirm your eligibility. You cannot decrease this parameter value when set. For services with a read replica, first increase the read replica's value. After the change is applied to the replica, you can increase the primary service's value. Changing this parameter causes a service restart.
+             * @example 75
+             */
+            max_connections?: number;
+            /**
+             * @description PostgreSQL maximum WAL size (MB) reserved for replication slots. If -1 is specified, replication slots may retain an unlimited amount of WAL files. The default is -1 (upstream default). wal_keep_size minimum WAL size setting takes precedence over this.
+             * @example 100
+             */
+            max_slot_wal_keep_size?: number;
         };
-        /**
-         * @description A string specifying the desired eviction policy for the Redis cluster.
-         *
-         *     - `noeviction`: Don't evict any data, returns error when memory limit is reached.
-         *     - `allkeys_lru:` Evict any key, least recently used (LRU) first.
-         *     - `allkeys_random`: Evict keys in a random order.
-         *     - `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.
-         *     - `volatile_random`: Evict keys with expiration only in a random order.
-         *     - `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
-         * @example allkeys_lru
-         * @enum {string}
-         */
-        eviction_policy_model: "noeviction" | "allkeys_lru" | "allkeys_random" | "volatile_lru" | "volatile_random" | "volatile_ttl";
         redis_advanced_config: {
-            redis_maxmemory_policy?: components["schemas"]["eviction_policy_model"];
+            /**
+             * @description A string specifying the desired eviction policy for the Caching cluster.
+             *
+             *     - `noeviction`: Don't evict any data, returns error when memory limit is reached.
+             *     - `allkeys-lru:` Evict any key, least recently used (LRU) first.
+             *     - `allkeys-random`: Evict keys in a random order.
+             *     - `volatile-lru`: Evict keys with expiration only, least recently used (LRU) first.
+             *     - `volatile-random`: Evict keys with expiration only in a random order.
+             *     - `volatile-ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+             * @example allkeys-lru
+             * @enum {string}
+             */
+            redis_maxmemory_policy?: "noeviction" | "allkeys-lru" | "allkeys-random" | "volatile-lru" | "volatile-random" | "volatile-ttl";
             /**
              * @description Set output buffer limit for pub / sub clients in MB. The value is the hard limit, the soft limit is 1/4 of the hard limit. When setting the limit, be mindful of the available memory in the selected service plan.
              * @example 64
@@ -10335,7 +13836,7 @@ export interface components {
              */
             redis_number_of_databases?: number;
             /**
-             * @description Redis IO thread count
+             * @description Caching IO thread count
              * @example 1
              */
             redis_io_threads?: number;
@@ -10352,15 +13853,15 @@ export interface components {
              */
             redis_lfu_decay_time: number;
             /**
-             * @description Require SSL to access Redis.
-             *     - When enabled, Redis accepts only SSL connections on port `25061`.
+             * @description Require SSL to access Caching.
+             *     - When enabled, Caching accepts only SSL connections on port `25061`.
              *     - When disabled, port `25060` is opened for non-SSL connections, while port `25061` remains available for SSL connections.
              * @default true
              * @example true
              */
             redis_ssl: boolean;
             /**
-             * @description Redis idle connection timeout in seconds
+             * @description Caching idle connection timeout in seconds
              * @default 300
              * @example 300
              */
@@ -10393,11 +13894,113 @@ export interface components {
              */
             redis_persistence?: "off" | "rdb";
             /**
-             * @description Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Redis configuration acl-pubsub-default.
+             * @description Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Caching configuration acl-pubsub-default.
              * @example allchannels
              * @enum {string}
              */
             redis_acl_channels_default?: "allchannels" | "resetchannels";
+        };
+        /**
+         * @description A string specifying the desired eviction policy for a Caching or Valkey cluster.
+         *
+         *     - `noeviction`: Don't evict any data, returns error when memory limit is reached.
+         *     - `allkeys_lru:` Evict any key, least recently used (LRU) first.
+         *     - `allkeys_random`: Evict keys in a random order.
+         *     - `volatile_lru`: Evict keys with expiration only, least recently used (LRU) first.
+         *     - `volatile_random`: Evict keys with expiration only in a random order.
+         *     - `volatile_ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+         * @example allkeys_lru
+         * @enum {string}
+         */
+        eviction_policy_model: "noeviction" | "allkeys_lru" | "allkeys_random" | "volatile_lru" | "volatile_random" | "volatile_ttl";
+        valkey_advanced_config: {
+            valkey_maxmemory_policy?: components["schemas"]["eviction_policy_model"];
+            /**
+             * @description Set output buffer limit for pub / sub clients in MB. The value is the hard limit, the soft limit is 1/4 of the hard limit. When setting the limit, be mindful of the available memory in the selected service plan.
+             * @example 64
+             */
+            valkey_pubsub_client_output_buffer_limit?: number;
+            /**
+             * @description Set number of valkey databases. Changing this will cause a restart of valkey service.
+             * @example 16
+             */
+            valkey_number_of_databases?: number;
+            /**
+             * @description Valkey IO thread count
+             * @example 1
+             */
+            valkey_io_threads?: number;
+            /**
+             * @description Counter logarithm factor for volatile-lfu and allkeys-lfu maxmemory-policies
+             * @default 10
+             * @example 10
+             */
+            valkey_lfu_log_factor: number;
+            /**
+             * @description LFU maxmemory-policy counter decay time in minutes
+             * @default 1
+             * @example 1
+             */
+            valkey_lfu_decay_time: number;
+            /**
+             * @description Require SSL to access Valkey
+             * @default true
+             * @example true
+             */
+            valkey_ssl: boolean;
+            /**
+             * @description Valkey idle connection timeout in seconds
+             * @default 300
+             * @example 300
+             */
+            valkey_timeout: number;
+            /**
+             * @description Set notify-keyspace-events option. Requires at least `K` or `E` and accepts any combination of the following options. Setting the parameter to `""` disables notifications.
+             *     - `K` &mdash; Keyspace events
+             *     - `E` &mdash; Keyevent events
+             *     - `g` &mdash; Generic commands (e.g. `DEL`, `EXPIRE`, `RENAME`, ...)
+             *     - `$` &mdash; String commands
+             *     - `l` &mdash; List commands
+             *     - `s` &mdash; Set commands
+             *     - `h` &mdash; Hash commands
+             *     - `z` &mdash; Sorted set commands
+             *     - `t` &mdash; Stream commands
+             *     - `d` &mdash; Module key type events
+             *     - `x` &mdash; Expired events
+             *     - `e` &mdash; Evicted events
+             *     - `m` &mdash; Key miss events
+             *     - `n` &mdash; New key events
+             *     - `A` &mdash; Alias for `"g$lshztxed"`
+             * @default
+             * @example K
+             */
+            valkey_notify_keyspace_events: string;
+            /**
+             * @description When persistence is 'rdb', Valkey does RDB dumps each 10 minutes if any key is changed. Also RDB dumps are done according to backup schedule for backup purposes. When persistence is 'off', no RDB dumps and backups are done, so data can be lost at any moment if service is restarted for any reason, or if service is powered off. Also service can't be forked.
+             * @example rdb
+             * @enum {string}
+             */
+            valkey_persistence?: "off" | "rdb";
+            /**
+             * @description Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Valkey configuration acl-pubsub-default.
+             * @example allchannels
+             * @enum {string}
+             */
+            valkey_acl_channels_default?: "allchannels" | "resetchannels";
+            /**
+             * @description Frequent RDB snapshots
+             *     When enabled, Valkey will create frequent local RDB snapshots. When disabled, Valkey will only take RDB snapshots when a backup is created, based on the backup schedule. This setting is ignored when valkey_persistence is set to off.
+             * @default true
+             * @example true
+             */
+            frequent_snapshots: boolean;
+            /**
+             * @description Active expire effort
+             *     Valkey reclaims expired keys both when accessed and in the background. The background process scans for expired keys to free memory. Increasing the active-expire-effort setting (default 1, max 10) uses more CPU to reclaim expired keys faster, reducing memory usage but potentially increasing latency.
+             * @default 1
+             * @example 1
+             */
+            valkey_active_expire_effort: number;
         };
         kafka_advanced_config: {
             /**
@@ -10545,9 +14148,10 @@ export interface components {
             log_segment_delete_delay_ms?: number;
             /**
              * @description Enable auto creation of topics
+             * @default false
              * @example true
              */
-            auto_create_topics_enable?: boolean;
+            auto_create_topics_enable: boolean;
             /**
              * @description When a producer sets acks to 'all' (or '-1'), min_insync_replicas specifies the minimum number of replicas that must acknowledge a write for the write to be considered successful.
              * @example 1
@@ -10598,6 +14202,12 @@ export interface components {
              * @example 3600000
              */
             transaction_remove_expired_transaction_cleanup_interval_ms?: number;
+            /**
+             * @description Enable creation of schema registry for the Kafka cluster. Schema_registry only works with General Purpose - Dedicated CPU plans.
+             * @default false
+             * @example true
+             */
+            schema_registry: boolean;
         };
         opensearch_advanced_config: {
             /**
@@ -10815,6 +14425,24 @@ export interface components {
              * @example false
              */
             plugins_alerting_filter_by_backend_roles_enabled: boolean;
+            /**
+             * @description Enable or disable KNN memory circuit breaker.
+             * @default true
+             * @example true
+             */
+            knn_memory_circuit_breaker_enabled: boolean;
+            /**
+             * @description Maximum amount of memory in percentage that can be used for the KNN index. Defaults to 50% of the JVM heap size.  0 is used to set it to null which can be used to invalidate caches.
+             * @default 50
+             * @example 60
+             */
+            knn_memory_circuit_breaker_limit: number;
+            /**
+             * @description DigitalOcean automatically resets the `index.refresh_interval` to the default value (once per second) to  ensure that new documents are quickly available for search queries. If you are setting your own refresh intervals,  you can disable this by setting this field to true.
+             * @default false
+             * @example true
+             */
+            keep_index_refresh_interval: boolean;
         };
         mongo_advanced_config: {
             /**
@@ -10850,7 +14478,7 @@ export interface components {
             verbosity: number;
         };
         database_config: {
-            config?: components["schemas"]["mysql_advanced_config"] | components["schemas"]["postgres_advanced_config"] | components["schemas"]["redis_advanced_config"] | components["schemas"]["mongo_advanced_config"] | components["schemas"]["kafka_advanced_config"] | components["schemas"]["opensearch_advanced_config"];
+            config?: components["schemas"]["mysql_advanced_config"] | components["schemas"]["postgres_advanced_config"] | components["schemas"]["redis_advanced_config"] | components["schemas"]["valkey_advanced_config"] | components["schemas"]["mongo_advanced_config"] | components["schemas"]["kafka_advanced_config"] | components["schemas"]["opensearch_advanced_config"];
         };
         ca: {
             /**
@@ -10870,7 +14498,7 @@ export interface components {
              * @example running
              * @enum {string}
              */
-            status?: "running" | "canceled" | "error" | "done";
+            status?: "running" | "syncing" | "canceled" | "error" | "done";
             /**
              * @description The time the migration was initiated, in ISO 8601 format.
              * @example 2020-10-29T15:57:38Z
@@ -10878,7 +14506,7 @@ export interface components {
             created_at?: string;
         };
         source_database: {
-            source?: {
+            source: {
                 /**
                  * @description The FQDN pointing to the database cluster's current primary node.
                  * @example backend-do-user-19081923-0.db.ondigitalocean.com
@@ -10950,6 +14578,66 @@ export interface components {
              * @example 0.03364864
              */
             size_gigabytes: number;
+            /**
+             * @description Indicates if this backup is a full or an incremental one (available only for MySQL).
+             * @example false
+             */
+            incremental?: boolean;
+        };
+        database_replica_read: {
+            /**
+             * Format: uuid
+             * @description A unique ID that can be used to identify and reference a database replica.
+             * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+             */
+            readonly id?: string;
+            /**
+             * @description The name to give the read-only replicating
+             * @example read-nyc3-01
+             */
+            name: string;
+            /**
+             * @description A slug identifier for the region where the read-only replica will be located. If excluded, the replica will be placed in the same region as the cluster.
+             * @example nyc3
+             */
+            region?: string;
+            /**
+             * @description A slug identifier representing the size of the node for the read-only replica. The size of the replica must be at least as large as the node size for the database cluster from which it is replicating.
+             * @example db-s-2vcpu-4gb
+             */
+            size?: string;
+            /**
+             * @description A string representing the current status of the database cluster.
+             * @example creating
+             * @enum {string}
+             */
+            readonly status?: "creating" | "online" | "resizing" | "migrating" | "forking";
+            /**
+             * @description A flat array of tag names as strings applied to the read-only replica.<br><br>Requires `tag:read` scope.
+             * @example [
+             *       "production"
+             *     ]
+             */
+            tags?: string[];
+            /**
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created.
+             * @example 2019-01-11T18:37:36Z
+             */
+            readonly created_at?: string;
+            /**
+             * @description A string specifying the UUID of the VPC to which the read-only replica will be assigned. If excluded, the replica will be assigned to your account's default VPC for the region. <br><br>Requires `vpc:read` scope.
+             * @example 9423cbad-9211-442f-820b-ef6915e99b5f
+             */
+            private_network_uuid?: string;
+            connection?: unknown & components["schemas"]["database_connection"];
+            private_connection?: unknown & components["schemas"]["database_connection"];
+            /**
+             * @description Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond what is provided as a base amount from the 'size' and any previously added additional storage.
+             * @example 61440
+             */
+            storage_size_mib?: number;
+            do_settings?: components["schemas"]["do_settings"] & unknown;
         };
         database_replica: {
             /**
@@ -10980,7 +14668,7 @@ export interface components {
              */
             readonly status?: "creating" | "online" | "resizing" | "migrating" | "forking";
             /**
-             * @description A flat array of tag names as strings to apply to the read-only replica after it is created. Tag names can either be existing or new tags.
+             * @description A flat array of tag names as strings to apply to the read-only replica after it is created. Tag names can either be existing or new tags. <br><br>Requires `tag:create` scope.
              * @example [
              *       "production"
              *     ]
@@ -10993,7 +14681,7 @@ export interface components {
              */
             readonly created_at?: string;
             /**
-             * @description A string specifying the UUID of the VPC to which the read-only replica will be assigned. If excluded, the replica will be assigned to your account's default VPC for the region.
+             * @description A string specifying the UUID of the VPC to which the read-only replica will be assigned. If excluded, the replica will be assigned to your account's default VPC for the region. <br><br>Requires `vpc:read` scope.
              * @example 9423cbad-9211-442f-820b-ef6915e99b5f
              */
             private_network_uuid?: string;
@@ -11004,6 +14692,7 @@ export interface components {
              * @example 61440
              */
             storage_size_mib?: number;
+            do_settings?: components["schemas"]["do_settings"] & unknown;
         };
         events_logs: {
             /**
@@ -11380,6 +15069,23 @@ export interface components {
              * @description Conditional (required if `format` == `custom`).
              *
              *     Syslog log line template for a custom format, supporting limited rsyslog style templating (using `%tag%`). Supported tags are: `HOSTNAME`, `app-name`, `msg`, `msgid`, `pri`, `procid`, `structured-data`, `timestamp` and `timestamp:::date-rfc3339`.
+             *
+             *     ---
+             *     **Datadog Integration Example for Non-Mongo clusters**:
+             *     ```
+             *     DD_KEY <%pri%>1 %timestamp:::date-rfc3339% %HOSTNAME%.DB_NAME %app-name% - - - %msg%
+             *     ```
+             *     - Replace `DD_KEY` with your actual Datadog API key.
+             *     - Replace `DB_NAME` with the actual name of your database cluster.
+             *     - Configure the Server:
+             *       - US Region: Use `intake.logs.datadoghq.com`
+             *       - EU Region: Use `tcp-intake.logs.datadoghq.eu`
+             *     - Configure the Port:
+             *       - US Region: Use port `10516`
+             *       - EU Region: Use port `443`
+             *     - Enable TLS:
+             *       - Ensure the TLS checkbox is enabled.
+             *     - Note: This configuration applies to **non-Mongo clusters only**. For **Mongo clusters**, use the `datadog_logsink` integration instead.
              * @example <%pri%>%timestamp:::date-rfc3339% %HOSTNAME% %app-name% %msg%
              */
             logline?: string;
@@ -11464,6 +15170,19 @@ export interface components {
              */
             ca?: string;
         };
+        /** @description Configuration for Datadog integration **applicable only to MongoDB clusters**. */
+        datadog_logsink: {
+            /**
+             * @description Datadog connection URL
+             * @example http-intake.logs.datadoghq.com
+             */
+            site: string;
+            /**
+             * @description Datadog API key
+             * @example xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+             */
+            datadog_api_key: string;
+        };
         logsink_verbose: components["schemas"]["logsink_base_verbose"] & {
             /**
              * @example {
@@ -11475,8 +15194,9 @@ export interface components {
              *       }
              *     }
              */
-            config?: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"];
+            config?: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"] | components["schemas"]["datadog_logsink"];
         };
+        logsink_schema: components["schemas"]["logsink_verbose"];
         logsink_base: {
             /**
              * @description The name of the Logsink
@@ -11484,16 +15204,113 @@ export interface components {
              */
             sink_name?: string;
             /**
+             * @description Type of logsink integration.
+             *
+             *     - Use `datadog` for Datadog integration **only with MongoDB clusters**.
+             *     - For non-MongoDB clusters, use `rsyslog` for general syslog forwarding.
+             *     - Other supported types include `elasticsearch` and `opensearch`.
+             *
+             *     More details about the configuration can be found in the `config` property.
              * @example rsyslog
              * @enum {string}
              */
-            sink_type?: "rsyslog" | "elasticsearch" | "opensearch";
+            sink_type?: "rsyslog" | "elasticsearch" | "opensearch" | "datadog";
         };
         logsink_create: components["schemas"]["logsink_base"] & {
-            config?: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"];
+            config?: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"] | components["schemas"]["datadog_logsink"];
         };
         logsink_update: {
-            config: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"];
+            config: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"] | components["schemas"]["datadog_logsink"];
+        };
+        kafka_schema_verbose: {
+            /**
+             * @description The id for schema.
+             * @example 12345
+             */
+            schema_id?: number;
+            /**
+             * @description The name of the schema subject.
+             * @example customer-schema
+             */
+            subject_name?: string;
+            /**
+             * @description The type of the schema.
+             * @example AVRO
+             * @enum {string}
+             */
+            schema_type?: "AVRO" | "JSON" | "PROTOBUF";
+            /**
+             * @description The schema definition in the specified format.
+             * @example {
+             *       "type": "record",
+             *       "name": "Customer",
+             *       "fields": [
+             *         {"name": "id", "type": "int"},
+             *         {"name": "name", "type": "string"}
+             *       ]
+             *     }
+             */
+            schema?: string;
+        };
+        database_kafka_schema_create: {
+            /**
+             * @description The name of the schema subject.
+             * @example customer-schema
+             */
+            subject_name?: string;
+            /**
+             * @description The type of the schema.
+             * @example AVRO
+             * @enum {string}
+             */
+            schema_type?: "AVRO" | "JSON" | "PROTOBUF";
+            /**
+             * @description The schema definition in the specified format.
+             * @example {
+             *       "type": "record",
+             *       "name": "Customer",
+             *       "fields": [
+             *         {"name": "id", "type": "int"},
+             *         {"name": "name", "type": "string"}
+             *       ]
+             *     }
+             */
+            schema?: string;
+        };
+        kafka_schema_version_verbose: {
+            /**
+             * @description The id for schema.
+             * @example 12345
+             */
+            schema_id?: number;
+            /**
+             * @description The version of the schema.
+             * @example 1
+             */
+            version?: string;
+            /**
+             * @description The name of the schema subject.
+             * @example customer-schema
+             */
+            subject_name?: string;
+            /**
+             * @description The type of the schema.
+             * @example AVRO
+             * @enum {string}
+             */
+            schema_type?: "AVRO" | "JSON" | "PROTOBUF";
+            /**
+             * @description The schema definition in the specified format.
+             * @example {
+             *       "type": "record",
+             *       "name": "Customer",
+             *       "fields": [
+             *         {"name": "id", "type": "int"},
+             *         {"name": "name", "type": "string"}
+             *       ]
+             *     }
+             */
+            schema?: string;
         };
         databases_basic_auth_credentials: {
             /**
@@ -11732,7 +15549,7 @@ export interface components {
          */
         image_description: string;
         /**
-         * @description A flat array of tag names as strings to be applied to the resource. Tag names may be for either existing or new tags.
+         * @description A flat array of tag names as strings to be applied to the resource. Tag names may be for either existing or new tags. <br><br>Requires `tag:create` scope.
          * @example [
          *       "base-image",
          *       "prod"
@@ -12006,7 +15823,7 @@ export interface components {
              */
             features: string[];
             /**
-             * @description An array of backup IDs of any backups that have been taken of the Droplet instance.  Droplet backups are enabled at the time of the instance creation.
+             * @description An array of backup IDs of any backups that have been taken of the Droplet instance.  Droplet backups are enabled at the time of the instance creation.<br>Requires `image:read` scope.
              * @example [
              *       53893572
              *     ]
@@ -12014,15 +15831,15 @@ export interface components {
             backup_ids: number[];
             next_backup_window: components["schemas"]["droplet_next_backup_window"] & unknown;
             /**
-             * @description An array of snapshot IDs of any snapshots created from the Droplet instance.
+             * @description An array of snapshot IDs of any snapshots created from the Droplet instance.<br>Requires `image:read` scope.
              * @example [
              *       67512819
              *     ]
              */
             snapshot_ids: number[];
-            image: components["schemas"]["image"];
+            image: components["schemas"]["image"] & unknown;
             /**
-             * @description A flat array including the unique identifier for each Block Storage volume attached to the Droplet.
+             * @description A flat array including the unique identifier for each Block Storage volume attached to the Droplet.<br>Requires `block_storage:read` scope.
              * @example [
              *       "506f78a4-e098-11e5-ad9f-000f53306ae1"
              *     ]
@@ -12041,7 +15858,7 @@ export interface components {
             };
             region: components["schemas"]["region"];
             /**
-             * @description An array of Tags the Droplet has been tagged with.
+             * @description An array of Tags the Droplet has been tagged with.<br>Requires `tag:read` scope.
              * @example [
              *       "web",
              *       "env:prod"
@@ -12049,7 +15866,7 @@ export interface components {
              */
             tags: string[];
             /**
-             * @description A string specifying the UUID of the VPC to which the Droplet is assigned.
+             * @description A string specifying the UUID of the VPC to which the Droplet is assigned.<br>Requires `vpc:read` scope.
              * @example 760e09ef-dc84-11e8-981e-3cfdfeaae000
              */
             vpc_uuid?: string;
@@ -12097,12 +15914,12 @@ export interface components {
              */
             size: string;
             /**
-             * @description The image ID of a public or private image or the slug identifier for a public image. This image will be the base image for your Droplet.
+             * @description The image ID of a public or private image or the slug identifier for a public image. This image will be the base image for your Droplet.<br>Requires `image:read` scope.
              * @example ubuntu-20-04-x64
              */
             image: string | number;
             /**
-             * @description An array containing the IDs or fingerprints of the SSH keys that you wish to embed in the Droplet's root account upon creation.
+             * @description An array containing the IDs or fingerprints of the SSH keys that you wish to embed in the Droplet's root account upon creation. You must add the keys to your team before they can be embedded on a Droplet.<br>Requires `ssh_key:read` scope.
              * @default []
              * @example [
              *       289794,
@@ -12130,7 +15947,7 @@ export interface components {
              */
             monitoring: boolean;
             /**
-             * @description A flat array of tag names as strings to apply to the Droplet after it is created. Tag names can either be existing or new tags.
+             * @description A flat array of tag names as strings to apply to the Droplet after it is created. Tag names can either be existing or new tags.<br>Requires `tag:create` scope.
              * @default []
              * @example [
              *       "env:prod",
@@ -12153,7 +15970,7 @@ export interface components {
              */
             private_networking: boolean;
             /**
-             * @description An array of IDs for block storage volumes that will be attached to the Droplet once created. The volumes must not already be attached to an existing Droplet.
+             * @description An array of IDs for block storage volumes that will be attached to the Droplet once created. The volumes must not already be attached to an existing Droplet.<br>Requires `block_storage:read` scpoe.
              * @default []
              * @example [
              *       "12e97116-7280-11ed-b3d0-0a58ac146812"
@@ -12161,7 +15978,7 @@ export interface components {
              */
             volumes: string[];
             /**
-             * @description A string specifying the UUID of the VPC to which the Droplet will be assigned. If excluded, the Droplet will be assigned to your account's default VPC for the region.
+             * @description A string specifying the UUID of the VPC to which the Droplet will be assigned. If excluded, the Droplet will be assigned to your account's default VPC for the region.<br>Requires `vpc:read` scope.
              * @example 760e09ef-dc84-11e8-981e-3cfdfeaae000
              */
             vpc_uuid?: string;
@@ -12399,7 +16216,7 @@ export interface components {
             type: "snapshot";
         };
         /**
-         * @description A flat array of tag names as strings to be applied to the resource. Tag names must exist in order to be referenced in a request.
+         * @description A flat array of tag names as strings to be applied to the resource. Tag names must exist in order to be referenced in a request. <br><br>Requires `tag:create` and `tag:read` scopes.
          * @example [
          *       "base-image",
          *       "prod"
@@ -12501,7 +16318,7 @@ export interface components {
              */
             name?: string;
             /**
-             * @description An array containing the IDs of the Droplets assigned to the firewall.
+             * @description An array containing the IDs of the Droplets assigned to the firewall. <br><br>Requires `droplet:read` scope.
              * @example [
              *       8043964
              *     ]
@@ -12674,6 +16491,7 @@ export interface components {
             image: string;
             /**
              * @description The SSH keys to be installed on the Droplets in the autoscale pool. You can either specify the key ID or the fingerprint.
+             *     Requires `ssh_key:read` scope.
              * @example [
              *       "88:66:90:d2:68:d5:b5:85:e3:26:26:11:31:57:e6:f8"
              *     ]
@@ -12681,6 +16499,7 @@ export interface components {
             ssh_keys: string[];
             /**
              * @description The tags to apply to each of the Droplets in the autoscale pool.
+             *     Requires `tag:read` scope.
              * @example [
              *       "my-tag"
              *     ]
@@ -12688,6 +16507,7 @@ export interface components {
             tags?: string[];
             /**
              * @description The VPC where the Droplets in the autoscale pool will be created. The VPC must be in the region where you want to create the Droplets.
+             *     Requires `vpc:read` scope.
              * @example 760e09ef-dc84-11e8-981e-3cfdfeaae000
              */
             vpc_uuid?: string;
@@ -12698,6 +16518,7 @@ export interface components {
             with_droplet_agent?: boolean;
             /**
              * @description The project that the Droplets in the autoscale pool will belong to.
+             *     Requires `project:read` scope.
              * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
              */
             project_id?: string;
@@ -12874,7 +16695,7 @@ export interface components {
             ip?: string;
             region?: components["schemas"]["region"] & Record<string, never>;
             /**
-             * @description The Droplet that the floating IP has been assigned to. When you query a floating IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null.
+             * @description The Droplet that the floating IP has been assigned to. When you query a floating IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null. <br><br>Requires `droplet:read` scope.
              * @example null
              */
             droplet?: (Record<string, never> | null) | components["schemas"]["droplet"];
@@ -12885,7 +16706,7 @@ export interface components {
             locked?: boolean;
             /**
              * Format: uuid
-             * @description The UUID of the project to which the reserved IP currently belongs.
+             * @description The UUID of the project to which the reserved IP currently belongs.<br><br>Requires `project:read` scope.
              * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
              */
             project_id?: string;
@@ -13205,7 +17026,7 @@ export interface components {
              */
             count?: number;
             /**
-             * @description An array containing the tags applied to the node pool. All node pools are automatically tagged `k8s`, `k8s-worker`, and `k8s:$K8S_CLUSTER_ID`.
+             * @description An array containing the tags applied to the node pool. All node pools are automatically tagged `k8s`, `k8s-worker`, and `k8s:$K8S_CLUSTER_ID`. <br><br>Requires `tag:read` scope.
              * @example [
              *       "k8s",
              *       "k8s:bd5f5959-5e1e-4205-a714-a914373942af",
@@ -13266,7 +17087,7 @@ export interface components {
              * @description Indicates whether the control plane firewall is enabled.
              * @example true
              */
-            enable?: boolean;
+            enabled?: boolean;
             /**
              * @description An array of public addresses (IPv4 or CIDR) allowed to access the control plane.
              * @example [
@@ -13276,6 +17097,204 @@ export interface components {
              */
             allowed_addresses?: string[];
         } | null;
+        /** @description An object specifying custom cluster autoscaler configuration. */
+        cluster_autoscaler_configuration: {
+            /**
+             * @description Used to customize when cluster autoscaler scales down non-empty nodes by setting the node utilization threshold.
+             * @example 0.65
+             */
+            scale_down_utilization_threshold?: number;
+            /**
+             * @description Used to customize how long a node is unneeded before being scaled down.
+             * @example 1m0s
+             */
+            scale_down_unneeded_time?: string;
+            /**
+             * @description Customizes expanders used by cluster-autoscaler.
+             *     The autoscaler will apply each expander from the provided list to narrow down the selection of node types created to scale up,
+             *     until either a single node type is left, or the list of expanders is exhausted.
+             *     If this flag is unset, autoscaler will use its default expander `random`.
+             *     Passing an empty list (_not_ `null`) will unset any previous expander customizations.
+             *
+             *     Available expanders:
+             *     - `random`: Randomly selects a node group to scale.
+             *     - `priority`: Selects the node group with the highest priority as per [user-provided configuration](https://docs.digitalocean.com/products/kubernetes/how-to/autoscale/#configuring-priority-expander)
+             *     - `least_waste`: Selects the node group that will result in the least amount of idle resources.
+             * @example [
+             *       "priority",
+             *       "random"
+             *     ]
+             */
+            expanders?: ("random" | "priority" | "least_waste")[];
+        } | null;
+        /** @description An object specifying whether the routing-agent component should be enabled for the Kubernetes cluster. */
+        routing_agent: {
+            /**
+             * @description Indicates whether the routing-agent component is enabled.
+             * @example true
+             */
+            enabled?: boolean;
+        } | null;
+        /** @description An object specifying whether the AMD GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an AMD GPU node pool. */
+        amd_gpu_device_plugin: {
+            /**
+             * @description Indicates whether the AMD GPU Device Plugin is enabled.
+             * @example true
+             */
+            enabled?: boolean;
+        } | null;
+        /** @description An object specifying whether the AMD Device Metrics Exporter should be enabled in the Kubernetes cluster. */
+        amd_gpu_device_metrics_exporter_plugin: {
+            /**
+             * @description Indicates whether the AMD Device Metrics Exporter is enabled.
+             * @example true
+             */
+            enabled?: boolean;
+        } | null;
+        /** @description An object specifying whether the Nvidia GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an Nvidia GPU node pool. */
+        nvidia_gpu_device_plugin: {
+            /**
+             * @description Indicates whether the Nvidia GPU Device Plugin is enabled.
+             * @example true
+             */
+            enabled?: boolean;
+        } | null;
+        /** @description An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster. */
+        rdma_shared_dev_plugin: {
+            /**
+             * @description Indicates whether the RDMA shared device plugin is enabled.
+             * @example true
+             */
+            enabled?: boolean;
+        } | null;
+        cluster_read: {
+            /**
+             * Format: uuid
+             * @description A unique ID that can be used to identify and reference a Kubernetes cluster.
+             * @example bd5f5959-5e1e-4205-a714-a914373942af
+             */
+            readonly id?: string;
+            /**
+             * @description A human-readable name for a Kubernetes cluster.
+             * @example prod-cluster-01
+             */
+            name: string;
+            /**
+             * @description The slug identifier for the region where the Kubernetes cluster is located.
+             * @example nyc1
+             */
+            region: string;
+            /**
+             * @description The slug identifier for the version of Kubernetes used for the cluster. If set to a minor version (e.g. "1.14"), the latest version within it will be used (e.g. "1.14.6-do.1"); if set to "latest", the latest published version will be used. See the `/v2/kubernetes/options` endpoint to find all currently available versions.
+             * @example 1.18.6-do.0
+             */
+            version: string;
+            /**
+             * Format: cidr
+             * @description The range of IP addresses for the overlay network of the Kubernetes cluster in CIDR notation.
+             * @example 192.168.0.0/20
+             */
+            cluster_subnet?: string;
+            /**
+             * Format: cidr
+             * @description The range of assignable IP addresses for services running in the Kubernetes cluster in CIDR notation.
+             * @example 192.168.16.0/24
+             */
+            service_subnet?: string;
+            /**
+             * Format: uuid
+             * @description A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.<br><br>Requires `vpc:read` scope.
+             * @example c33931f2-a26a-4e61-b85c-4e95a2ec431b
+             */
+            vpc_uuid?: string;
+            /**
+             * @description The public IPv4 address of the Kubernetes master node. This will not be set if high availability is configured on the cluster (v1.21+)
+             * @example 68.183.121.157
+             */
+            readonly ipv4?: string;
+            /**
+             * @description The base URL of the API server on the Kubernetes master node.
+             * @example https://bd5f5959-5e1e-4205-a714-a914373942af.k8s.ondigitalocean.com
+             */
+            readonly endpoint?: string;
+            /**
+             * @description An array of tags applied to the Kubernetes cluster. All clusters are automatically tagged `k8s` and `k8s:$K8S_CLUSTER_ID`. <br><br>Requires `tag:read` scope.
+             * @example [
+             *       "k8s",
+             *       "k8s:bd5f5959-5e1e-4205-a714-a914373942af",
+             *       "production",
+             *       "web-team"
+             *     ]
+             */
+            tags?: string[];
+            /** @description An object specifying the details of the worker nodes available to the Kubernetes cluster. */
+            node_pools: components["schemas"]["kubernetes_node_pool"][];
+            maintenance_policy?: components["schemas"]["maintenance_policy"];
+            /**
+             * @description A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
+             * @default false
+             * @example true
+             */
+            auto_upgrade: boolean;
+            /** @description An object containing a `state` attribute whose value is set to a string indicating the current status of the cluster. */
+            readonly status?: {
+                /**
+                 * @description A string indicating the current status of the cluster.
+                 * @example provisioning
+                 * @enum {string}
+                 */
+                state?: "running" | "provisioning" | "degraded" | "error" | "deleted" | "upgrading" | "deleting";
+                /**
+                 * @description An optional message providing additional information about the current cluster state.
+                 * @example provisioning
+                 */
+                message?: string;
+            };
+            /**
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was created.
+             * @example 2018-11-15T16:00:11Z
+             */
+            readonly created_at?: string;
+            /**
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was last updated.
+             * @example 2018-11-15T16:00:11Z
+             */
+            readonly updated_at?: string;
+            /**
+             * @description A boolean value indicating whether surge upgrade is enabled/disabled for the cluster. Surge upgrade makes cluster upgrades fast and reliable by bringing up new nodes before destroying the outdated nodes.
+             * @default false
+             * @example true
+             */
+            surge_upgrade: boolean;
+            /**
+             * @description A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled.
+             * @default false
+             * @example true
+             */
+            ha: boolean;
+            /**
+             * @description A read-only boolean value indicating if a container registry is integrated with the cluster.
+             * @example true
+             */
+            readonly registry_enabled?: boolean;
+            /**
+             * @description An array of integrated DOCR registries.
+             * @example [
+             *       "registry-a",
+             *       "registry-b"
+             *     ]
+             */
+            registries?: string[] | null;
+            control_plane_firewall?: components["schemas"]["control_plane_firewall"];
+            cluster_autoscaler_configuration?: components["schemas"]["cluster_autoscaler_configuration"];
+            routing_agent?: components["schemas"]["routing_agent"];
+            amd_gpu_device_plugin?: components["schemas"]["amd_gpu_device_plugin"];
+            amd_gpu_device_metrics_exporter_plugin?: components["schemas"]["amd_gpu_device_metrics_exporter_plugin"];
+            nvidia_gpu_device_plugin?: components["schemas"]["nvidia_gpu_device_plugin"];
+            rdma_shared_dev_plugin?: components["schemas"]["rdma_shared_dev_plugin"];
+        };
         cluster: {
             /**
              * Format: uuid
@@ -13312,7 +17331,7 @@ export interface components {
             service_subnet?: string;
             /**
              * Format: uuid
-             * @description A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.
+             * @description A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.<br><br>Requires `vpc:read` scope.
              * @example c33931f2-a26a-4e61-b85c-4e95a2ec431b
              */
             vpc_uuid?: string;
@@ -13327,7 +17346,7 @@ export interface components {
              */
             readonly endpoint?: string;
             /**
-             * @description An array of tags applied to the Kubernetes cluster. All clusters are automatically tagged `k8s` and `k8s:$K8S_CLUSTER_ID`.
+             * @description An array of tags to apply to the Kubernetes cluster. All clusters are automatically tagged `k8s` and `k8s:$K8S_CLUSTER_ID`. <br><br>Requires `tag:read` and `tag:create` scope, as well as `tag:delete` if existing tags are getting removed.
              * @example [
              *       "k8s",
              *       "k8s:bd5f5959-5e1e-4205-a714-a914373942af",
@@ -13389,6 +17408,12 @@ export interface components {
              */
             readonly registry_enabled?: boolean;
             control_plane_firewall?: components["schemas"]["control_plane_firewall"];
+            cluster_autoscaler_configuration?: components["schemas"]["cluster_autoscaler_configuration"];
+            routing_agent?: components["schemas"]["routing_agent"];
+            amd_gpu_device_plugin?: components["schemas"]["amd_gpu_device_plugin"];
+            amd_gpu_device_metrics_exporter_plugin?: components["schemas"]["amd_gpu_device_metrics_exporter_plugin"];
+            nvidia_gpu_device_plugin?: components["schemas"]["nvidia_gpu_device_plugin"];
+            rdma_shared_dev_plugin?: components["schemas"]["rdma_shared_dev_plugin"];
         };
         cluster_update: {
             /**
@@ -13426,6 +17451,12 @@ export interface components {
              */
             ha: boolean;
             control_plane_firewall?: components["schemas"]["control_plane_firewall"];
+            cluster_autoscaler_configuration?: components["schemas"]["cluster_autoscaler_configuration"];
+            routing_agent?: components["schemas"]["routing_agent"];
+            amd_gpu_device_plugin?: components["schemas"]["amd_gpu_device_plugin"];
+            amd_gpu_device_metrics_exporter_plugin?: components["schemas"]["amd_gpu_device_metrics_exporter_plugin"];
+            nvidia_gpu_device_plugin?: components["schemas"]["nvidia_gpu_device_plugin"];
+            rdma_shared_dev_plugin?: components["schemas"]["rdma_shared_dev_plugin"];
         };
         associated_kubernetes_resource: {
             /**
@@ -13705,6 +17736,16 @@ export interface components {
              */
             exclude_checks?: string[];
         };
+        cluster_registry: {
+            /**
+             * @description An array containing the UUIDs of Kubernetes clusters.
+             * @example [
+             *       "bd5f5959-5e1e-4205-a714-a914373942af",
+             *       "50c2f44c-011d-493e-aee5-361a4a0d1844"
+             *     ]
+             */
+            cluster_uuids?: string[];
+        };
         cluster_registries: {
             /**
              * @description An array containing the UUIDs of Kubernetes clusters.
@@ -13714,6 +17755,27 @@ export interface components {
              *     ]
              */
             cluster_uuids?: string[];
+            /**
+             * @description An array containing the registry names.
+             * @example [
+             *       "registry-a",
+             *       "registry-b"
+             *     ]
+             */
+            registries?: string[];
+        };
+        status_messages: {
+            /**
+             * @description Status information about the cluster which impacts it's lifecycle.
+             * @example Resource provisioning may be delayed while our team resolves an incident
+             */
+            readonly message?: string;
+            /**
+             * Format: date-time
+             * @description A timestamp in ISO8601 format that represents when the status message was emitted.
+             * @example 2018-11-15T16:00:11Z
+             */
+            readonly timestamp?: string;
         };
         /** @description An object specifying a forwarding rule for a load balancer. */
         forwarding_rule: {
@@ -13916,6 +17978,11 @@ export interface components {
              */
             readonly ip?: string;
             /**
+             * @description An attribute containing the public-facing IPv6 address of the load balancer.
+             * @example 2604:a880:800:14::85f5:c000
+             */
+            readonly ipv6?: string;
+            /**
              * @description How many nodes the load balancer contains. Each additional node increases the load balancer's ability to manage more connections. Load balancers can be scaled up or down, and you can change the number of nodes after creation up to once per hour. This field is currently not available in the AMS2, NYC2, or SFO1 regions. Use the `size` field to scale load balancers that reside in these regions.
              * @default 1
              * @example 3
@@ -14003,6 +18070,13 @@ export interface components {
              */
             network: "EXTERNAL" | "INTERNAL";
             /**
+             * @description A string indicating whether the load balancer will support IPv4 or both IPv4 and IPv6 networking. This property cannot be updated after creating the load balancer.
+             * @default IPV4
+             * @example IPV4
+             * @enum {string}
+             */
+            network_stack: "IPV4" | "DUALSTACK";
+            /**
              * @description A string indicating whether the load balancer should be a standard regional HTTP load balancer, a regional network load balancer that routes traffic at the TCP/UDP transport layer, or a global load balancer.
              * @default REGIONAL
              * @example REGIONAL
@@ -14020,6 +18094,13 @@ export interface components {
              *     ]
              */
             target_load_balancer_ids?: string[];
+            /**
+             * @description A string indicating the policy for the TLS cipher suites used by the load balancer. The possible values are `DEFAULT` or `STRONG`. The default value is `DEFAULT`.
+             * @default DEFAULT
+             * @example STRONG
+             * @enum {string}
+             */
+            tls_cipher_policy: "DEFAULT" | "STRONG";
         };
         load_balancer: components["schemas"]["load_balancer_base"] & {
             region?: unknown & components["schemas"]["region"];
@@ -14256,7 +18337,7 @@ export interface components {
              * @description The destination type. `opensearch_dbaas` for a DigitalOcean managed OpenSearch
              *     cluster or `opensearch_ext` for an externally managed one.
              * @example opensearch_dbaas
-             * @enum {unknown}
+             * @enum {string}
              */
             type?: "opensearch_dbaas" | "opensearch_ext";
             config?: components["schemas"]["opensearch_config_omit_credentials"];
@@ -14305,7 +18386,7 @@ export interface components {
             /**
              * @description The destination type. `opensearch_dbaas` for a DigitalOcean managed OpenSearch
              *     cluster or `opensearch_ext` for an externally managed one.
-             * @enum {unknown}
+             * @enum {string}
              */
             type: "opensearch_dbaas" | "opensearch_ext";
             config: components["schemas"]["opensearch_config_request"];
@@ -14369,7 +18450,7 @@ export interface components {
              * @description The destination type. `opensearch_dbaas` for a DigitalOcean managed OpenSearch
              *     cluster or `opensearch_ext` for an externally managed one.
              * @example opensearch_dbaas
-             * @enum {unknown}
+             * @enum {string}
              */
             type?: "opensearch_dbaas" | "opensearch_ext";
             config: components["schemas"]["opensearch_config"];
@@ -14390,6 +18471,446 @@ export interface components {
             destination?: components["schemas"]["destination"];
             /** @description List of resources identified by their URNs. */
             resources?: components["schemas"]["sink_resource"][];
+        };
+        nfs_response: {
+            /**
+             * @description The unique identifier of the NFS share.
+             * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+             */
+            readonly id: string;
+            /**
+             * @description The human-readable name of the share.
+             * @example sammy-share-drive
+             */
+            name: string;
+            /**
+             * @description The desired/provisioned size of the share in GiB (Gibibytes). Must be >= 50.
+             * @example 1024
+             */
+            size_gib: number;
+            /**
+             * @description The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+             * @example atl1
+             */
+            region: string;
+            /**
+             * @description The current status of the share.
+             * @example ACTIVE
+             * @enum {string}
+             */
+            readonly status: "CREATING" | "ACTIVE" | "FAILED" | "DELETED";
+            /**
+             * Format: date-time
+             * @description Timestamp for when the NFS share was created.
+             * @example 2023-01-01T00:00:00Z
+             */
+            readonly created_at: string;
+            /**
+             * @description List of VPC IDs that should be able to access the share.
+             * @example [
+             *       "796c6fe3-2a1d-4da2-9f3e-38239827dc91"
+             *     ]
+             */
+            vpc_ids?: string[];
+            /**
+             * @description Path at which the share will be available, to be mounted at a target of the user's choice within the client
+             * @example /123456/your-nfs-share-uuid
+             */
+            mount_path?: string;
+            /**
+             * @description The host IP of the NFS server that will be accessible from the associated VPC
+             * @example 10.128.32.2
+             */
+            host?: string;
+        };
+        nfs_list_response: {
+            shares?: components["schemas"]["nfs_response"][];
+        };
+        nfs_request: {
+            /**
+             * @description The human-readable name of the share.
+             * @example my-nfs-share
+             */
+            name: string;
+            /**
+             * @description The desired/provisioned size of the share in GiB (Gibibytes). Must be >= 50.
+             * @example 50
+             */
+            size_gib: number;
+            /**
+             * @description The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+             * @example atl1
+             */
+            region: string;
+            /**
+             * @description List of VPC IDs that should be able to access the share.
+             * @example [
+             *       "796c6fe3-2a1d-4da2-9f3e-38239827dc91"
+             *     ]
+             */
+            vpc_ids: string[];
+            /**
+             * @description The performance tier of the share.
+             * @example standard
+             */
+            performance_tier?: string;
+        };
+        nfs_create_response: {
+            share?: components["schemas"]["nfs_response"];
+        };
+        nfs_get_response: {
+            share?: components["schemas"]["nfs_response"];
+        };
+        /** @description Specifies the action that will be taken on the NFS share. */
+        nfs_action: {
+            /**
+             * @description The type of action to initiate for the NFS share (such as resize or snapshot).
+             * @example resize
+             * @enum {string}
+             */
+            type: "resize" | "snapshot";
+            /**
+             * @description The DigitalOcean region slug (e.g. atl1, nyc2) where the NFS snapshot resides.
+             * @example atl1
+             */
+            region?: string;
+        };
+        nfs_action_resize: components["schemas"]["nfs_action"] & {
+            params?: {
+                /**
+                 * @description The new size for the NFS share.
+                 * @example 2048
+                 */
+                size_gib: number;
+            };
+        };
+        nfs_action_snapshot: components["schemas"]["nfs_action"] & {
+            params?: {
+                /**
+                 * @description Snapshot name of the NFS share
+                 * @example daily-backup
+                 */
+                name: string;
+            };
+        };
+        nfs_action_attach: components["schemas"]["nfs_action"] & {
+            params?: {
+                /**
+                 * @description The ID of the VPC to which the NFS share will be attached
+                 * @example vpc-id-123
+                 */
+                vpc_id: string;
+            };
+        };
+        nfs_action_detach: components["schemas"]["nfs_action"] & {
+            params?: {
+                /**
+                 * @description The ID of the VPC from which the NFS share will be detached
+                 * @example vpc-id-123
+                 */
+                vpc_id: string;
+            };
+        };
+        nfs_action_switch_performance_tier: components["schemas"]["nfs_action"] & {
+            params?: {
+                /**
+                 * @description The performance tier to which the NFS share will be switched (e.g., standard, high).
+                 * @example standard
+                 */
+                performance_tier: string;
+            };
+        };
+        /** @description Action response of an NFS share. */
+        nfs_actions_response: {
+            /** @description The action that was submitted. */
+            action: {
+                /**
+                 * @description The DigitalOcean region slug where the resource is located.
+                 * @example atl1
+                 */
+                region_slug: string;
+                /**
+                 * Format: uuid
+                 * @description The unique identifier of the resource on which the action is being performed.
+                 * @example b5eb9e60-6750-4f3f-90b6-8296966eaf35
+                 */
+                resource_id: string;
+                /**
+                 * @description The type of resource on which the action is being performed.
+                 * @example network_file_share
+                 * @enum {string}
+                 */
+                resource_type: "network_file_share" | "network_file_share_snapshot";
+                /**
+                 * Format: date-time
+                 * @description The timestamp when the action was started.
+                 * @example 2025-10-14T11:55:31.615157397Z
+                 */
+                started_at: string;
+                /**
+                 * @description The current status of the action.
+                 * @example in-progress
+                 * @enum {string}
+                 */
+                status: "in-progress" | "completed" | "errored";
+                /**
+                 * @description The type of action being performed.
+                 * @example resize
+                 */
+                type: string;
+            };
+        };
+        /** @description Represents an NFS snapshot. */
+        nfs_snapshot_response: {
+            /**
+             * @description The unique identifier of the snapshot.
+             * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+             */
+            id: string;
+            /**
+             * @description The human-readable name of the snapshot.
+             * @example daily-backup
+             */
+            name: string;
+            /**
+             * Format: uint64
+             * @description The size of the snapshot in GiB.
+             * @example 1024
+             */
+            size_gib: number;
+            /**
+             * @description The DigitalOcean region slug where the snapshot is located.
+             * @example atl1
+             */
+            region: string;
+            /**
+             * @description The current status of the snapshot.
+             * @example CREATING
+             * @enum {string}
+             */
+            status: "UNKNOWN" | "CREATING" | "ACTIVE" | "FAILED" | "DELETED";
+            /**
+             * Format: date-time
+             * @description The timestamp when the snapshot was created.
+             * @example 2023-11-14T16:29:21Z
+             */
+            created_at: string;
+            /**
+             * Format: uuid
+             * @description The unique identifier of the share from which this snapshot was created.
+             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+             */
+            share_id: string;
+        };
+        nfs_snapshot_list_response: {
+            snapshots?: components["schemas"]["nfs_snapshot_response"][];
+        };
+        nfs_snapshot_get_response: {
+            snapshot?: components["schemas"]["nfs_snapshot_response"];
+        };
+        partner_attachment: {
+            /**
+             * Format: string
+             * @description A unique ID that can be used to identify and reference the partner attachment.
+             * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+             */
+            readonly id?: string;
+            /**
+             * @description The name of the partner attachment. Must be unique and may only contain alphanumeric characters, dashes, and periods.
+             * @example env.prod-partner-network-connect
+             */
+            name?: string;
+            /**
+             * @description The current operational state of the attachment.
+             * @example active
+             */
+            readonly state?: string;
+            /**
+             * @description The bandwidth (in Mbps) of the connection.
+             * @example 1000
+             */
+            connection_bandwidth_in_mbps?: number;
+            /**
+             * @description The region where the partner attachment is located.
+             * @example nyc
+             */
+            region?: string;
+            /**
+             * @description The Network as a Service (NaaS) provider for the partner attachment.
+             * @example megaport
+             */
+            naas_provider?: string;
+            /**
+             * @description An array of VPC network IDs.
+             * @example [
+             *       "c140286f-e6ce-4131-8b7b-df4590ce8d6a",
+             *       "994a2735-dc84-11e8-80bc-3cfdfea9fba1"
+             *     ]
+             */
+            vpc_ids?: string[];
+            /** @description The BGP configuration for the partner attachment. */
+            bgp?: {
+                /**
+                 * @description ASN of the local router.
+                 * @example 64532
+                 */
+                local_asn?: number;
+                /**
+                 * @description ASN of the peer router
+                 * @example 64532
+                 */
+                peer_asn?: number;
+                /**
+                 * @description IP of the DigitalOcean router
+                 * @example 169.254.0.1/29
+                 */
+                local_router_ip?: string;
+                /**
+                 * @description IP of the peer router
+                 * @example 169.254.0.1/29
+                 */
+                peer_router_ip?: string;
+            };
+            /**
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format.
+             * @example 2020-03-13T19:20:47.442049222Z
+             */
+            readonly created_at?: string;
+            /**
+             * @description Associated partner attachment UUID
+             * @example 34259a41-0ca6-4a6b-97dd-a22bcab900dd
+             */
+            readonly parent_uuid?: string;
+            /**
+             * @description An array of associated partner attachment UUIDs.
+             * @example [
+             *       "ee1ad867-7026-44a5-bfcc-2587b52e1291"
+             *     ]
+             */
+            readonly children?: string[];
+        };
+        partner_attachment_writable: {
+            /**
+             * @description The name of the partner attachment. Must be unique and may only contain alphanumeric characters, dashes, and periods.
+             * @example env.prod-partner-network-connect
+             */
+            name: string;
+            /**
+             * @description Bandwidth (in Mbps) of the connection.
+             * @example 1000
+             * @enum {integer}
+             */
+            connection_bandwidth_in_mbps: 1000 | 2000 | 5000 | 10000;
+            /**
+             * @description The region to create the partner attachment.
+             * @example nyc
+             * @enum {string}
+             */
+            region: "nyc" | "sfo" | "fra" | "ams" | "sgp";
+            /** @example megaport */
+            naas_provider: string;
+            /**
+             * @description An array of VPCs IDs.
+             * @example [
+             *       "c140286f-e6ce-4131-8b7b-df4590ce8d6a",
+             *       "994a2735-dc84-11e8-80bc-3cfdfea9fba1"
+             *     ]
+             */
+            vpc_ids: string[];
+            /**
+             * @description Optional associated partner attachment UUID
+             * @example d594cf8d-8c79-4bc5-aec1-6f9b211506b3
+             */
+            parent_uuid?: string;
+            /** @description Optional BGP configurations */
+            bgp?: {
+                /**
+                 * @description IP of the DO router
+                 * @example 169.254.0.1/29
+                 */
+                local_router_ip: string;
+                /**
+                 * @description IP of the Naas Provider router
+                 * @example 169.254.0.6/29
+                 */
+                peer_router_ip: string;
+                /**
+                 * @description ASN of the peer router
+                 * @example 64532
+                 */
+                peer_router_asn: number;
+                /**
+                 * @description BGP Auth Key
+                 * @example 0xsNnb1pwQlowdoMySEfWwk4I
+                 */
+                auth_key: string;
+            };
+            /**
+             * @description Optional redundancy zone for the partner attachment.
+             * @example MEGAPORT_BLUE
+             * @enum {string}
+             */
+            redundancy_zone?: "MEGAPORT_BLUE" | "MEGAPORT_RED";
+        };
+        partner_attachment_updatable: {
+            /**
+             * @description The name of the partner attachment. Must be unique and may only contain alphanumeric characters, dashes, and periods.
+             * @example env.prod-partner-network-connect
+             */
+            name: string;
+        } | {
+            /**
+             * @description An array of VPCs IDs.
+             * @example [
+             *       "c140286f-e6ce-4131-8b7b-df4590ce8d6a",
+             *       "994a2735-dc84-11e8-80bc-3cfdfea9fba1"
+             *     ]
+             */
+            vpc_ids: string[];
+        } | {
+            /** @description BGP configurations */
+            bgp?: {
+                /**
+                 * @description IP of the DO router
+                 * @example 169.254.0.1/29
+                 */
+                local_router_ip: string;
+                /**
+                 * @description IP of the NaaS provider router
+                 * @example 169.254.0.6/29
+                 */
+                peer_router_ip: string;
+                /**
+                 * @description ASN of the peer router
+                 * @example 64532
+                 */
+                peer_router_asn: number;
+                /**
+                 * @description BGP Auth Key
+                 * @example 0xsNnb1pwQlowdoMySEfWwk4I
+                 */
+                auth_key: string;
+            };
+        };
+        partner_attachment_service_key: {
+            /** @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4 */
+            readonly value?: string;
+            /**
+             * Format: date-time
+             * @description A time value given in the ISO 8601 combined date and time format.
+             * @example 2020-03-13T19:20:47.442049222Z
+             */
+            readonly created_at?: string;
+            /** @example CREATED */
+            readonly state?: string;
+        };
+        partner_attachment_remote_route: {
+            /**
+             * @description A CIDR block representing a remote route.
+             * @example 10.10.10.0/24
+             */
+            readonly cidr?: string;
         };
         project_base: {
             /**
@@ -14489,12 +19010,41 @@ export interface components {
         };
         project_assignment: {
             /**
-             * @description A list of uniform resource names (URNs) to be added to a project.
+             * @description A list of uniform resource names (URNs) to be added to a project. Only resources that you are authorized to see will be returned.
              * @example [
              *       "do:droplet:13457723"
              *     ]
              */
             resources?: components["schemas"]["urn"][];
+        };
+        registry_base: {
+            /**
+             * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
+             * @example example
+             */
+            name?: string;
+            /**
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format that represents when the registry was created.
+             * @example 2020-03-21T16:02:37Z
+             */
+            readonly created_at?: string;
+            /**
+             * @description Slug of the region where registry data is stored
+             * @example fra1
+             */
+            region?: string;
+            /**
+             * @description The amount of storage used in the registry in bytes.
+             * @example 29393920
+             */
+            readonly storage_usage_bytes?: number;
+            /**
+             * Format: date-time
+             * @description The time at which the storage usage was updated. Storage usage is calculated asynchronously, and may not immediately reflect pushes to the registry.
+             * @example 2020-11-04T21:39:49.530562231Z
+             */
+            readonly storage_usage_bytes_updated_at?: string;
         };
         subscription_tier_base: {
             /**
@@ -14553,37 +19103,10 @@ export interface components {
              */
             readonly updated_at?: string;
         };
-        registry: {
-            /**
-             * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
-             * @example example
-             */
-            name?: string;
-            /**
-             * Format: date-time
-             * @description A time value given in ISO8601 combined date and time format that represents when the registry was created.
-             * @example 2020-03-21T16:02:37Z
-             */
-            readonly created_at?: string;
-            /**
-             * @description Slug of the region where registry data is stored
-             * @example fra1
-             */
-            region?: string;
-            /**
-             * @description The amount of storage used in the registry in bytes.
-             * @example 29393920
-             */
-            readonly storage_usage_bytes?: number;
-            /**
-             * Format: date-time
-             * @description The time at which the storage usage was updated. Storage usage is calculated asynchronously, and may not immediately reflect pushes to the registry.
-             * @example 2020-11-04T21:39:49.530562231Z
-             */
-            readonly storage_usage_bytes_updated_at?: string;
+        registry: components["schemas"]["registry_base"] & {
             subscription?: unknown & components["schemas"]["subscription"];
         };
-        registry_create: {
+        multiregistry_create: {
             /**
              * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
              * @example example
@@ -14594,14 +19117,15 @@ export interface components {
              * @example basic
              * @enum {string}
              */
-            subscription_tier_slug: "starter" | "basic" | "professional";
+            subscription_tier_slug?: "starter" | "basic" | "professional";
             /**
              * @description Slug of the region where registry data is stored. When not provided, a region will be selected.
              * @example fra1
              * @enum {string}
              */
-            region?: "nyc3" | "sfo3" | "ams3" | "sgp1" | "fra1";
+            region?: "nyc3" | "sfo3" | "sfo2" | "ams3" | "sgp1" | "fra1" | "blr1" | "syd1";
         };
+        multiregistry: components["schemas"]["registry_base"];
         docker_credentials: {
             auths?: {
                 "registry.digitalocean.com"?: {
@@ -14613,68 +19137,66 @@ export interface components {
                 };
             };
         };
-        validate_registry: {
+        subscription_tier_extended: {
             /**
-             * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
-             * @example example
+             * @description A boolean indicating whether your account it eligible to use a certain subscription tier.
+             * @example true
              */
-            name: string;
+            eligible?: boolean;
+            /**
+             * @description If your account is not eligible to use a certain subscription tier, this will include a list of reasons that prevent you from using the tier.
+             * @example [
+             *       "OverRepositoryLimit"
+             *     ]
+             */
+            eligibility_reasons?: ("OverRepositoryLimit" | "OverStorageLimit")[];
         };
-        repository_tag: {
+        garbage_collection: {
+            /**
+             * @description A string specifying the UUID of the garbage collection.
+             * @example eff0feee-49c7-4e8f-ba5c-a320c109c8a8
+             */
+            uuid?: string;
             /**
              * @description The name of the container registry.
              * @example example
              */
             registry_name?: string;
             /**
-             * @description The name of the repository.
-             * @example repo-1
+             * @description The current status of this garbage collection.
+             * @example requested
+             * @enum {string}
              */
-            repository?: string;
-            /**
-             * @description The name of the tag.
-             * @example latest
-             */
-            tag?: string;
-            /**
-             * @description The digest of the manifest associated with the tag.
-             * @example sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
-             */
-            manifest_digest?: string;
-            /**
-             * @description The compressed size of the tag in bytes.
-             * @example 2803255
-             */
-            compressed_size_bytes?: number;
-            /**
-             * @description The uncompressed size of the tag in bytes (this size is calculated asynchronously so it may not be immediately available).
-             * @example 5861888
-             */
-            size_bytes?: number;
+            status?: "requested" | "waiting for write JWTs to expire" | "scanning manifests" | "deleting unreferenced blobs" | "cancelling" | "failed" | "succeeded" | "cancelled";
             /**
              * Format: date-time
-             * @description The time the tag was last updated.
-             * @example 2020-04-09T23:54:25Z
+             * @description The time the garbage collection was created.
+             * @example 2020-10-30T21:03:24Z
+             */
+            created_at?: string;
+            /**
+             * Format: date-time
+             * @description The time the garbage collection was last updated.
+             * @example 2020-10-30T21:03:44Z
              */
             updated_at?: string;
+            /**
+             * @description The number of blobs deleted as a result of this garbage collection.
+             * @example 42
+             */
+            blobs_deleted?: number;
+            /**
+             * @description The number of bytes freed as a result of this garbage collection.
+             * @example 667
+             */
+            freed_bytes?: number;
         };
-        repository: {
+        update_registry: {
             /**
-             * @description The name of the container registry.
-             * @example example
+             * @description A boolean value indicating that the garbage collection should be cancelled.
+             * @example true
              */
-            registry_name?: string;
-            /**
-             * @description The name of the repository.
-             * @example repo-1
-             */
-            name?: string;
-            latest_tag?: components["schemas"]["repository_tag"];
-            /**
-             * @description The number of tags in the repository.
-             * @example 1
-             */
-            tag_count?: number;
+            cancel?: boolean;
         };
         repository_blob: {
             /**
@@ -14755,66 +19277,95 @@ export interface components {
              */
             manifest_count?: number;
         };
-        garbage_collection: {
-            /**
-             * @description A string specifying the UUID of the garbage collection.
-             * @example eff0feee-49c7-4e8f-ba5c-a320c109c8a8
-             */
-            uuid?: string;
+        repository_tag: {
             /**
              * @description The name of the container registry.
              * @example example
              */
             registry_name?: string;
             /**
-             * @description The current status of this garbage collection.
-             * @example requested
-             * @enum {string}
+             * @description The name of the repository.
+             * @example repo-1
              */
-            status?: "requested" | "waiting for write JWTs to expire" | "scanning manifests" | "deleting unreferenced blobs" | "cancelling" | "failed" | "succeeded" | "cancelled";
+            repository?: string;
+            /**
+             * @description The name of the tag.
+             * @example latest
+             */
+            tag?: string;
+            /**
+             * @description The digest of the manifest associated with the tag.
+             * @example sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
+             */
+            manifest_digest?: string;
+            /**
+             * @description The compressed size of the tag in bytes.
+             * @example 2803255
+             */
+            compressed_size_bytes?: number;
+            /**
+             * @description The uncompressed size of the tag in bytes (this size is calculated asynchronously so it may not be immediately available).
+             * @example 5861888
+             */
+            size_bytes?: number;
             /**
              * Format: date-time
-             * @description The time the garbage collection was created.
-             * @example 2020-10-30T21:03:24Z
-             */
-            created_at?: string;
-            /**
-             * Format: date-time
-             * @description The time the garbage collection was last updated.
-             * @example 2020-10-30T21:03:44Z
+             * @description The time the tag was last updated.
+             * @example 2020-04-09T23:54:25Z
              */
             updated_at?: string;
-            /**
-             * @description The number of blobs deleted as a result of this garbage collection.
-             * @example 42
-             */
-            blobs_deleted?: number;
-            /**
-             * @description The number of bytes freed as a result of this garbage collection.
-             * @example 667
-             */
-            freed_bytes?: number;
         };
-        update_registry: {
+        validate_registry: {
             /**
-             * @description A boolean value indicating that the garbage collection should be cancelled.
-             * @example true
+             * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
+             * @example example
              */
-            cancel?: boolean;
+            name: string;
         };
-        subscription_tier_extended: {
+        registry_create: {
             /**
-             * @description A boolean indicating whether your account it eligible to use a certain subscription tier.
-             * @example true
+             * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
+             * @example example
              */
-            eligible?: boolean;
+            name: string;
             /**
-             * @description If your account is not eligible to use a certain subscription tier, this will include a list of reasons that prevent you from using the tier.
-             * @example [
-             *       "OverRepositoryLimit"
-             *     ]
+             * @description The slug of the subscription tier to sign up for. Valid values can be retrieved using the options endpoint.
+             * @example basic
+             * @enum {string}
              */
-            eligibility_reasons?: ("OverRepositoryLimit" | "OverStorageLimit")[];
+            subscription_tier_slug: "starter" | "basic" | "professional";
+            /**
+             * @description Slug of the region where registry data is stored. When not provided, a region will be selected.
+             * @example fra1
+             * @enum {string}
+             */
+            region?: "nyc3" | "sfo3" | "ams3" | "sgp1" | "fra1";
+        };
+        repository: {
+            /**
+             * @description The name of the container registry.
+             * @example example
+             */
+            registry_name?: string;
+            /**
+             * @description The name of the repository.
+             * @example repo-1
+             */
+            name?: string;
+            latest_tag?: components["schemas"]["repository_tag"];
+            /**
+             * @description The number of tags in the repository.
+             * @example 1
+             */
+            tag_count?: number;
+        };
+        registry_run_gc: {
+            /**
+             * @description Type of the garbage collection to run against this registry
+             * @example unreferenced blobs only
+             * @enum {string}
+             */
+            type?: "untagged manifests only" | "unreferenced blobs only" | "untagged manifests and unreferenced blobs";
         };
         neighbor_ids: {
             /**
@@ -14842,7 +19393,7 @@ export interface components {
             ip?: string;
             region?: components["schemas"]["region"] & Record<string, never>;
             /**
-             * @description The Droplet that the reserved IP has been assigned to. When you query a reserved IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null.
+             * @description The Droplet that the reserved IP has been assigned to. When you query a reserved IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null.<br><br>Requires `droplet:read` scope.
              * @example null
              */
             droplet?: (Record<string, never> | null) | components["schemas"]["droplet"];
@@ -14853,7 +19404,7 @@ export interface components {
             locked?: boolean;
             /**
              * Format: uuid
-             * @description The UUID of the project to which the reserved IP currently belongs.
+             * @description The UUID of the project to which the reserved IP currently belongs.<br><br>Requires `project:read` scope.
              * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
              */
             project_id?: string;
@@ -14904,6 +19455,205 @@ export interface components {
              */
             type: "unassign";
         };
+        reserved_ipv6_list: {
+            reserved_ipv6s?: {
+                /**
+                 * Format: ipv6
+                 * @description The public IP address of the reserved IPv6. It also serves as its identifier.
+                 * @example 2409:40d0:f7:1017:74b4:3a96:105e:4c6e
+                 */
+                ip?: string;
+                /**
+                 * @description The region that the reserved IPv6 is reserved to. When you query a reserved IPv6,the region_slug will be returned.
+                 * @example nyc3
+                 */
+                region_slug?: string;
+                /**
+                 * Format: date-time
+                 * @example 2020-01-01T00:00:00Z
+                 */
+                reserved_at?: string;
+                /**
+                 * @description Requires `droplet:read` scope.
+                 * @example null
+                 */
+                droplet?: (Record<string, never> | null) | components["schemas"]["droplet"];
+            }[];
+        };
+        /** Reserve to Region */
+        reserved_ipv6_create: {
+            /**
+             * @description The slug identifier for the region the reserved IPv6 will be reserved to.
+             * @example nyc3
+             */
+            region_slug: string;
+        };
+        reserved_ipv6: {
+            /**
+             * Format: ipv6
+             * @description The public IP address of the reserved IPv6. It also serves as its identifier.
+             * @example 2409:40d0:f7:1017:74b4:3a96:105e:4c6e
+             */
+            ip?: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the reserved IPv6 was reserved.
+             * @example 2024-11-20T11:08:30Z
+             */
+            reserved_at?: string;
+            /**
+             * @description The region that the reserved IPv6 is reserved to. When you query a reserved IPv6,the region_slug will be returned.
+             * @example nyc3
+             */
+            region_slug?: string;
+            /** @example null */
+            droplet?: (Record<string, never> | null) | components["schemas"]["droplet"];
+        };
+        reserved_ipv6_action_type: {
+            /**
+             * @description The type of action to initiate for the reserved IPv6.
+             * @enum {string}
+             */
+            type: "assign" | "unassign";
+        };
+        reserved_ipv6_action_assign: Omit<components["schemas"]["reserved_ipv6_action_type"], "type"> & {
+            /**
+             * @description The ID of the Droplet that the reserved IPv6 will be assigned to.
+             * @example 758604968
+             */
+            droplet_id: number;
+        } & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "assign";
+        };
+        reserved_ipv6_action_unassign: Omit<components["schemas"]["reserved_ipv6_action_type"], "type"> & Record<string, never> & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "unassign";
+        };
+        byoip_prefix: {
+            /**
+             * @description Unique identifier for the BYOIP prefix
+             * @example f47ac10b-58cc-4372-a567-0e02b2c3d479
+             */
+            uuid?: string;
+            /**
+             * @description Name of the BYOIP prefix
+             * @example
+             */
+            name?: string;
+            /**
+             * @description The IP prefix in CIDR notation
+             * @example 203.0.113.0/24
+             */
+            prefix?: string;
+            /**
+             * @description Status of the BYOIP prefix
+             * @example active
+             */
+            status?: string;
+            /**
+             * @description Region where the BYOIP prefix is located
+             * @example nyc3
+             */
+            region?: string;
+            /** @description List of validation statuses for the BYOIP prefix */
+            validations?: {
+                /**
+                 * @description Name of the validation
+                 * @example SIGNATURE HASH
+                 */
+                name?: string;
+                /**
+                 * @description Status of the validation
+                 * @example FAILED
+                 */
+                status?: string;
+                /**
+                 * @description Additional notes or details about the validation
+                 * @example
+                 */
+                note?: string;
+            }[];
+            /**
+             * @description Reason for failure, if applicable
+             * @example
+             */
+            failure_reason?: string;
+            /**
+             * @description Whether the BYOIP prefix is locked
+             * @example false
+             */
+            locked?: boolean;
+            /**
+             * @description Whether the BYOIP prefix is being advertised
+             * @example true
+             */
+            advertised?: boolean;
+            /**
+             * @description The ID of the project associated with the BYOIP prefix
+             * @example 12345678-1234-1234-1234-123456789012
+             */
+            project_id?: string;
+        };
+        byoip_prefix_create: {
+            /**
+             * @description The IP prefix in CIDR notation to bring
+             * @example 203.11.13.0/24
+             */
+            prefix: string;
+            /**
+             * @description The region where the prefix will be created
+             * @example nyc3
+             */
+            region: string;
+            /**
+             * @description The signature hash for the prefix creation request
+             * @example <sample-signature>
+             */
+            signature: string;
+        };
+        byoip_prefix_update: {
+            /**
+             * @description Whether the BYOIP prefix should be advertised
+             * @example true
+             */
+            advertise?: boolean;
+        };
+        byoip_prefix_resource: {
+            /**
+             * Format: int64
+             * @description Unique identifier for the allocation
+             * @example 10001
+             */
+            id?: number;
+            /**
+             * @description The BYOIP prefix UUID
+             * @example f47ac10b-58cc-4372-a567-0e02b2c3d479
+             */
+            byoip?: string;
+            /**
+             * @description Region where the allocation is made
+             * @example nyc3
+             */
+            region?: string;
+            /**
+             * @description The resource associated with the allocation
+             * @example do:droplet:fa3c10b-58cc-4372-a567-0e02b2c3d479
+             */
+            resource?: string;
+            /**
+             * Format: date-time
+             * @description Time when the allocation was assigned
+             * @example 2025-06-25T12:00:00Z
+             */
+            assigned_at?: string;
+        };
         snapshots: {
             /**
              * @description The unique identifier for the snapshot.
@@ -14923,7 +19673,7 @@ export interface components {
              */
             resource_type: "droplet" | "volume";
             /**
-             * @description An array of Tags the snapshot has been tagged with.
+             * @description An array of Tags the snapshot has been tagged with.<br><br>Requires `tag:read` scope.
              * @example [
              *       "web",
              *       "env:prod"
@@ -14931,6 +19681,48 @@ export interface components {
              */
             tags: string[] | null;
         };
+        grant: {
+            /**
+             * @description The name of the bucket.
+             * @example my-bucket
+             */
+            bucket: string;
+            /**
+             * @description The permission to grant to the user. Possible values are `read`, `readwrite`, `fullaccess`, or an empty string.
+             * @example read
+             */
+            permission: string;
+        };
+        key: {
+            /**
+             * @description The access key's name.
+             * @example my-access-key
+             */
+            name?: string;
+            /**
+             * @description The list of permissions for the access key.
+             * @default []
+             */
+            grants: components["schemas"]["grant"][];
+            /**
+             * @description The Access Key ID used to access a bucket.
+             * @example DOACCESSKEYEXAMPLE
+             */
+            readonly access_key?: string;
+            /**
+             * Format: date-time
+             * @description The date and time the key was created.
+             * @example 2018-07-19T15:04:16Z
+             */
+            readonly created_at?: string;
+        };
+        key_create_response: {
+            /**
+             * @description The secret key used to access the bucket. We return secret keys only once upon creation. Make sure to copy the key and securely store it.
+             * @example DOSECRETKEYEXAMPLE
+             */
+            readonly secret_key?: string;
+        } & components["schemas"]["key"];
         /** @description Tagged Resource Statistics include metadata regarding the resource type that has been tagged. */
         tags_metadata: {
             /**
@@ -14962,7 +19754,10 @@ export interface components {
              */
             name?: string;
             /**
-             * @description An embedded object containing key value pairs of resource type and resource statistics. It also includes a count of the total number of resources tagged with the current tag as well as a `last_tagged_uri` attribute set to the last resource tagged with the current tag.
+             * @description An embedded object containing key value pairs of resource type and resource statistics.
+             *     It also includes a count of the total number of resources tagged with the current tag as well as a `last_tagged_uri` attribute set to the last resource tagged with the current tag.
+             *
+             *     This will only include resources that you are authorized to see. For example, to see tagged Droplets, include the `droplet:read` scope.
              * @example {
              *       "count": 5,
              *       "last_tagged_uri": "https://api.digitalocean.com/v2/images/7555620",
@@ -14989,11 +19784,11 @@ export interface components {
              *     }
              */
             readonly resources?: components["schemas"]["tags_metadata"] & {
-                droplets?: components["schemas"]["tags_metadata"];
-                imgages?: components["schemas"]["tags_metadata"];
-                volumes?: components["schemas"]["tags_metadata"];
-                volume_snapshots?: components["schemas"]["tags_metadata"];
-                databases?: components["schemas"]["tags_metadata"];
+                droplets?: unknown & components["schemas"]["tags_metadata"];
+                imgages?: unknown & components["schemas"]["tags_metadata"];
+                volumes?: unknown & components["schemas"]["tags_metadata"];
+                volume_snapshots?: unknown & components["schemas"]["tags_metadata"];
+                databases?: unknown & components["schemas"]["tags_metadata"];
             };
         };
         error_with_root_causes: {
@@ -15015,7 +19810,11 @@ export interface components {
         };
         tags_resource: {
             /**
-             * @description An array of objects containing resource_id and resource_type  attributes.
+             * @description An array of objects containing resource_id and resource_type
+             *     attributes.
+             *
+             *     This response will only include resources that you are authorized to see.
+             *     For example, to see Droplets, include the `droplet:read` scope.
              * @example [
              *       {
              *         "resource_id": "9569411",
@@ -15045,7 +19844,15 @@ export interface components {
                 resource_type?: "droplet" | "image" | "volume" | "volume_snapshot";
             }[];
         };
-        volume_base: {
+        /**
+         * @description A flat array of tag names as strings applied to the resource. <br><br>Requires `tag:read` scope.
+         * @example [
+         *       "base-image",
+         *       "prod"
+         *     ]
+         */
+        tags_array_read: string[] | null;
+        volume_base_read: {
             /**
              * @description The unique identifier for the block storage volume.
              * @example 506f78a4-e098-11e5-ad9f-000f53306ae1
@@ -15076,9 +19883,9 @@ export interface components {
              * @example 2020-03-02T17:00:49Z
              */
             readonly created_at?: string;
-            tags?: components["schemas"]["tags_array"];
+            tags?: components["schemas"]["tags_array_read"];
         };
-        volume_full: components["schemas"]["volume_base"] & {
+        volume_full: components["schemas"]["volume_base_read"] & {
             /**
              * @example {
              *       "name": "New York 1",
@@ -15119,6 +19926,39 @@ export interface components {
              * @example example
              */
             filesystem_label?: string;
+        };
+        volume_base: {
+            /**
+             * @description The unique identifier for the block storage volume.
+             * @example 506f78a4-e098-11e5-ad9f-000f53306ae1
+             */
+            readonly id?: string;
+            /**
+             * @description An array containing the IDs of the Droplets the volume is attached to. Note that at this time, a volume can only be attached to a single Droplet.
+             * @example []
+             */
+            readonly droplet_ids?: number[] | null;
+            /**
+             * @description A human-readable name for the block storage volume. Must be lowercase and be composed only of numbers, letters and "-", up to a limit of 64 characters. The name must begin with a letter.
+             * @example example
+             */
+            name?: string;
+            /**
+             * @description An optional free-form text field to describe a block storage volume.
+             * @example Block store for examples
+             */
+            description?: string;
+            /**
+             * @description The size of the block storage volume in GiB (1024^3). This field does not apply  when creating a volume from a snapshot.
+             * @example 10
+             */
+            size_gigabytes?: number;
+            /**
+             * @description A time value given in ISO8601 combined date and time format that represents when the block storage volume was created.
+             * @example 2020-03-02T17:00:49Z
+             */
+            readonly created_at?: string;
+            tags?: components["schemas"]["tags_array"];
         };
         volume_snapshot_id: {
             /**
@@ -15212,6 +20052,11 @@ export interface components {
              */
             default?: boolean;
         };
+        /**
+         * @description The uniform resource name (URN) for the resource in the format do:resource_type:resource_id.
+         * @example do:vpc:5a4981aa-9653-4bd1-bef5-d6bff52042e4
+         */
+        "urn-2": string;
         vpc_base: {
             /**
              * Format: uuid
@@ -15219,7 +20064,7 @@ export interface components {
              * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
              */
             readonly id?: string;
-            urn?: components["schemas"]["urn"];
+            urn?: components["schemas"]["urn-2"];
             /**
              * Format: date-time
              * @description A time value given in ISO8601 combined date and time format.
@@ -15279,6 +20124,186 @@ export interface components {
             name?: string;
         };
         vpc_peering: components["schemas"]["vpc_peering_base"] & components["schemas"]["vpc_peering_create"] & components["schemas"]["vpc_peering_updatable"];
+        vpc_nat_gateway_get: {
+            /**
+             * @description The unique identifier for the VPC NAT gateway. This is automatically generated upon creation.
+             * @example 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+             */
+            id?: string;
+            /**
+             * @description The human-readable name of the VPC NAT gateway.
+             * @example my-vpc-nat-gateway
+             */
+            name?: string;
+            /**
+             * @description The type of the VPC NAT gateway.
+             * @example PUBLIC
+             * @enum {string}
+             */
+            type?: "PUBLIC";
+            /**
+             * @description The current state of the VPC NAT gateway.
+             * @example ACTIVE
+             * @enum {string}
+             */
+            state?: "NEW" | "PROVISIONING" | "ACTIVE" | "DELETING" | "ERROR" | "INVALID";
+            /**
+             * @description The region in which the VPC NAT gateway is created.
+             * @example tor1
+             * @enum {string}
+             */
+            region?: "nyc1" | "nyc2" | "nyc3" | "ams2" | "ams3" | "sfo1" | "sfo2" | "sfo3" | "sgp1" | "lon1" | "fra1" | "tor1" | "blr1" | "syd1" | "atl1";
+            /**
+             * @description The size of the VPC NAT gateway.
+             * @example 1
+             */
+            size?: number;
+            /** @description An array of VPCs associated with the VPC NAT gateway. */
+            vpcs?: {
+                /**
+                 * @description The unique identifier of the VPC to which the NAT gateway is attached.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                vpc_uuid?: string;
+                /**
+                 * @description The gateway IP address of the VPC NAT gateway.
+                 * @example 10.118.0.35
+                 */
+                gateway_ip?: string;
+            }[];
+            /** @description An object containing egress information for the VPC NAT gateway. */
+            egresses?: {
+                /** @description An array of public gateway IP addresses for the VPC NAT gateway. */
+                public_gateways?: {
+                    /**
+                     * @description IPv4 address of the public gateway.
+                     * @example 174.138.113.197
+                     */
+                    ipv4?: string;
+                }[];
+            };
+            /**
+             * @description The UDP timeout in seconds for the VPC NAT gateway.
+             * @example 30
+             */
+            udp_timeout_seconds?: number;
+            /**
+             * @description The ICMP timeout in seconds for the VPC NAT gateway.
+             * @example 30
+             */
+            icmp_timeout_seconds?: number;
+            /**
+             * @description The TCP timeout in seconds for the VPC NAT gateway.
+             * @example 30
+             */
+            tcp_timeout_seconds?: number;
+            /**
+             * The creation time of the VPC NAT gateway.
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format that represents when the VPC NAT gateway was created.
+             * @example 2020-07-28T18:00:00Z
+             */
+            created_at?: string;
+            /**
+             * The last update time of the VPC NAT gateway.
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format that represents when the VPC NAT gateway was last updated.
+             * @example 2020-07-28T18:00:00Z
+             */
+            updated_at?: string;
+        };
+        vpc_nat_gateway_create: {
+            /**
+             * @description The human-readable name of the VPC NAT gateway.
+             * @example my-vpc-nat-gateway
+             */
+            name: string;
+            /**
+             * @description The type of the VPC NAT gateway.
+             * @example PUBLIC
+             * @enum {string}
+             */
+            type: "PUBLIC";
+            /**
+             * @description The region in which the VPC NAT gateway is created.
+             * @example tor1
+             * @enum {string}
+             */
+            region: "nyc1" | "nyc2" | "nyc3" | "ams2" | "ams3" | "sfo1" | "sfo2" | "sfo3" | "sgp1" | "lon1" | "fra1" | "tor1" | "blr1" | "syd1" | "atl1";
+            /**
+             * @description The size of the VPC NAT gateway.
+             * @example 1
+             */
+            size: number;
+            /** @description An array of VPCs associated with the VPC NAT gateway. */
+            vpcs: {
+                /**
+                 * @description The unique identifier of the VPC to which the NAT gateway is attached.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                vpc_uuid: string;
+                /**
+                 * @description The classification of the NAT gateway as the default egress route for the VPC traffic.
+                 * @example true
+                 */
+                default_gateway?: boolean;
+            }[];
+            /**
+             * @description The UDP timeout in seconds for the VPC NAT gateway.
+             * @example 30
+             */
+            udp_timeout_seconds?: number;
+            /**
+             * @description The ICMP timeout in seconds for the VPC NAT gateway.
+             * @example 30
+             */
+            icmp_timeout_seconds?: number;
+            /**
+             * @description The TCP timeout in seconds for the VPC NAT gateway.
+             * @example 30
+             */
+            tcp_timeout_seconds?: number;
+        };
+        vpc_nat_gateway_update: {
+            /**
+             * @description The human-readable name of the VPC NAT gateway.
+             * @example my-vpc-nat-gateway
+             */
+            name: string;
+            /**
+             * @description The size of the VPC NAT gateway.
+             * @example 1
+             */
+            size: number;
+            /** @description An array of VPCs associated with the VPC NAT gateway. */
+            vpcs?: {
+                /**
+                 * @description The unique identifier of the VPC to which the NAT gateway is attached.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                vpc_uuid?: string;
+                /**
+                 * @description The classification of the NAT gateway as the default egress route for the VPC traffic.
+                 * @example false
+                 */
+                default_gateway?: boolean;
+            }[];
+            /**
+             * @description The UDP timeout in seconds for the VPC NAT gateway.
+             * @example 30
+             */
+            udp_timeout_seconds?: number;
+            /**
+             * @description The ICMP timeout in seconds for the VPC NAT gateway.
+             * @example 30
+             */
+            icmp_timeout_seconds?: number;
+            /**
+             * @description The TCP timeout in seconds for the VPC NAT gateway.
+             * @example 30
+             */
+            tcp_timeout_seconds?: number;
+        };
         check_base: {
             /**
              * Format: uuid
@@ -15418,27 +20443,33 @@ export interface components {
         alert: components["schemas"]["alert_base"] & components["schemas"]["alert_updatable"];
         /** @description A Chatbot */
         apiChatbot: {
-            /** @example "example string" */
+            /**
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            allowed_domains?: string[];
+            /** @example example string */
             button_background_color?: string;
-            /** @example "example string" */
+            /** @example example string */
             logo?: string;
             /**
              * @description Name of chatbot
-             * @example "example name"
+             * @example example name
              */
             name?: string;
-            /** @example "example string" */
+            /** @example example string */
             primary_color?: string;
-            /** @example "example string" */
+            /** @example example string */
             secondary_color?: string;
-            /** @example "example string" */
+            /** @example example string */
             starting_message?: string;
         };
         /** @description Agent Chatbot Identifier */
         apiAgentChatbotIdentifier: {
             /**
              * @description Agent chatbot identifier
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             agent_chatbot_identifier?: string;
         };
@@ -15447,7 +20478,7 @@ export interface components {
          * @example STATUS_UNKNOWN
          * @enum {string}
          */
-        apiDeploymentStatus: "STATUS_UNKNOWN" | "STATUS_WAITING_FOR_DEPLOYMENT" | "STATUS_DEPLOYING" | "STATUS_RUNNING" | "STATUS_FAILED" | "STATUS_WAITING_FOR_UNDEPLOYMENT" | "STATUS_UNDEPLOYING" | "STATUS_UNDEPLOYMENT_FAILED" | "STATUS_DELETED";
+        apiDeploymentStatus: "STATUS_UNKNOWN" | "STATUS_WAITING_FOR_DEPLOYMENT" | "STATUS_DEPLOYING" | "STATUS_RUNNING" | "STATUS_FAILED" | "STATUS_WAITING_FOR_UNDEPLOYMENT" | "STATUS_UNDEPLOYING" | "STATUS_UNDEPLOYMENT_FAILED" | "STATUS_DELETED" | "STATUS_BUILDING";
         /**
          * @description - VISIBILITY_UNKNOWN: The status of the deployment is unknown
          *      - VISIBILITY_DISABLED: The deployment is disabled and will no longer service requests
@@ -15469,7 +20500,7 @@ export interface components {
             created_at?: string;
             /**
              * @description Name
-             * @example "example name"
+             * @example example name
              */
             name?: string;
             status?: components["schemas"]["apiDeploymentStatus"];
@@ -15481,25 +20512,25 @@ export interface components {
             updated_at?: string;
             /**
              * @description Access your deployed agent here
-             * @example "example string"
+             * @example example string
              */
             url?: string;
             /**
              * @description Unique id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
             visibility?: components["schemas"]["apiDeploymentVisibility"];
         };
         /** @description Agreement Description */
         apiAgreement: {
-            /** @example "example string" */
+            /** @example example string */
             description?: string;
-            /** @example "example name" */
+            /** @example example name */
             name?: string;
-            /** @example "example string" */
+            /** @example example string */
             url?: string;
-            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
             uuid?: string;
         };
         /**
@@ -15507,7 +20538,20 @@ export interface components {
          * @example MODEL_PROVIDER_DIGITALOCEAN
          * @enum {string}
          */
-        apiModelProvider: "MODEL_PROVIDER_DIGITALOCEAN" | "MODEL_PROVIDER_ANTHROPIC";
+        apiModelProvider: "MODEL_PROVIDER_DIGITALOCEAN" | "MODEL_PROVIDER_ANTHROPIC" | "MODEL_PROVIDER_OPENAI";
+        /**
+         * @description - MODEL_USECASE_UNKNOWN: The use case of the model is unknown
+         *      - MODEL_USECASE_AGENT: The model maybe used in an agent
+         *      - MODEL_USECASE_FINETUNED: The model maybe used for fine tuning
+         *      - MODEL_USECASE_KNOWLEDGEBASE: The model maybe used for knowledge bases (embedding models)
+         *      - MODEL_USECASE_GUARDRAIL: The model maybe used for guardrails
+         *      - MODEL_USECASE_REASONING: The model usecase for reasoning
+         *      - MODEL_USECASE_SERVERLESS: The model usecase for serverless inference
+         * @default MODEL_USECASE_UNKNOWN
+         * @example MODEL_USECASE_UNKNOWN
+         * @enum {string}
+         */
+        apiModelUsecase: "MODEL_USECASE_UNKNOWN" | "MODEL_USECASE_AGENT" | "MODEL_USECASE_FINETUNED" | "MODEL_USECASE_KNOWLEDGEBASE" | "MODEL_USECASE_GUARDRAIL" | "MODEL_USECASE_REASONING" | "MODEL_USECASE_SERVERLESS";
         /** @description Version Information about a Model */
         apiModelVersion: {
             /**
@@ -15540,12 +20584,12 @@ export interface components {
             created_at?: string;
             /**
              * @description Internally used name
-             * @example "example name"
+             * @example example name
              */
             inference_name?: string;
             /**
              * @description Internally used version
-             * @example "example string"
+             * @example example string
              */
             inference_version?: string;
             /**
@@ -15553,16 +20597,34 @@ export interface components {
              * @example true
              */
             is_foundational?: boolean;
+            /**
+             * Format: int64
+             * @description Default chunking size limit to show in UI
+             * @example 123
+             */
+            kb_default_chunk_size?: number;
+            /**
+             * Format: int64
+             * @description Maximum chunk size limit of model
+             * @example 123
+             */
+            kb_max_chunk_size?: number;
+            /**
+             * Format: int64
+             * @description Minimum chunking size token limits if model supports KNOWLEDGEBASE usecase
+             * @example 123
+             */
+            kb_min_chunk_size?: number;
             /** @description Additional meta data */
             metadata?: Record<string, never>;
             /**
              * @description Name of the model
-             * @example "example name"
+             * @example example name
              */
             name?: string;
             /**
              * @description Unique id of the model, this model is based on
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             parent_uuid?: string;
             provider?: components["schemas"]["apiModelProvider"];
@@ -15579,22 +20641,144 @@ export interface components {
             upload_complete?: boolean;
             /**
              * @description Download url
-             * @example "example string"
+             * @example example string
              */
             url?: string;
             /**
+             * @description Usecases of the model
+             * @example [
+             *       "MODEL_USECASE_AGENT",
+             *       "MODEL_USECASE_GUARDRAIL"
+             *     ]
+             */
+            usecases?: components["schemas"]["apiModelUsecase"][];
+            /**
              * @description Unique id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
             version?: components["schemas"]["apiModelVersion"];
+        };
+        /**
+         * @description - RETRIEVAL_METHOD_UNKNOWN: The retrieval method is unknown
+         *      - RETRIEVAL_METHOD_REWRITE: The retrieval method is rewrite
+         *      - RETRIEVAL_METHOD_STEP_BACK: The retrieval method is step back
+         *      - RETRIEVAL_METHOD_SUB_QUERIES: The retrieval method is sub queries
+         *      - RETRIEVAL_METHOD_NONE: The retrieval method is none
+         * @default RETRIEVAL_METHOD_UNKNOWN
+         * @example RETRIEVAL_METHOD_UNKNOWN
+         * @enum {string}
+         */
+        apiRetrievalMethod: "RETRIEVAL_METHOD_UNKNOWN" | "RETRIEVAL_METHOD_REWRITE" | "RETRIEVAL_METHOD_STEP_BACK" | "RETRIEVAL_METHOD_SUB_QUERIES" | "RETRIEVAL_METHOD_NONE";
+        apiAgentTemplateGuardrail: {
+            /**
+             * Format: int32
+             * @description Priority of the guardrail
+             * @example 123
+             */
+            priority?: number;
+            /**
+             * @description Uuid of the guardrail
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            uuid?: string;
+        };
+        /**
+         * @default DATA_SOURCE_STATUS_UNKNOWN
+         * @example DATA_SOURCE_STATUS_UNKNOWN
+         * @enum {string}
+         */
+        apiIndexedDataSourceStatus: "DATA_SOURCE_STATUS_UNKNOWN" | "DATA_SOURCE_STATUS_IN_PROGRESS" | "DATA_SOURCE_STATUS_UPDATED" | "DATA_SOURCE_STATUS_PARTIALLY_UPDATED" | "DATA_SOURCE_STATUS_NOT_UPDATED" | "DATA_SOURCE_STATUS_FAILED" | "DATA_SOURCE_STATUS_CANCELLED";
+        apiIndexedDataSource: {
+            /**
+             * Format: date-time
+             * @description Timestamp when data source completed indexing
+             * @example 2023-01-01T00:00:00Z
+             */
+            completed_at?: string;
+            /**
+             * @description Uuid of the indexed data source
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            data_source_uuid?: string;
+            /**
+             * @description A detailed error description
+             * @example example string
+             */
+            error_details?: string;
+            /**
+             * @description A string code provinding a hint which part of the system experienced an error
+             * @example example string
+             */
+            error_msg?: string;
+            /**
+             * Format: uint64
+             * @description Total count of files that have failed
+             * @example 12345
+             */
+            failed_item_count?: string;
+            /**
+             * Format: uint64
+             * @description Total count of files that have been indexed
+             * @example 12345
+             */
+            indexed_file_count?: string;
+            /**
+             * Format: uint64
+             * @description Total count of files that have been indexed
+             * @example 12345
+             */
+            indexed_item_count?: string;
+            /**
+             * Format: uint64
+             * @description Total count of files that have been removed
+             * @example 12345
+             */
+            removed_item_count?: string;
+            /**
+             * Format: uint64
+             * @description Total count of files that have been skipped
+             * @example 12345
+             */
+            skipped_item_count?: string;
+            /**
+             * Format: date-time
+             * @description Timestamp when data source started indexing
+             * @example 2023-01-01T00:00:00Z
+             */
+            started_at?: string;
+            status?: components["schemas"]["apiIndexedDataSourceStatus"];
+            /**
+             * Format: uint64
+             * @description Total size of files in data source in bytes
+             * @example 12345
+             */
+            total_bytes?: string;
+            /**
+             * Format: uint64
+             * @description Total size of files in data source in bytes that have been indexed
+             * @example 12345
+             */
+            total_bytes_indexed?: string;
+            /**
+             * Format: uint64
+             * @description Total file count in the data source
+             * @example 12345
+             */
+            total_file_count?: string;
         };
         /**
          * @default BATCH_JOB_PHASE_UNKNOWN
          * @example BATCH_JOB_PHASE_UNKNOWN
          * @enum {string}
          */
-        apiBatchJobPhase: "BATCH_JOB_PHASE_UNKNOWN" | "BATCH_JOB_PHASE_PENDING" | "BATCH_JOB_PHASE_RUNNING" | "BATCH_JOB_PHASE_SUCCEEDED" | "BATCH_JOB_PHASE_FAILED" | "BATCH_JOB_PHASE_ERROR";
+        apiBatchJobPhase: "BATCH_JOB_PHASE_UNKNOWN" | "BATCH_JOB_PHASE_PENDING" | "BATCH_JOB_PHASE_RUNNING" | "BATCH_JOB_PHASE_SUCCEEDED" | "BATCH_JOB_PHASE_FAILED" | "BATCH_JOB_PHASE_ERROR" | "BATCH_JOB_PHASE_CANCELLED";
+        /**
+         * @default INDEX_JOB_STATUS_UNKNOWN
+         * @example INDEX_JOB_STATUS_UNKNOWN
+         * @enum {string}
+         */
+        apiIndexJobStatus: "INDEX_JOB_STATUS_UNKNOWN" | "INDEX_JOB_STATUS_PARTIAL" | "INDEX_JOB_STATUS_IN_PROGRESS" | "INDEX_JOB_STATUS_COMPLETED" | "INDEX_JOB_STATUS_FAILED" | "INDEX_JOB_STATUS_NO_CHANGES" | "INDEX_JOB_STATUS_PENDING" | "INDEX_JOB_STATUS_CANCELLED";
         /** @description IndexingJob description */
         apiIndexingJob: {
             /**
@@ -15609,6 +20793,8 @@ export interface components {
              * @example 2023-01-01T00:00:00Z
              */
             created_at?: string;
+            /** @description Details on Data Sources included in the Indexing Job */
+            data_source_jobs?: components["schemas"]["apiIndexedDataSource"][];
             /**
              * @example [
              *       "example string"
@@ -15621,8 +20807,13 @@ export interface components {
              */
             finished_at?: string;
             /**
+             * @description Boolean value to determine if the indexing job details are available
+             * @example true
+             */
+            is_report_available?: boolean;
+            /**
              * @description Knowledge base id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             knowledge_base_uuid?: string;
             phase?: components["schemas"]["apiBatchJobPhase"];
@@ -15631,9 +20822,10 @@ export interface components {
              * @example 2023-01-01T00:00:00Z
              */
             started_at?: string;
+            status?: components["schemas"]["apiIndexJobStatus"];
             /**
              * Format: int64
-             * @description Number of tokens
+             * @description Number of tokens [This field is deprecated]
              * @example 123
              */
             tokens?: number;
@@ -15644,6 +20836,12 @@ export interface components {
              */
             total_datasources?: number;
             /**
+             * Format: uint64
+             * @description Total Tokens Consumed By the Indexing Job
+             * @example 12345
+             */
+            total_tokens?: string;
+            /**
              * Format: date-time
              * @description Last modified
              * @example 2023-01-01T00:00:00Z
@@ -15651,7 +20849,7 @@ export interface components {
             updated_at?: string;
             /**
              * @description Unique id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
         };
@@ -15669,9 +20867,9 @@ export interface components {
              * @example 2023-01-01T00:00:00Z
              */
             created_at?: string;
-            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
             database_id?: string;
-            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
             embedding_model_uuid?: string;
             /**
              * @description Whether the knowledge base is public or not
@@ -15681,14 +20879,14 @@ export interface components {
             last_indexing_job?: components["schemas"]["apiIndexingJob"];
             /**
              * @description Name of knowledge base
-             * @example "example name"
+             * @example example name
              */
             name?: string;
-            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
             project_id?: string;
             /**
              * @description Region code
-             * @example "example string"
+             * @example example string
              */
             region?: string;
             /**
@@ -15707,15 +20905,23 @@ export interface components {
             /**
              * Format: int64
              * @description Id of user that created the knowledge base
-             * @example "12345"
+             * @example 12345
              */
             user_id?: string;
             /**
              * @description Unique id for knowledge base
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
         };
+        /**
+         * @description - AGENT_TEMPLATE_TYPE_STANDARD: The standard agent template
+         *      - AGENT_TEMPLATE_TYPE_ONE_CLICK: The one click agent template
+         * @default AGENT_TEMPLATE_TYPE_STANDARD
+         * @example AGENT_TEMPLATE_TYPE_STANDARD
+         * @enum {string}
+         */
+        apiAgentTemplateType: "AGENT_TEMPLATE_TYPE_STANDARD" | "AGENT_TEMPLATE_TYPE_ONE_CLICK";
         /** @description Represents an AgentTemplate entity */
         apiAgentTemplate: {
             /**
@@ -15725,13 +20931,15 @@ export interface components {
              */
             created_at?: string;
             /**
-             * @description Description of the agent template
-             * @example "example string"
+             * @description Deprecated - Use summary instead
+             * @example example string
              */
             description?: string;
+            /** @description List of guardrails associated with the agent template */
+            guardrails?: components["schemas"]["apiAgentTemplateGuardrail"][];
             /**
              * @description Instructions for the agent template
-             * @example "example string"
+             * @example example string
              */
             instruction?: string;
             /**
@@ -15743,6 +20951,11 @@ export interface components {
             /** @description List of knowledge bases associated with the agent template */
             knowledge_bases?: components["schemas"]["apiKnowledgeBase"][];
             /**
+             * @description The long description of the agent template
+             * @example "Enhance your customer service with an AI agent designed to provide consistent, helpful, and accurate support across multiple channels. This template creates an agent that can answer product questions, troubleshoot common issues, process simple requests, and maintain a friendly, on-brand voice throughout customer interactions. Reduce response times, handle routine inquiries efficiently, and ensure your customers feel heard and helped."
+             */
+            long_description?: string;
+            /**
              * Format: int64
              * @description The max_tokens setting for the agent template
              * @example 123
@@ -15751,15 +20964,33 @@ export interface components {
             model?: components["schemas"]["apiModel"];
             /**
              * @description Name of the agent template
-             * @example "example name"
+             * @example example name
              */
             name?: string;
+            /**
+             * @description The short description of the agent template
+             * @example "This template has been designed with question-answer and conversational use cases in mind. It comes with validated agent instructions, fine-tuned model settings, and preconfigured guardrails defined for customer support-related use cases."
+             */
+            short_description?: string;
+            /**
+             * @description The summary of the agent template
+             * @example example string
+             */
+            summary?: string;
+            /**
+             * @description List of tags associated with the agent template
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            tags?: string[];
             /**
              * Format: float
              * @description The temperature setting for the agent template
              * @example 123
              */
             temperature?: number;
+            template_type?: components["schemas"]["apiAgentTemplateType"];
             /**
              * Format: float
              * @description The top_p setting for the agent template
@@ -15774,7 +21005,7 @@ export interface components {
             updated_at?: string;
             /**
              * @description Unique id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
         };
@@ -15829,10 +21060,16 @@ export interface components {
              */
             project_id?: string;
             /**
+             * @description Whether the agent should provide in-response citations
+             * @example true
+             */
+            provide_citations?: boolean;
+            /**
              * @description Region code
              * @example "tor1"
              */
             region?: string;
+            retrieval_method?: components["schemas"]["apiRetrievalMethod"];
             /**
              * Format: date-time
              * @description Creation of route date / time
@@ -15897,27 +21134,32 @@ export interface components {
              * @example "12345678-1234-1234-1234-123456789012"
              */
             uuid?: string;
+            /**
+             * @description The latest version of the agent
+             * @example example string
+             */
+            version_hash?: string;
         };
         /** @description Information about how to reach other pages */
         apiPages: {
             /**
              * @description First page
-             * @example "example string"
+             * @example example string
              */
             first?: string;
             /**
              * @description Last page
-             * @example "example string"
+             * @example example string
              */
             last?: string;
             /**
              * @description Next page
-             * @example "example string"
+             * @example example string
              */
             next?: string;
             /**
              * @description Previous page
-             * @example "example string"
+             * @example example string
              */
             previous?: string;
         };
@@ -15956,6 +21198,11 @@ export interface components {
         /** @description Parameters for Agent Creation */
         apiCreateAgentInputPublic: {
             /**
+             * @description Optional Anthropic API key ID to use with Anthropic models
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            anthropic_key_uuid?: string;
+            /**
              * @description A text description of the agent, not used in inference
              * @example "My Agent Description"
              */
@@ -15972,6 +21219,8 @@ export interface components {
              *     ]
              */
             knowledge_base_uuid?: string[];
+            /** @example "12345678-1234-1234-1234-123456789012" */
+            model_provider_key_uuid?: string;
             /**
              * @description Identifier for the foundation model.
              * @example "12345678-1234-1234-1234-123456789012"
@@ -15982,6 +21231,11 @@ export interface components {
              * @example "My Agent"
              */
             name?: string;
+            /**
+             * @description Optional OpenAI API key ID to use with OpenAI models
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            open_ai_key_uuid?: string;
             /**
              * @description The id of the DigitalOcean project this agent will belong to
              * @example "12345678-1234-1234-1234-123456789012"
@@ -15999,6 +21253,11 @@ export interface components {
              *     ]
              */
             tags?: string[];
+            /**
+             * @description Identifier for the workspace
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            workspace_uuid?: string;
         };
         /** @description Anthropic API Key Info */
         apiAnthropicAPIKeyInfo: {
@@ -16011,7 +21270,7 @@ export interface components {
             /**
              * Format: uint64
              * @description Created by user id from DO
-             * @example "12345"
+             * @example 12345
              */
             created_by?: string;
             /**
@@ -16022,7 +21281,7 @@ export interface components {
             deleted_at?: string;
             /**
              * @description Name
-             * @example "example name"
+             * @example example name
              */
             name?: string;
             /**
@@ -16033,7 +21292,7 @@ export interface components {
             updated_at?: string;
             /**
              * @description Uuid
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
         };
@@ -16048,7 +21307,7 @@ export interface components {
             /**
              * Format: uint64
              * @description Created by
-             * @example "12345"
+             * @example 12345
              */
             created_by?: string;
             /**
@@ -16059,14 +21318,14 @@ export interface components {
             deleted_at?: string;
             /**
              * @description Name
-             * @example "example name"
+             * @example example name
              */
             name?: string;
-            /** @example "example string" */
+            /** @example example string */
             secret_key?: string;
             /**
              * @description Uuid
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
         };
@@ -16074,7 +21333,7 @@ export interface components {
         apiAgentAPIKey: {
             /**
              * @description Api key
-             * @example "example string"
+             * @example example string
              */
             api_key?: string;
         };
@@ -16091,6 +21350,11 @@ export interface components {
             /** @description Child agents */
             child_agents?: components["schemas"]["apiAgent"][];
             /**
+             * @description Whether conversation logs are enabled for the agent
+             * @example true
+             */
+            conversation_logs_enabled?: boolean;
+            /**
              * Format: date-time
              * @description Creation date / time
              * @example 2023-01-01T00:00:00Z
@@ -16099,17 +21363,17 @@ export interface components {
             deployment?: components["schemas"]["apiDeployment"];
             /**
              * @description Description of agent
-             * @example "example string"
+             * @example example string
              */
             description?: string;
             functions?: components["schemas"]["apiAgentFunction"][];
             /** @description The guardrails the agent is attached to */
             guardrails?: components["schemas"]["apiAgentGuardrail"][];
-            /** @example "example string" */
+            /** @example example string */
             if_case?: string;
             /**
              * @description Agent instruction. Instructions help your agent to perform its job effectively. See [Write Effective Agent Instructions](https://docs.digitalocean.com/products/genai-platform/concepts/best-practices/#agent-instructions) for best practices.
-             * @example "example string"
+             * @example example string
              */
             instruction?: string;
             /**
@@ -16119,26 +21383,35 @@ export interface components {
             k?: number;
             /** @description Knowledge bases */
             knowledge_bases?: components["schemas"]["apiKnowledgeBase"][];
+            logging_config?: components["schemas"]["apiAgentLoggingConfig"];
             /**
              * Format: int64
              * @example 123
              */
             max_tokens?: number;
             model?: components["schemas"]["apiModel"];
+            model_provider_key?: components["schemas"]["apiModelProviderKeyInfo"];
             /**
              * @description Agent name
-             * @example "example name"
+             * @example example name
              */
             name?: string;
+            openai_api_key?: components["schemas"]["apiOpenAIAPIKeyInfo"];
             /** @description Parent agents */
             parent_agents?: components["schemas"]["apiAgent"][];
-            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
             project_id?: string;
             /**
+             * @description Whether the agent should provide in-response citations
+             * @example true
+             */
+            provide_citations?: boolean;
+            /**
              * @description Region code
-             * @example "example string"
+             * @example example string
              */
             region?: string;
+            retrieval_method?: components["schemas"]["apiRetrievalMethod"];
             /**
              * Format: date-time
              * @description Creation of route date / time
@@ -16147,15 +21420,15 @@ export interface components {
             route_created_at?: string;
             /**
              * Format: uint64
-             * @example "12345"
+             * @example 12345
              */
             route_created_by?: string;
             /**
              * @description Route name
-             * @example "example name"
+             * @example example name
              */
             route_name?: string;
-            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
             route_uuid?: string;
             /**
              * @description Agent tag to organize related resources
@@ -16183,26 +21456,41 @@ export interface components {
             updated_at?: string;
             /**
              * @description Access your agent under this url
-             * @example "example string"
+             * @example example string
              */
             url?: string;
             /**
              * Format: uint64
              * @description Id of user that created the agent
-             * @example "12345"
+             * @example 12345
              */
             user_id?: string;
             /**
              * @description Unique agent id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
+            /**
+             * @description The latest version of the agent
+             * @example example string
+             */
+            version_hash?: string;
+            /**
+             * @description VPC Egress IPs
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            vpc_egress_ips?: string[];
+            /** @example "12345678-1234-1234-1234-123456789012" */
+            vpc_uuid?: string;
+            workspace?: components["schemas"]["apiWorkspace"];
         };
         /** @description Description missing */
         apiAgentFunction: {
             /**
              * @description Api key
-             * @example "example string"
+             * @example example string
              */
             api_key?: string;
             /**
@@ -16212,18 +21500,24 @@ export interface components {
              */
             created_at?: string;
             /**
+             * Format: uint64
+             * @description Created by user id from DO
+             * @example 12345
+             */
+            created_by?: string;
+            /**
              * @description Agent description
-             * @example "example string"
+             * @example example string
              */
             description?: string;
-            /** @example "example name" */
+            /** @example example name */
             faas_name?: string;
-            /** @example "example name" */
+            /** @example example name */
             faas_namespace?: string;
             input_schema?: Record<string, never>;
             /**
              * @description Name
-             * @example "example name"
+             * @example example name
              */
             name?: string;
             output_schema?: Record<string, never>;
@@ -16235,12 +21529,12 @@ export interface components {
             updated_at?: string;
             /**
              * @description Download your agent here
-             * @example "example string"
+             * @example example string
              */
             url?: string;
             /**
              * @description Unique id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
         };
@@ -16252,25 +21546,25 @@ export interface components {
         apiGuardrailType: "GUARDRAIL_TYPE_UNKNOWN" | "GUARDRAIL_TYPE_JAILBREAK" | "GUARDRAIL_TYPE_SENSITIVE_DATA" | "GUARDRAIL_TYPE_CONTENT_MODERATION";
         /** @description A Agent Guardrail */
         apiAgentGuardrail: {
-            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
             agent_uuid?: string;
             /**
              * Format: date-time
              * @example 2023-01-01T00:00:00Z
              */
             created_at?: string;
-            /** @example "example string" */
+            /** @example example string */
             default_response?: string;
-            /** @example "example string" */
+            /** @example example string */
             description?: string;
-            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
             guardrail_uuid?: string;
             /** @example true */
             is_attached?: boolean;
             /** @example true */
             is_default?: boolean;
             metadata?: Record<string, never>;
-            /** @example "example name" */
+            /** @example example name */
             name?: string;
             /**
              * Format: int32
@@ -16283,7 +21577,335 @@ export interface components {
              * @example 2023-01-01T00:00:00Z
              */
             updated_at?: string;
-            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            uuid?: string;
+        };
+        apiAgentLoggingConfig: {
+            /**
+             * @description Galileo project identifier
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            galileo_project_id?: string;
+            /**
+             * @description Name of the Galileo project
+             * @example example name
+             */
+            galileo_project_name?: string;
+            /**
+             * @description Whether insights are enabled
+             * @example true
+             */
+            insights_enabled?: boolean;
+            /**
+             * Format: date-time
+             * @description Timestamp when insights were enabled
+             * @example 2023-01-01T00:00:00Z
+             */
+            insights_enabled_at?: string;
+            /**
+             * @description Identifier for the log stream
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            log_stream_id?: string;
+            /**
+             * @description Name of the log stream
+             * @example example name
+             */
+            log_stream_name?: string;
+        };
+        apiModelProviderKeyInfo: {
+            /**
+             * @description API key ID
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            api_key_uuid?: string;
+            /**
+             * Format: date-time
+             * @description Key creation date
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * Format: uint64
+             * @description Created by user id from DO
+             * @example 12345
+             */
+            created_by?: string;
+            /**
+             * Format: date-time
+             * @description Key deleted date
+             * @example 2023-01-01T00:00:00Z
+             */
+            deleted_at?: string;
+            /** @description Models supported by the openAI api key */
+            models?: components["schemas"]["apiModel"][];
+            /**
+             * @description Name of the key
+             * @example example name
+             */
+            name?: string;
+            provider?: components["schemas"]["apiModelProvider"];
+            /**
+             * Format: date-time
+             * @description Key last updated date
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+        };
+        /** @description OpenAI API Key Info */
+        apiOpenAIAPIKeyInfo: {
+            /**
+             * Format: date-time
+             * @description Key creation date
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * Format: uint64
+             * @description Created by user id from DO
+             * @example 12345
+             */
+            created_by?: string;
+            /**
+             * Format: date-time
+             * @description Key deleted date
+             * @example 2023-01-01T00:00:00Z
+             */
+            deleted_at?: string;
+            /** @description Models supported by the openAI api key */
+            models?: components["schemas"]["apiModel"][];
+            /**
+             * @description Name
+             * @example example name
+             */
+            name?: string;
+            /**
+             * Format: date-time
+             * @description Key last updated date
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Uuid
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            uuid?: string;
+        };
+        apiEvaluationDataset: {
+            /**
+             * Format: date-time
+             * @description Time created at.
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * @description Name of the dataset.
+             * @example example name
+             */
+            dataset_name?: string;
+            /**
+             * @description UUID of the dataset.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            dataset_uuid?: string;
+            /**
+             * Format: uint64
+             * @description The size of the dataset uploaded file in bytes.
+             * @example 12345
+             */
+            file_size?: string;
+            /**
+             * @description Does the dataset have a ground truth column?
+             * @example true
+             */
+            has_ground_truth?: boolean;
+            /**
+             * Format: int64
+             * @description Number of rows in the dataset.
+             * @example 123
+             */
+            row_count?: number;
+        };
+        /**
+         * @default METRIC_CATEGORY_UNSPECIFIED
+         * @example METRIC_CATEGORY_UNSPECIFIED
+         * @enum {string}
+         */
+        apiEvaluationMetricCategory: "METRIC_CATEGORY_UNSPECIFIED" | "METRIC_CATEGORY_CORRECTNESS" | "METRIC_CATEGORY_USER_OUTCOMES" | "METRIC_CATEGORY_SAFETY_AND_SECURITY" | "METRIC_CATEGORY_CONTEXT_QUALITY" | "METRIC_CATEGORY_MODEL_FIT";
+        /**
+         * @default METRIC_TYPE_UNSPECIFIED
+         * @example METRIC_TYPE_UNSPECIFIED
+         * @enum {string}
+         */
+        apiEvaluationMetricType: "METRIC_TYPE_UNSPECIFIED" | "METRIC_TYPE_GENERAL_QUALITY" | "METRIC_TYPE_RAG_AND_TOOL";
+        /**
+         * @default METRIC_VALUE_TYPE_UNSPECIFIED
+         * @example METRIC_VALUE_TYPE_UNSPECIFIED
+         * @enum {string}
+         */
+        apiEvaluationMetricValueType: "METRIC_VALUE_TYPE_UNSPECIFIED" | "METRIC_VALUE_TYPE_NUMBER" | "METRIC_VALUE_TYPE_STRING" | "METRIC_VALUE_TYPE_PERCENTAGE";
+        apiEvaluationMetric: {
+            category?: components["schemas"]["apiEvaluationMetricCategory"];
+            /** @example example string */
+            description?: string;
+            /**
+             * @description If true, the metric is inverted, meaning that a lower value is better.
+             * @example true
+             */
+            inverted?: boolean;
+            /** @example true */
+            is_metric_goal?: boolean;
+            /** @example example name */
+            metric_name?: string;
+            /**
+             * Format: int64
+             * @example 123
+             */
+            metric_rank?: number;
+            metric_type?: components["schemas"]["apiEvaluationMetricType"];
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            metric_uuid?: string;
+            metric_value_type?: components["schemas"]["apiEvaluationMetricValueType"];
+            /**
+             * Format: float
+             * @description The maximum value for the metric.
+             * @example 123
+             */
+            range_max?: number;
+            /**
+             * Format: float
+             * @description The minimum value for the metric.
+             * @example 123
+             */
+            range_min?: number;
+        };
+        apiStarMetric: {
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            metric_uuid?: string;
+            /** @example example name */
+            name?: string;
+            /**
+             * Format: float
+             * @description The success threshold for the star metric.
+             *     This is a value that the metric must reach to be considered successful.
+             * @example 123
+             */
+            success_threshold?: number;
+            /**
+             * Format: int32
+             * @description The success threshold for the star metric.
+             *     This is a percentage value between 0 and 100.
+             * @example 123
+             */
+            success_threshold_pct?: number;
+        };
+        apiEvaluationTestCase: {
+            /**
+             * Format: date-time
+             * @example 2023-01-01T00:00:00Z
+             */
+            archived_at?: string;
+            /**
+             * Format: date-time
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /** @example example@example.com */
+            created_by_user_email?: string;
+            /**
+             * Format: uint64
+             * @example 12345
+             */
+            created_by_user_id?: string;
+            dataset?: components["schemas"]["apiEvaluationDataset"];
+            /** @example example name */
+            dataset_name?: string;
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            dataset_uuid?: string;
+            /** @example example string */
+            description?: string;
+            /**
+             * Format: int32
+             * @example 123
+             */
+            latest_version_number_of_runs?: number;
+            metrics?: components["schemas"]["apiEvaluationMetric"][];
+            /** @example example name */
+            name?: string;
+            star_metric?: components["schemas"]["apiStarMetric"];
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            test_case_uuid?: string;
+            /**
+             * Format: int32
+             * @example 123
+             */
+            total_runs?: number;
+            /**
+             * Format: date-time
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /** @example example@example.com */
+            updated_by_user_email?: string;
+            /**
+             * Format: uint64
+             * @example 12345
+             */
+            updated_by_user_id?: string;
+            /**
+             * Format: int64
+             * @example 123
+             */
+            version?: number;
+        };
+        apiWorkspace: {
+            /** @description Agents */
+            agents?: components["schemas"]["apiAgent"][];
+            /**
+             * Format: date-time
+             * @description Creation date
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * Format: uint64
+             * @description The id of user who created this workspace
+             * @example 12345
+             */
+            created_by?: string;
+            /**
+             * @description The email of the user who created this workspace
+             * @example example@example.com
+             */
+            created_by_email?: string;
+            /**
+             * Format: date-time
+             * @description Deleted date
+             * @example 2023-01-01T00:00:00Z
+             */
+            deleted_at?: string;
+            /**
+             * @description Description of the workspace
+             * @example example string
+             */
+            description?: string;
+            /** @description Evaluations */
+            evaluation_test_cases?: components["schemas"]["apiEvaluationTestCase"][];
+            /**
+             * @description Name of the workspace
+             * @example example name
+             */
+            name?: string;
+            /**
+             * Format: date-time
+             * @description Update date
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Unique id
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
             uuid?: string;
         };
         /** @description Information about a newly created Agent */
@@ -16318,7 +21940,7 @@ export interface components {
              */
             agent_uuid?: string;
             /**
-             * @description Api key id
+             * @description API key ID
              * @example "12345678-1234-1234-1234-123456789012"
              */
             api_key_uuid?: string;
@@ -16418,6 +22040,37 @@ export interface components {
         apiUnlinkAgentFunctionOutput: {
             agent?: components["schemas"]["apiAgent"];
         };
+        apiAgentGuardrailInput: {
+            /**
+             * @description Guardrail uuid
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            guardrail_uuid?: string;
+            /**
+             * Format: int64
+             * @description Priority of the guardrail
+             * @example 123
+             */
+            priority?: number;
+        };
+        /** @description Information about linking an agent to a guardrail */
+        apiLinkAgentGuardrailsInputPublic: {
+            /**
+             * @description The UUID of the agent.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            agent_uuid?: string;
+            /** @description The list of guardrails to attach. */
+            guardrails?: components["schemas"]["apiAgentGuardrailInput"][];
+        };
+        /** @description Information about an updated agent */
+        apiLinkAgentGuardrailOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        /** @description UnlinkAgentGuardrailOutput description */
+        apiUnlinkAgentGuardrailOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
         /** @description Information about a linked knowledge base */
         apiLinkKnowledgeBaseOutput: {
             agent?: components["schemas"]["apiAgent"];
@@ -16458,17 +22111,19 @@ export interface components {
         apiUpdateLinkedAgentOutput: {
             /**
              * @description Routed agent id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             child_agent_uuid?: string;
             /**
              * @description A unique identifier for the parent agent.
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             parent_agent_uuid?: string;
+            /** @example true */
+            rollback?: boolean;
             /**
              * @description Unique id of linkage
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
         };
@@ -16496,12 +22151,12 @@ export interface components {
         apiLinkAgentOutput: {
             /**
              * @description Routed agent id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             child_agent_uuid?: string;
             /**
              * @description A unique identifier for the parent agent.
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             parent_agent_uuid?: string;
         };
@@ -16509,21 +22164,40 @@ export interface components {
         apiUnlinkAgentOutput: {
             /**
              * @description Routed agent id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             child_agent_uuid?: string;
             /**
              * @description Pagent agent id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             parent_agent_uuid?: string;
         };
         /** @description One Agent */
-        apiGetAgentOutputPublic: {
-            agent?: components["schemas"]["apiAgentPublic"];
+        apiGetAgentOutput: {
+            agent?: components["schemas"]["apiAgent"];
         };
         /** @description Data to modify an existing Agent */
         apiUpdateAgentInputPublic: {
+            /** @example true */
+            agent_log_insights_enabled?: boolean;
+            /**
+             * @description Optional list of allowed domains for the chatbot - Must use fully qualified domain name (FQDN) such as https://example.com
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            allowed_domains?: string[];
+            /**
+             * @description Optional anthropic key uuid for use with anthropic models
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            anthropic_key_uuid?: string;
+            /**
+             * @description Optional update of conversation logs enabled
+             * @example true
+             */
+            conversation_logs_enabled?: boolean;
             /**
              * @description Agent description
              * @example "My Agent Description"
@@ -16547,6 +22221,11 @@ export interface components {
              */
             max_tokens?: number;
             /**
+             * @description Optional Model Provider uuid for use with provider models
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            model_provider_key_uuid?: string;
+            /**
              * @description Identifier for the foundation model.
              * @example "12345678-1234-1234-1234-123456789012"
              */
@@ -16557,10 +22236,18 @@ export interface components {
              */
             name?: string;
             /**
+             * @description Optional OpenAI key uuid for use with OpenAI models
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            open_ai_key_uuid?: string;
+            /**
              * @description The id of the DigitalOcean project this agent will belong to
              * @example "12345678-1234-1234-1234-123456789012"
              */
             project_id?: string;
+            /** @example true */
+            provide_citations?: boolean;
+            retrieval_method?: components["schemas"]["apiRetrievalMethod"];
             /**
              * @description A set of abitrary tags to organize your agent
              * @example [
@@ -16612,6 +22299,832 @@ export interface components {
         apiUpdateAgentDeploymentVisbilityOutput: {
             agent?: components["schemas"]["apiAgent"];
         };
+        /** @description Usage Measurement Description */
+        apiUsageMeasurement: {
+            /**
+             * Format: int64
+             * @example 123
+             */
+            tokens?: number;
+            /** @example example string */
+            usage_type?: string;
+        };
+        /** @description Resource Usage Description */
+        apiResourceUsage: {
+            measurements?: components["schemas"]["apiUsageMeasurement"][];
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            resource_uuid?: string;
+            /**
+             * Format: date-time
+             * @example 2023-01-01T00:00:00Z
+             */
+            start?: string;
+            /**
+             * Format: date-time
+             * @example 2023-01-01T00:00:00Z
+             */
+            stop?: string;
+        };
+        /** @description Agent usage */
+        apiGetAgentUsageOutput: {
+            log_insights_usage?: components["schemas"]["apiResourceUsage"];
+            usage?: components["schemas"]["apiResourceUsage"];
+        };
+        apiAgentChildRelationshipVerion: {
+            /**
+             * @description Name of the child agent
+             * @example example name
+             */
+            agent_name?: string;
+            /**
+             * @description Child agent unique identifier
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            child_agent_uuid?: string;
+            /**
+             * @description If case
+             * @example example string
+             */
+            if_case?: string;
+            /**
+             * @description Child agent is deleted
+             * @example true
+             */
+            is_deleted?: boolean;
+            /**
+             * @description Route name
+             * @example example name
+             */
+            route_name?: string;
+        };
+        /** @description Function represents a function configuration for an agent */
+        apiAgentFunctionVersion: {
+            /**
+             * @description Description of the function
+             * @example example string
+             */
+            description?: string;
+            /**
+             * @description FaaS name of the function
+             * @example example name
+             */
+            faas_name?: string;
+            /**
+             * @description FaaS namespace of the function
+             * @example example name
+             */
+            faas_namespace?: string;
+            /**
+             * @description Whether the function is deleted
+             * @example true
+             */
+            is_deleted?: boolean;
+            /**
+             * @description Name of the function
+             * @example example name
+             */
+            name?: string;
+        };
+        /** @description Agent Guardrail version */
+        apiAgentGuardrailVersion: {
+            /**
+             * @description Whether the guardrail is deleted
+             * @example true
+             */
+            is_deleted?: boolean;
+            /**
+             * @description Guardrail Name
+             * @example example name
+             */
+            name?: string;
+            /**
+             * Format: int64
+             * @description Guardrail Priority
+             * @example 123
+             */
+            priority?: number;
+            /**
+             * @description Guardrail UUID
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            uuid?: string;
+        };
+        apiAgentKnowledgeBaseVersion: {
+            /**
+             * @description Deletet at date / time
+             * @example true
+             */
+            is_deleted?: boolean;
+            /**
+             * @description Name of the knowledge base
+             * @example example name
+             */
+            name?: string;
+            /**
+             * @description Unique id of the knowledge base
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            uuid?: string;
+        };
+        /** @description Represents an AgentVersion entity */
+        apiAgentVersion: {
+            /**
+             * @description Uuid of the agent this version belongs to
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            agent_uuid?: string;
+            /** @description List of child agent relationships */
+            attached_child_agents?: components["schemas"]["apiAgentChildRelationshipVerion"][];
+            /** @description List of function versions */
+            attached_functions?: components["schemas"]["apiAgentFunctionVersion"][];
+            /** @description List of guardrail version */
+            attached_guardrails?: components["schemas"]["apiAgentGuardrailVersion"][];
+            /** @description List of knowledge base agent versions */
+            attached_knowledgebases?: components["schemas"]["apiAgentKnowledgeBaseVersion"][];
+            /**
+             * @description Whether the version is able to be rolled back to
+             * @example true
+             */
+            can_rollback?: boolean;
+            /**
+             * Format: date-time
+             * @description Creation date
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * @description User who created this version
+             * @example example@example.com
+             */
+            created_by_email?: string;
+            /**
+             * @description Whether this is the currently applied configuration
+             * @example true
+             */
+            currently_applied?: boolean;
+            /**
+             * @description Description of the agent
+             * @example example string
+             */
+            description?: string;
+            /**
+             * Format: uint64
+             * @description Unique identifier
+             * @example 12345
+             */
+            id?: string;
+            /**
+             * @description Instruction for the agent
+             * @example example string
+             */
+            instruction?: string;
+            /**
+             * Format: int64
+             * @description K value for the agent's configuration
+             * @example 123
+             */
+            k?: number;
+            /**
+             * Format: int64
+             * @description Max tokens setting for the agent
+             * @example 123
+             */
+            max_tokens?: number;
+            /**
+             * @description Name of model associated to the agent version
+             * @example example name
+             */
+            model_name?: string;
+            /**
+             * @description Name of the agent
+             * @example example name
+             */
+            name?: string;
+            /**
+             * @description Whether the agent should provide in-response citations
+             * @example true
+             */
+            provide_citations?: boolean;
+            retrieval_method?: components["schemas"]["apiRetrievalMethod"];
+            /**
+             * @description Tags associated with the agent
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            tags?: string[];
+            /**
+             * Format: float
+             * @description Temperature setting for the agent
+             * @example 123
+             */
+            temperature?: number;
+            /**
+             * Format: float
+             * @description Top_p setting for the agent
+             * @example 123
+             */
+            top_p?: number;
+            /**
+             * @description Action triggering the configuration update
+             * @example example string
+             */
+            trigger_action?: string;
+            /**
+             * @description Version hash
+             * @example example string
+             */
+            version_hash?: string;
+        };
+        /** @description List of agent versions */
+        apiListAgentVersionsOutput: {
+            /** @description Agents */
+            agent_versions?: components["schemas"]["apiAgentVersion"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        apiRollbackToAgentVersionInputPublic: {
+            /**
+             * @description Agent unique identifier
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            uuid?: string;
+            /**
+             * @description Unique identifier
+             * @example c3658d8b5c05494cd03ce042926ef08157889ed54b1b74b5ee0b3d66dcee4b73
+             */
+            version_hash?: string;
+        };
+        /** @description An alternative way to provide auth information. for internal use only. */
+        apiAuditHeader: {
+            /**
+             * Format: uint64
+             * @example 12345
+             */
+            actor_id?: string;
+            /** @example example string */
+            actor_ip?: string;
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            actor_uuid?: string;
+            /** @example example string */
+            context_urn?: string;
+            /** @example example string */
+            origin_application?: string;
+            /**
+             * Format: uint64
+             * @example 12345
+             */
+            user_id?: string;
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            user_uuid?: string;
+        };
+        apiRollbackToAgentVersionOutput: {
+            audit_header?: components["schemas"]["apiAuditHeader"];
+            /**
+             * @description Unique identifier
+             * @example example string
+             */
+            version_hash?: string;
+        };
+        /** @description ListAnthropicAPIKeysOutput is used to return the list of Anthropic API keys for a specific agent. */
+        apiListAnthropicAPIKeysOutput: {
+            /** @description Api key infos */
+            api_key_infos?: components["schemas"]["apiAnthropicAPIKeyInfo"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        /** @description CreateAnthropicAPIKeyInputPublic is used to create a new Anthropic API key for a specific agent. */
+        apiCreateAnthropicAPIKeyInputPublic: {
+            /**
+             * @description Anthropic API key
+             * @example "sk-ant-12345678901234567890123456789012"
+             */
+            api_key?: string;
+            /**
+             * @description Name of the key
+             * @example "Production Key"
+             */
+            name?: string;
+        };
+        /** @description CreateAnthropicAPIKeyOutput is used to return the newly created Anthropic API key. */
+        apiCreateAnthropicAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiAnthropicAPIKeyInfo"];
+        };
+        apiGetAnthropicAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiAnthropicAPIKeyInfo"];
+        };
+        /** @description UpdateAnthropicAPIKeyInputPublic is used to update an existing Anthropic API key for a specific agent. */
+        apiUpdateAnthropicAPIKeyInputPublic: {
+            /**
+             * @description Anthropic API key
+             * @example "sk-ant-12345678901234567890123456789012"
+             */
+            api_key?: string;
+            /**
+             * @description API key ID
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            api_key_uuid?: string;
+            /**
+             * @description Name of the key
+             * @example "Production Key"
+             */
+            name?: string;
+        };
+        /** @description UpdateAnthropicAPIKeyOutput is used to return the updated Anthropic API key. */
+        apiUpdateAnthropicAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiAnthropicAPIKeyInfo"];
+        };
+        /** @description DeleteAnthropicAPIKeyOutput is used to return the deleted Anthropic API key. */
+        apiDeleteAnthropicAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiAnthropicAPIKeyInfo"];
+        };
+        /** @description List of Agents that linked to a specific Anthropic Key */
+        apiListAgentsByAnthropicKeyOutput: {
+            agents?: components["schemas"]["apiAgent"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        /**
+         * @default EVALUATION_DATASET_TYPE_UNKNOWN
+         * @example EVALUATION_DATASET_TYPE_UNKNOWN
+         * @enum {string}
+         */
+        apiEvaluationDatasetType: "EVALUATION_DATASET_TYPE_UNKNOWN" | "EVALUATION_DATASET_TYPE_ADK" | "EVALUATION_DATASET_TYPE_NON_ADK";
+        /** @description File to upload as data source for knowledge base. */
+        apiFileUploadDataSource: {
+            /**
+             * @description The original file name
+             * @example example name
+             */
+            original_file_name?: string;
+            /**
+             * Format: uint64
+             * @description The size of the file in bytes
+             * @example 12345
+             */
+            size_in_bytes?: string;
+            /**
+             * @description The object key the file was stored as
+             * @example example string
+             */
+            stored_object_key?: string;
+        };
+        /** @description Creates an evaluation dataset for an agent */
+        apiCreateEvaluationDatasetInputPublic: {
+            dataset_type?: components["schemas"]["apiEvaluationDatasetType"];
+            file_upload_dataset?: components["schemas"]["apiFileUploadDataSource"];
+            /**
+             * @description The name of the agent evaluation dataset.
+             * @example example name
+             */
+            name?: string;
+        };
+        /** @description Output for creating an agent evaluation dataset */
+        apiCreateEvaluationDatasetOutput: {
+            /**
+             * @description Evaluation dataset uuid.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            evaluation_dataset_uuid?: string;
+        };
+        /** @description A single file’s metadata in the request. */
+        apiPresignedUrlFile: {
+            /**
+             * @description Local filename
+             * @example example name
+             */
+            file_name?: string;
+            /**
+             * Format: int64
+             * @description The size of the file in bytes.
+             * @example 12345
+             */
+            file_size?: string;
+        };
+        /** @description Request for pre-signed URL's to upload files for KB Data Sources */
+        apiCreateDataSourceFileUploadPresignedUrlsInputPublic: {
+            /** @description A list of files to generate presigned URLs for. */
+            files?: components["schemas"]["apiPresignedUrlFile"][];
+        };
+        /** @description Detailed info about each presigned URL returned to the client. */
+        apiFilePresignedUrlResponse: {
+            /**
+             * Format: date-time
+             * @description The time the url expires at.
+             * @example 2023-01-01T00:00:00Z
+             */
+            expires_at?: string;
+            /**
+             * @description The unique object key to store the file as.
+             * @example example string
+             */
+            object_key?: string;
+            /**
+             * @description The original file name.
+             * @example example name
+             */
+            original_file_name?: string;
+            /**
+             * @description The actual presigned URL the client can use to upload the file directly.
+             * @example example string
+             */
+            presigned_url?: string;
+        };
+        /** @description Response with pre-signed urls to upload files. */
+        apiCreateDataSourceFileUploadPresignedUrlsOutput: {
+            /**
+             * @description The ID generated for the request for Presigned URLs.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            request_id?: string;
+            /** @description A list of generated presigned URLs and object keys, one per file. */
+            uploads?: components["schemas"]["apiFilePresignedUrlResponse"][];
+        };
+        apiListEvaluationMetricsOutput: {
+            metrics?: components["schemas"]["apiEvaluationMetric"][];
+        };
+        /** @description Run an evaluation test case. */
+        apiRunEvaluationTestCaseInputPublic: {
+            /**
+             * @description Agent deployment names to run the test case against (ADK agent workspaces).
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            agent_deployment_names?: string[];
+            /**
+             * @description Agent UUIDs to run the test case against (legacy agents).
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            agent_uuids?: string[];
+            /**
+             * @description The name of the run.
+             * @example Evaluation Run Name
+             */
+            run_name?: string;
+            /**
+             * @description Test-case UUID to run
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            test_case_uuid?: string;
+        };
+        apiRunEvaluationTestCaseOutput: {
+            /**
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            evaluation_run_uuids?: string[];
+        };
+        apiEvaluationMetricResult: {
+            /**
+             * @description Error description if the metric could not be calculated.
+             * @example example string
+             */
+            error_description?: string;
+            /**
+             * @description Metric name
+             * @example example name
+             */
+            metric_name?: string;
+            metric_value_type?: components["schemas"]["apiEvaluationMetricValueType"];
+            /**
+             * Format: double
+             * @description The value of the metric as a number.
+             * @example 123
+             */
+            number_value?: number;
+            /**
+             * @description Reasoning of the metric result.
+             * @example example string
+             */
+            reasoning?: string;
+            /**
+             * @description The value of the metric as a string.
+             * @example example string
+             */
+            string_value?: string;
+        };
+        /**
+         * @description Evaluation Run Statuses
+         * @default EVALUATION_RUN_STATUS_UNSPECIFIED
+         * @example EVALUATION_RUN_STATUS_UNSPECIFIED
+         * @enum {string}
+         */
+        apiEvaluationRunStatus: "EVALUATION_RUN_STATUS_UNSPECIFIED" | "EVALUATION_RUN_QUEUED" | "EVALUATION_RUN_RUNNING_DATASET" | "EVALUATION_RUN_EVALUATING_RESULTS" | "EVALUATION_RUN_CANCELLING" | "EVALUATION_RUN_CANCELLED" | "EVALUATION_RUN_SUCCESSFUL" | "EVALUATION_RUN_PARTIALLY_SUCCESSFUL" | "EVALUATION_RUN_FAILED";
+        apiEvaluationRun: {
+            /**
+             * @description Whether agent is deleted
+             * @example true
+             */
+            agent_deleted?: boolean;
+            /**
+             * @description The agent deployment name
+             * @example example name
+             */
+            agent_deployment_name?: string;
+            /**
+             * @description Agent name
+             * @example example name
+             */
+            agent_name?: string;
+            /**
+             * @description Agent UUID.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            agent_uuid?: string;
+            /**
+             * @description Version hash
+             * @example example string
+             */
+            agent_version_hash?: string;
+            /**
+             * @description Agent workspace uuid
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            agent_workspace_uuid?: string;
+            /** @example example@example.com */
+            created_by_user_email?: string;
+            /**
+             * Format: uint64
+             * @example 12345
+             */
+            created_by_user_id?: string;
+            /**
+             * @description The error description
+             * @example example string
+             */
+            error_description?: string;
+            /**
+             * @description Evaluation run UUID.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            evaluation_run_uuid?: string;
+            /**
+             * @description Evaluation test case workspace uuid
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            evaluation_test_case_workspace_uuid?: string;
+            /**
+             * Format: date-time
+             * @description Run end time.
+             * @example 2023-01-01T00:00:00Z
+             */
+            finished_at?: string;
+            /**
+             * @description The pass status of the evaluation run based on the star metric.
+             * @example true
+             */
+            pass_status?: boolean;
+            /**
+             * Format: date-time
+             * @description Run queued time.
+             * @example 2023-01-01T00:00:00Z
+             */
+            queued_at?: string;
+            run_level_metric_results?: components["schemas"]["apiEvaluationMetricResult"][];
+            /**
+             * @description Run name.
+             * @example example name
+             */
+            run_name?: string;
+            star_metric_result?: components["schemas"]["apiEvaluationMetricResult"];
+            /**
+             * Format: date-time
+             * @description Run start time.
+             * @example 2023-01-01T00:00:00Z
+             */
+            started_at?: string;
+            status?: components["schemas"]["apiEvaluationRunStatus"];
+            /**
+             * @description Test case description.
+             * @example example string
+             */
+            test_case_description?: string;
+            /**
+             * @description Test case name.
+             * @example example name
+             */
+            test_case_name?: string;
+            /**
+             * @description Test-case UUID.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            test_case_uuid?: string;
+            /**
+             * Format: int64
+             * @description Test-case-version.
+             * @example 123
+             */
+            test_case_version?: number;
+        };
+        apiGetEvaluationRunOutput: {
+            evaluation_run?: components["schemas"]["apiEvaluationRun"];
+        };
+        apiPromptChunk: {
+            /**
+             * Format: double
+             * @description The usage percentage of the chunk.
+             * @example 123
+             */
+            chunk_usage_pct?: number;
+            /**
+             * @description Indicates if the chunk was used in the prompt.
+             * @example true
+             */
+            chunk_used?: boolean;
+            /**
+             * @description The index uuid (Knowledge Base) of the chunk.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            index_uuid?: string;
+            /**
+             * @description The source name for the chunk, e.g., the file name or document title.
+             * @example example name
+             */
+            source_name?: string;
+            /**
+             * @description Text content of the chunk.
+             * @example example string
+             */
+            text?: string;
+        };
+        /**
+         * @description Types of spans in a trace
+         * @default TRACE_SPAN_TYPE_UNKNOWN
+         * @example TRACE_SPAN_TYPE_UNKNOWN
+         * @enum {string}
+         */
+        apiTraceSpanType: "TRACE_SPAN_TYPE_UNKNOWN" | "TRACE_SPAN_TYPE_LLM" | "TRACE_SPAN_TYPE_RETRIEVER" | "TRACE_SPAN_TYPE_TOOL";
+        /** @description Represents a span within an evaluatioin trace (e.g., LLM call, tool call, etc.) */
+        apiEvaluationTraceSpan: {
+            /**
+             * Format: date-time
+             * @description When the span was created
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /** @description Input data for the span (flexible structure - can be messages array, string, etc.) */
+            input?: Record<string, never>;
+            /**
+             * @description Name/identifier for the span
+             * @example example name
+             */
+            name?: string;
+            /** @description Output data from the span (flexible structure - can be message, string, etc.) */
+            output?: Record<string, never>;
+            /** @description Any retriever span chunks that were included as part of the span. */
+            retriever_chunks?: components["schemas"]["apiPromptChunk"][];
+            /** @description The span-level metric results. */
+            span_level_metric_results?: components["schemas"]["apiEvaluationMetricResult"][];
+            type?: components["schemas"]["apiTraceSpanType"];
+        };
+        apiPrompt: {
+            /** @description The evaluated trace spans. */
+            evaluation_trace_spans?: components["schemas"]["apiEvaluationTraceSpan"][];
+            /**
+             * @description The ground truth for the prompt.
+             * @example example string
+             */
+            ground_truth?: string;
+            /** @example example string */
+            input?: string;
+            /**
+             * Format: uint64
+             * @description The number of input tokens used in the prompt.
+             * @example 12345
+             */
+            input_tokens?: string;
+            /** @example example string */
+            output?: string;
+            /**
+             * Format: uint64
+             * @description The number of output tokens used in the prompt.
+             * @example 12345
+             */
+            output_tokens?: string;
+            /** @description The list of prompt chunks. */
+            prompt_chunks?: components["schemas"]["apiPromptChunk"][];
+            /**
+             * Format: int64
+             * @description Prompt ID
+             * @example 123
+             */
+            prompt_id?: number;
+            /** @description The metric results for the prompt. */
+            prompt_level_metric_results?: components["schemas"]["apiEvaluationMetricResult"][];
+            /**
+             * @description The trace id for the prompt.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            trace_id?: string;
+        };
+        /** @description Gets the full results of an evaluation run with all prompts. */
+        apiGetEvaluationRunResultsOutput: {
+            evaluation_run?: components["schemas"]["apiEvaluationRun"];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+            /** @description The prompt level results. */
+            prompts?: components["schemas"]["apiPrompt"][];
+        };
+        apiGetEvaluationRunPromptResultsOutput: {
+            prompt?: components["schemas"]["apiPrompt"];
+        };
+        apiListEvaluationTestCasesOutput: {
+            /** @description Alternative way of authentication for internal usage only - should not be exposed to public api */
+            evaluation_test_cases?: components["schemas"]["apiEvaluationTestCase"][];
+        };
+        apiCreateEvaluationTestCaseInputPublic: {
+            /** @example example name */
+            agent_workspace_name?: string;
+            /**
+             * @description Dataset against which the test‑case is executed.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            dataset_uuid?: string;
+            /**
+             * @description Description of the test case.
+             * @example example string
+             */
+            description?: string;
+            /**
+             * @description Full metric list to use for evaluation test case.
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            metrics?: string[];
+            /**
+             * @description Name of the test case.
+             * @example example name
+             */
+            name?: string;
+            star_metric?: components["schemas"]["apiStarMetric"];
+            /**
+             * @description The workspace uuid.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            workspace_uuid?: string;
+        };
+        apiCreateEvaluationTestCaseOutput: {
+            /**
+             * @description Test‑case UUID.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            test_case_uuid?: string;
+        };
+        apiListEvaluationRunsByTestCaseOutput: {
+            /** @description List of evaluation runs. */
+            evaluation_runs?: components["schemas"]["apiEvaluationRun"][];
+        };
+        apiGetEvaluationTestCaseOutput: {
+            evaluation_test_case?: components["schemas"]["apiEvaluationTestCase"];
+        };
+        apiEvaluationTestCaseMetricList: {
+            /**
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            metric_uuids?: string[];
+        };
+        apiUpdateEvaluationTestCaseInputPublic: {
+            /**
+             * @description Dataset against which the test‑case is executed.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            dataset_uuid?: string;
+            /**
+             * @description Description of the test case.
+             * @example example string
+             */
+            description?: string;
+            metrics?: components["schemas"]["apiEvaluationTestCaseMetricList"];
+            /**
+             * @description Name of the test case.
+             * @example example name
+             */
+            name?: string;
+            star_metric?: components["schemas"]["apiStarMetric"];
+            /**
+             * @description Test-case UUID to update
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            test_case_uuid?: string;
+        };
+        apiUpdateEvaluationTestCaseOutput: {
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            test_case_uuid?: string;
+            /**
+             * Format: int32
+             * @description The new verson of the test case.
+             * @example 123
+             */
+            version?: number;
+        };
         /** @description Indexing jobs */
         apiListKnowledgeBaseIndexingJobsOutput: {
             /** @description The indexing jobs */
@@ -16638,51 +23151,15 @@ export interface components {
         apiStartKnowledgeBaseIndexingJobOutput: {
             job?: components["schemas"]["apiIndexingJob"];
         };
-        apiIndexedDataSource: {
-            /**
-             * Format: date-time
-             * @description Timestamp when data source completed indexing
-             * @example 2023-01-01T00:00:00Z
-             */
-            completed_at?: string;
-            /**
-             * @description Uuid of the indexed data source
-             * @example "123e4567-e89b-12d3-a456-426614174000"
-             */
-            data_source_uuid?: string;
-            /**
-             * Format: uint64
-             * @description Total count of files that have been indexed
-             * @example "12345"
-             */
-            indexed_file_count?: string;
-            /**
-             * Format: date-time
-             * @description Timestamp when data source started indexing
-             * @example 2023-01-01T00:00:00Z
-             */
-            started_at?: string;
-            /**
-             * Format: uint64
-             * @description Total size of files in data source in bytes
-             * @example "12345"
-             */
-            total_bytes?: string;
-            /**
-             * Format: uint64
-             * @description Total size of files in data source in bytes that have been indexed
-             * @example "12345"
-             */
-            total_bytes_indexed?: string;
-            /**
-             * Format: uint64
-             * @description Total file count in the data source
-             * @example "12345"
-             */
-            total_file_count?: string;
-        };
         apiListIndexingJobDataSourcesOutput: {
             indexed_data_sources?: components["schemas"]["apiIndexedDataSource"][];
+        };
+        apiGetIndexingJobDetailsSignedURLOutput: {
+            /**
+             * @description The signed url for downloading the indexing job details
+             * @example example string
+             */
+            signed_url?: string;
         };
         /** @description GetKnowledgeBaseIndexingJobOutput description */
         apiGetKnowledgeBaseIndexingJobOutput: {
@@ -16707,55 +23184,162 @@ export interface components {
             links?: components["schemas"]["apiLinks"];
             meta?: components["schemas"]["apiMeta"];
         };
-        /** @description File to upload as data source for knowledge base. */
-        apiFileUploadDataSource: {
+        /** @description AWS S3 Data Source */
+        apiAWSDataSource: {
             /**
-             * @description The original file name
-             * @example "example name"
+             * @description Spaces bucket name
+             * @example example name
              */
-            original_file_name?: string;
+            bucket_name?: string;
+            /** @example example string */
+            item_path?: string;
             /**
-             * Format: uint64
-             * @description The size of the file in bytes
-             * @example "12345"
+             * @description The AWS Key ID
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
-            size_in_bytes?: string;
+            key_id?: string;
             /**
-             * @description The object key the file was stored as
-             * @example "example string"
+             * @description Region of bucket
+             * @example example string
              */
-            stored_object_key?: string;
+            region?: string;
+            /**
+             * @description The AWS Secret Key
+             * @example example string
+             */
+            secret_key?: string;
+        };
+        /**
+         * @description The chunking algorithm to use for processing data sources.
+         *
+         *     **Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
+         * @default CHUNKING_ALGORITHM_SECTION_BASED
+         * @example CHUNKING_ALGORITHM_SECTION_BASED
+         * @enum {string}
+         */
+        apiChunkingAlgorithm: "CHUNKING_ALGORITHM_UNKNOWN" | "CHUNKING_ALGORITHM_SECTION_BASED" | "CHUNKING_ALGORITHM_HIERARCHICAL" | "CHUNKING_ALGORITHM_SEMANTIC" | "CHUNKING_ALGORITHM_FIXED_LENGTH";
+        /**
+         * @description Configuration options for the chunking algorithm.
+         *
+         *     **Note: This feature requires enabling the knowledgebase enhancements feature preview flag.**
+         */
+        apiChunkingOptions: {
+            /**
+             * Format: int64
+             * @description Hierarchical options
+             * @example 350
+             */
+            child_chunk_size?: number;
+            /**
+             * Format: int64
+             * @description Section_Based and Fixed_Length options
+             * @example 750
+             */
+            max_chunk_size?: number;
+            /**
+             * Format: int64
+             * @description Hierarchical options
+             * @example 1000
+             */
+            parent_chunk_size?: number;
+            /**
+             * Format: float
+             * @description Semantic options
+             * @example 0.5
+             */
+            semantic_threshold?: number;
+        };
+        /** @description Dropbox Data Source */
+        apiDropboxDataSource: {
+            /** @example example string */
+            folder?: string;
+            /**
+             * @description Refresh token. you can obrain a refresh token by following the oauth2 flow. see /v2/gen-ai/oauth2/dropbox/tokens for reference.
+             * @example example string
+             */
+            refresh_token?: string;
+        };
+        /** @description Google Drive Data Source */
+        apiGoogleDriveDataSource: {
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            folder_id?: string;
+            /**
+             * @description Refresh token. you can obrain a refresh token by following the oauth2 flow. see /v2/gen-ai/oauth2/google/tokens for reference.
+             * @example example string
+             */
+            refresh_token?: string;
         };
         /** @description Spaces Bucket Data Source */
         apiSpacesDataSource: {
             /**
              * @description Spaces bucket name
-             * @example "example name"
+             * @example example name
              */
             bucket_name?: string;
-            /** @example "example string" */
+            /** @example example string */
             item_path?: string;
             /**
              * @description Region of bucket
-             * @example "example string"
+             * @example example string
              */
             region?: string;
         };
+        /**
+         * @description Options for specifying how URLs found on pages should be handled.
+         *
+         *      - UNKNOWN: Default unknown value
+         *      - SCOPED: Only include the base URL.
+         *      - PATH: Crawl the base URL and linked pages within the URL path.
+         *      - DOMAIN: Crawl the base URL and linked pages within the same domain.
+         *      - SUBDOMAINS: Crawl the base URL and linked pages for any subdomain.
+         *      - SITEMAP: Crawl URLs discovered in the sitemap.
+         * @default UNKNOWN
+         * @example UNKNOWN
+         * @enum {string}
+         */
+        apiCrawlingOption: "UNKNOWN" | "SCOPED" | "PATH" | "DOMAIN" | "SUBDOMAINS" | "SITEMAP";
+        /** @description WebCrawlerDataSource */
+        apiWebCrawlerDataSource: {
+            /**
+             * @description The base url to crawl.
+             * @example example string
+             */
+            base_url?: string;
+            crawling_option?: components["schemas"]["apiCrawlingOption"];
+            /**
+             * @description Whether to ingest and index media (images, etc.) on web pages.
+             * @example true
+             */
+            embed_media?: boolean;
+            /**
+             * @description Declaring which tags to exclude in web pages while webcrawling
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            exclude_tags?: string[];
+        };
         apiKBDataSource: {
+            aws_data_source?: components["schemas"]["apiAWSDataSource"];
             /**
              * @description Deprecated, moved to data_source_details
-             * @example "example name"
+             * @example example name
              */
             bucket_name?: string;
             /**
              * @description Deprecated, moved to data_source_details
-             * @example "example string"
+             * @example example string
              */
             bucket_region?: string;
+            chunking_algorithm?: components["schemas"]["apiChunkingAlgorithm"];
+            chunking_options?: components["schemas"]["apiChunkingOptions"];
+            dropbox_data_source?: components["schemas"]["apiDropboxDataSource"];
             file_upload_data_source?: components["schemas"]["apiFileUploadDataSource"];
-            /** @example "example string" */
+            google_drive_data_source?: components["schemas"]["apiGoogleDriveDataSource"];
+            /** @example example string */
             item_path?: string;
             spaces_data_source?: components["schemas"]["apiSpacesDataSource"];
+            web_crawler_data_source?: components["schemas"]["apiWebCrawlerDataSource"];
         };
         /** @description Data to create a new knowledge base. */
         apiCreateKnowledgeBaseInputPublic: {
@@ -16805,29 +23389,64 @@ export interface components {
         apiCreateKnowledgeBaseOutput: {
             knowledge_base?: components["schemas"]["apiKnowledgeBase"];
         };
-        /** @description Data Source configuration for Knowledge Bases */
-        apiKnowledgeBaseDataSource: {
+        /** @description AWS S3 Data Source for Display */
+        apiAWSDataSourceDisplay: {
             /**
-             * @description Name of storage bucket - Deprecated, moved to data_source_details
-             * @example "example name"
+             * @description Spaces bucket name
+             * @example example name
              */
             bucket_name?: string;
+            /** @example example string */
+            item_path?: string;
+            /**
+             * @description Region of bucket
+             * @example example string
+             */
+            region?: string;
+        };
+        /** @description Dropbox Data Source for Display */
+        apiDropboxDataSourceDisplay: {
+            /** @example example string */
+            folder?: string;
+        };
+        /** @description Google Drive Data Source for Display */
+        apiGoogleDriveDataSourceDisplay: {
+            /** @example 123e4567-e89b-12d3-a456-426614174000 */
+            folder_id?: string;
+            /**
+             * @description Name of the selected folder if available
+             * @example example name
+             */
+            folder_name?: string;
+        };
+        /** @description Data Source configuration for Knowledge Bases */
+        apiKnowledgeBaseDataSource: {
+            aws_data_source?: components["schemas"]["apiAWSDataSourceDisplay"];
+            /**
+             * @description Name of storage bucket - Deprecated, moved to data_source_details
+             * @example example name
+             */
+            bucket_name?: string;
+            chunking_algorithm?: components["schemas"]["apiChunkingAlgorithm"];
+            chunking_options?: components["schemas"]["apiChunkingOptions"];
             /**
              * Format: date-time
              * @description Creation date / time
              * @example 2023-01-01T00:00:00Z
              */
             created_at?: string;
+            dropbox_data_source?: components["schemas"]["apiDropboxDataSourceDisplay"];
             file_upload_data_source?: components["schemas"]["apiFileUploadDataSource"];
+            google_drive_data_source?: components["schemas"]["apiGoogleDriveDataSourceDisplay"];
             /**
              * @description Path of folder or object in bucket - Deprecated, moved to data_source_details
-             * @example "example string"
+             * @example example string
              */
             item_path?: string;
-            last_indexing_job?: components["schemas"]["apiIndexingJob"];
+            last_datasource_indexing_job?: components["schemas"]["apiIndexedDataSource"];
             /**
              * @description Region code - Deprecated, moved to data_source_details
-             * @example "example string"
+             * @example example string
              */
             region?: string;
             spaces_data_source?: components["schemas"]["apiSpacesDataSource"];
@@ -16839,9 +23458,10 @@ export interface components {
             updated_at?: string;
             /**
              * @description Unique id of knowledge base
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
+            web_crawler_data_source?: components["schemas"]["apiWebCrawlerDataSource"];
         };
         /** @description A list of knowledge base data sources */
         apiListKnowledgeBaseDataSourcesOutput: {
@@ -16852,28 +23472,50 @@ export interface components {
         };
         /** @description Data to create a knowledge base data source */
         apiCreateKnowledgeBaseDataSourceInputPublic: {
-            file_upload_data_source?: components["schemas"]["apiFileUploadDataSource"];
+            aws_data_source?: components["schemas"]["apiAWSDataSource"];
+            chunking_algorithm?: components["schemas"]["apiChunkingAlgorithm"];
+            chunking_options?: components["schemas"]["apiChunkingOptions"];
             /**
              * @description Knowledge base id
              * @example "12345678-1234-1234-1234-123456789012"
              */
             knowledge_base_uuid?: string;
             spaces_data_source?: components["schemas"]["apiSpacesDataSource"];
+            web_crawler_data_source?: components["schemas"]["apiWebCrawlerDataSource"];
         };
         /** @description Information about a newly created knowldege base data source */
         apiCreateKnowledgeBaseDataSourceOutput: {
+            knowledge_base_data_source?: components["schemas"]["apiKnowledgeBaseDataSource"];
+        };
+        /** @description Update a data source of a knowledge base with change in chunking algorithm/options */
+        apiUpdateKnowledgeBaseDataSourceInputPublic: {
+            chunking_algorithm?: components["schemas"]["apiChunkingAlgorithm"];
+            chunking_options?: components["schemas"]["apiChunkingOptions"];
+            /**
+             * @description Data Source ID (Path Parameter)
+             * @example 98765432-1234-1234-1234-123456789012
+             */
+            data_source_uuid?: string;
+            /**
+             * @description Knowledge Base ID (Path Parameter)
+             * @example 12345678-1234-1234-1234-123456789012
+             */
+            knowledge_base_uuid?: string;
+        };
+        /** @description Update a data source of a knowledge base with change in chunking algorithm/options */
+        apiUpdateKnowledgeBaseDataSourceOutput: {
             knowledge_base_data_source?: components["schemas"]["apiKnowledgeBaseDataSource"];
         };
         /** @description Information about a newly deleted knowledge base data source */
         apiDeleteKnowledgeBaseDataSourceOutput: {
             /**
              * @description Data source id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             data_source_uuid?: string;
             /**
              * @description Knowledge base id
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             knowledge_base_uuid?: string;
         };
@@ -16931,7 +23573,7 @@ export interface components {
         apiDeleteKnowledgeBaseOutput: {
             /**
              * @description The id of the deleted knowledge base
-             * @example "123e4567-e89b-12d3-a456-426614174000"
+             * @example 123e4567-e89b-12d3-a456-426614174000
              */
             uuid?: string;
         };
@@ -16945,13 +23587,36 @@ export interface components {
              */
             created_at?: string;
             /**
+             * @description Human-readable model identifier
+             * @example llama3.3-70b-instruct
+             */
+            id?: string;
+            /**
              * @description True if it is a foundational model provided by do
              * @example true
              */
             is_foundational?: boolean;
             /**
-             * @description Name of the model
-             * @example Llama 3.3 (70b)
+             * Format: int64
+             * @description Default chunking size limit to show in UI
+             * @example 123
+             */
+            kb_default_chunk_size?: number;
+            /**
+             * Format: int64
+             * @description Maximum chunk size limit of model
+             * @example 123
+             */
+            kb_max_chunk_size?: number;
+            /**
+             * Format: int64
+             * @description Minimum chunking size token limits if model supports KNOWLEDGEBASE usecase
+             * @example 123
+             */
+            kb_min_chunk_size?: number;
+            /**
+             * @description Display name of the model
+             * @example Llama 3.3 Instruct (70B)
              */
             name?: string;
             /**
@@ -16989,16 +23654,179 @@ export interface components {
             /** @description The models */
             models?: components["schemas"]["apiModelPublic"][];
         };
+        /** @description Model API Key Info */
+        apiModelAPIKeyInfo: {
+            /**
+             * Format: date-time
+             * @description Creation date
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * Format: uint64
+             * @description Created by
+             * @example 12345
+             */
+            created_by?: string;
+            /**
+             * Format: date-time
+             * @description Deleted date
+             * @example 2023-01-01T00:00:00Z
+             */
+            deleted_at?: string;
+            /**
+             * @description Name
+             * @example example name
+             */
+            name?: string;
+            /** @example example string */
+            secret_key?: string;
+            /**
+             * @description Uuid
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            uuid?: string;
+        };
+        apiListModelAPIKeysOutput: {
+            /** @description Api key infos */
+            api_key_infos?: components["schemas"]["apiModelAPIKeyInfo"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        apiCreateModelAPIKeyInputPublic: {
+            /**
+             * @description A human friendly name to identify the key
+             * @example Production Key
+             */
+            name?: string;
+        };
+        apiCreateModelAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiModelAPIKeyInfo"];
+        };
+        apiUpdateModelAPIKeyInputPublic: {
+            /**
+             * @description API key ID
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            api_key_uuid?: string;
+            /**
+             * @description Name
+             * @example "Production Key"
+             */
+            name?: string;
+        };
+        apiUpdateModelAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiModelAPIKeyInfo"];
+        };
+        apiDeleteModelAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiModelAPIKeyInfo"];
+        };
+        apiRegenerateModelAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiModelAPIKeyInfo"];
+        };
+        /** @description The oauth2 code from google */
+        apiDropboxOauth2GetTokensInput: {
+            /**
+             * @description The oauth2 code from google
+             * @example example string
+             */
+            code?: string;
+            /**
+             * @description Redirect url
+             * @example example string
+             */
+            redirect_url?: string;
+        };
+        /** @description The dropbox oauth2 token and refresh token */
+        apiDropboxOauth2GetTokensOutput: {
+            /**
+             * @description The refresh token
+             * @example example string
+             */
+            refresh_token?: string;
+            /**
+             * @description The access token
+             * @example example string
+             */
+            token?: string;
+        };
+        /** @description The url for the oauth2 flow */
+        apiGenerateOauth2URLOutput: {
+            /**
+             * @description The oauth2 url
+             * @example example string
+             */
+            url?: string;
+        };
+        /** @description ListOpenAIAPIKeysOutput is used to return the list of OpenAI API keys for a specific agent. */
+        apiListOpenAIAPIKeysOutput: {
+            /** @description Api key infos */
+            api_key_infos?: components["schemas"]["apiOpenAIAPIKeyInfo"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        /** @description CreateOpenAIAPIKeyInputPublic is used to create a new OpenAI API key for a specific agent. */
+        apiCreateOpenAIAPIKeyInputPublic: {
+            /**
+             * @description OpenAI API key
+             * @example "sk-proj--123456789098765432123456789"
+             */
+            api_key?: string;
+            /**
+             * @description Name of the key
+             * @example "Production Key"
+             */
+            name?: string;
+        };
+        /** @description CreateOpenAIAPIKeyOutput is used to return the newly created OpenAI API key. */
+        apiCreateOpenAIAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiOpenAIAPIKeyInfo"];
+        };
+        apiGetOpenAIAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiOpenAIAPIKeyInfo"];
+        };
+        /** @description UpdateOpenAIAPIKeyInputPublic is used to update an existing OpenAI API key for a specific agent. */
+        apiUpdateOpenAIAPIKeyInputPublic: {
+            /**
+             * @description OpenAI API key
+             * @example "sk-ant-12345678901234567890123456789012"
+             */
+            api_key?: string;
+            /**
+             * @description API key ID
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            api_key_uuid?: string;
+            /**
+             * @description Name of the key
+             * @example "Production Key"
+             */
+            name?: string;
+        };
+        /** @description UpdateOpenAIAPIKeyOutput is used to return the updated OpenAI API key. */
+        apiUpdateOpenAIAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiOpenAIAPIKeyInfo"];
+        };
+        /** @description DeleteOpenAIAPIKeyOutput is used to return the deleted OpenAI API key. */
+        apiDeleteOpenAIAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiOpenAIAPIKeyInfo"];
+        };
+        /** @description List of Agents that are linked to a specific OpenAI Key */
+        apiListAgentsByOpenAIKeyOutput: {
+            agents?: components["schemas"]["apiAgent"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
         /** @description Description for a specific Region */
         genaiapiRegion: {
             /**
              * @description Url for inference server
-             * @example "example string"
+             * @example example string
              */
             inference_url?: string;
             /**
              * @description Region code
-             * @example "example string"
+             * @example example string
              */
             region?: string;
             /**
@@ -17013,7 +23841,7 @@ export interface components {
             serves_inference?: boolean;
             /**
              * @description The url for the inference streaming server
-             * @example "example string"
+             * @example example string
              */
             stream_inference_url?: string;
         };
@@ -17022,9 +23850,171 @@ export interface components {
             /** @description Region code */
             regions?: components["schemas"]["genaiapiRegion"][];
         };
+        apiCreateScheduledIndexingInputPublic: {
+            /** @description Days for execution (day is represented same as in a cron expression, e.g. Monday begins with 1 ) */
+            days?: number[];
+            /**
+             * @description Knowledge base uuid for which the schedule is created
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            knowledge_base_uuid?: string;
+            /**
+             * @description Time of execution (HH:MM) UTC
+             * @example example string
+             */
+            time?: string;
+        };
+        /** @description Metadata for scheduled indexing entries */
+        apiScheduledIndexingInfo: {
+            /**
+             * Format: date-time
+             * @description Created at timestamp
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /** @description Days for execution (day is represented same as in a cron expression, e.g. Monday begins with 1 ) */
+            days?: number[];
+            /**
+             * Format: date-time
+             * @description Deleted at timestamp (if soft deleted)
+             * @example 2023-01-01T00:00:00Z
+             */
+            deleted_at?: string;
+            /**
+             * @description Whether the schedule is currently active
+             * @example true
+             */
+            is_active?: boolean;
+            /**
+             * @description Knowledge base uuid associated with this schedule
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            knowledge_base_uuid?: string;
+            /**
+             * Format: date-time
+             * @description Last time the schedule was executed
+             * @example 2023-01-01T00:00:00Z
+             */
+            last_ran_at?: string;
+            /**
+             * Format: date-time
+             * @description Next scheduled run
+             * @example 2023-01-01T00:00:00Z
+             */
+            next_run_at?: string;
+            /**
+             * @description Scheduled time of execution (HH:MM:SS format)
+             * @example example string
+             */
+            time?: string;
+            /**
+             * Format: date-time
+             * @description Updated at timestamp
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Unique identifier for the scheduled indexing entry
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            uuid?: string;
+        };
+        apiCreateScheduledIndexingOutput: {
+            indexing_info?: components["schemas"]["apiScheduledIndexingInfo"];
+        };
+        apiGetScheduledIndexingOutput: {
+            indexing_info?: components["schemas"]["apiScheduledIndexingInfo"];
+        };
+        apiDeleteScheduledIndexingOutput: {
+            indexing_info?: components["schemas"]["apiScheduledIndexingInfo"];
+        };
+        apiListWorkspacesOutput: {
+            /** @description Workspaces */
+            workspaces?: components["schemas"]["apiWorkspace"][];
+        };
+        /** @description Parameters for Workspace Creation */
+        apiCreateWorkspaceInputPublic: {
+            /**
+             * @description Ids of the agents(s) to attach to the workspace
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            agent_uuids?: string[];
+            /**
+             * @description Description of the workspace
+             * @example example string
+             */
+            description?: string;
+            /**
+             * @description Name of the workspace
+             * @example example name
+             */
+            name?: string;
+        };
+        apiCreateWorkspaceOutput: {
+            workspace?: components["schemas"]["apiWorkspace"];
+        };
+        apiGetWorkspaceOutput: {
+            workspace?: components["schemas"]["apiWorkspace"];
+        };
+        /** @description Parameters for Update Workspace */
+        apiUpdateWorkspaceInputPublic: {
+            /**
+             * @description The new description of the workspace
+             * @example example string
+             */
+            description?: string;
+            /**
+             * @description The new name of the workspace
+             * @example example name
+             */
+            name?: string;
+            /**
+             * @description Workspace UUID.
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            workspace_uuid?: string;
+        };
+        apiUpdateWorkspaceOutput: {
+            workspace?: components["schemas"]["apiWorkspace"];
+        };
+        apiDeleteWorkspaceOutput: {
+            /**
+             * @description Workspace
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            workspace_uuid?: string;
+        };
+        apiListAgentsByWorkspaceOutput: {
+            agents?: components["schemas"]["apiAgent"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        /** @description Parameters for Moving agents to a Workspace */
+        apiMoveAgentsToWorkspaceInputPublic: {
+            /**
+             * @description Agent uuids
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            agent_uuids?: string[];
+            /**
+             * @description Workspace uuid to move agents to
+             * @example 123e4567-e89b-12d3-a456-426614174000
+             */
+            workspace_uuid?: string;
+        };
+        apiMoveAgentsToWorkspaceOutput: {
+            workspace?: components["schemas"]["apiWorkspace"];
+        };
+        apiListEvaluationTestCasesByWorkspaceOutput: {
+            evaluation_test_cases?: components["schemas"]["apiEvaluationTestCase"][];
+        };
     };
     responses: {
-        /** @description Unexpected error */
+        /** @description There was an unexpected error. */
         unexpected_error: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -17056,7 +24046,7 @@ export interface components {
                 };
             };
         };
-        /** @description Unauthorized */
+        /** @description Authentication failed due to invalid credentials. */
         unauthorized: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -17074,7 +24064,7 @@ export interface components {
                 "application/json": components["schemas"]["error"];
             };
         };
-        /** @description API Rate limit exceeded */
+        /** @description The API rate limit has been exceeded. */
         too_many_requests: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -17086,13 +24076,13 @@ export interface components {
                 /**
                  * @example {
                  *       "id": "too_many_requests",
-                 *       "message": "API Rate limit exceeded."
+                 *       "message": "API rate limit exceeded."
                  *     }
                  */
                 "application/json": components["schemas"]["error"];
             };
         };
-        /** @description Server error. */
+        /** @description There was a server error. */
         server_error: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -17245,6 +24235,90 @@ export interface components {
                 };
             };
         };
+        /** @description The response will be a JSON object with a key called `apps`. `apps` will be an array of objects. */
+        addons_get_app: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    apps?: components["schemas"]["addons_app_info"][];
+                };
+            };
+        };
+        /** @description The response will be a JSON object with a key called `metadata`. `metadata` will be an array of objects, each representing a metadata item for the app. Each object will contain details such as `id`, `name`, `display_name`, `description`, `type`, and `options`. For additional details specific to the app, find and view its [DigitalOcean Marketplace](https://marketplace.digitalocean.com) page. */
+        addons_get_app_metadata: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    metadata?: components["schemas"]["addons_app_metadata"][];
+                };
+            };
+        };
+        /** @description The response will be an array of JSON objects with a key called `resources`. */
+        addons_list: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    resources?: components["schemas"]["addons_resource"][];
+                };
+            };
+        };
+        /** @description The response will be a JSON object with a key called `resource`. The value of this will be the resource created with the given. For additional details specific to the app, find and view its [DigitalOcean Marketplace](https://marketplace.digitalocean.com) page. */
+        addons_create: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    resource?: components["schemas"]["addons_resource"];
+                };
+            };
+        };
+        /** @description The response will be a JSON object with a key called `resource`. */
+        addons_get: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    resource?: components["schemas"]["addons_resource"];
+                };
+            };
+        };
+        /** @description The response will be a JSON object with a key called `resource`, representing the updated resource. */
+        addons_update: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    resource?: components["schemas"]["addons_resource"];
+                };
+            };
+        };
         /** @description A JSON object with a `apps` key. This is list of object `apps`. */
         list_apps: {
             headers: {
@@ -17346,6 +24420,18 @@ export interface components {
                 "application/json": components["schemas"]["apps_get_exec_response"];
             };
         };
+        /** @description A JSON with key `instances` */
+        apps_instances: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["app_instances"];
+            };
+        };
         /** @description A JSON object with a `deployments` key. This will be a list of all app deployments */
         existing_deployments: {
             headers: {
@@ -17380,6 +24466,54 @@ export interface components {
             };
             content: {
                 "application/json": components["schemas"]["apps_deployment_response"];
+            };
+        };
+        /** @description A JSON with key `job_invocations` */
+        list_job_invocations: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["app_job_invocations"];
+            };
+        };
+        /** @description A JSON with key `job_invocation` */
+        get_job_invocation: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["app_job_invocation"];
+            };
+        };
+        /** @description A JSON with key `job_invocation` */
+        cancel_job_invocation: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["app_job_invocation"];
+            };
+        };
+        /** @description A JSON object with urls that point to Job Invocation logs */
+        apps_get_logs: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["apps_get_logs_response"];
             };
         };
         /** @description A JSON with key `instance_sizes` */
@@ -17494,6 +24628,18 @@ export interface components {
             };
             content: {
                 "application/json": components["schemas"]["app_metrics_bandwidth_usage"];
+            };
+        };
+        /** @description A JSON with key `app_health` */
+        apps_health: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["app_health_response"];
             };
         };
         /** @description The result will be a JSON object with an `endpoints` key. This will be set to an array of endpoint objects, each of which will contain the standard CDN endpoint attributes. */
@@ -17621,7 +24767,7 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description The response will be a JSON object with a key called `invoice_items`. This will be set to an array of invoice item objects. */
+        /** @description The response will be a JSON object with a key called `invoice_items`. This will be set to an array of invoice item objects. All resources will be shown on invoices, regardless of permissions. */
         invoice: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -17726,6 +24872,63 @@ export interface components {
                 "application/json": components["schemas"]["invoice_summary"];
             };
         };
+        /** @description The response will be a JSON object that contains a list of billing data points under the `data_points` key, along with pagination metadata including `total_items`, `total_pages`, and `current_page`. */
+        billing_insights: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "data_points": [
+                 *         {
+                 *           "usage_team_urn": "do:team:12345678-1234-1234-1234-123456789012",
+                 *           "start_date": "2025-01-01",
+                 *           "total_amount": "0.86",
+                 *           "region": "nyc3",
+                 *           "sku": "1-DO-DROP-0109",
+                 *           "description": "droplet name (c-2-4GiB)",
+                 *           "group_description": ""
+                 *         },
+                 *         {
+                 *           "usage_team_urn": "do:team:12345678-1234-1234-1234-123456789012",
+                 *           "start_date": "2025-01-01",
+                 *           "total_amount": "2.57",
+                 *           "region": "nyc3",
+                 *           "sku": "1-KS-K8SWN-00109",
+                 *           "description": "3 nodes - 4 GB / 2 vCPU / 80 GB SSD",
+                 *           "group_description": "kubernetes cluster name"
+                 *         }
+                 *       ],
+                 *       "total_items": 2,
+                 *       "total_pages": 1,
+                 *       "current_page": 1
+                 *     }
+                 */
+                "application/json": {
+                    /** @description Array of billing data points, which are day-over-day changes in billing resource usage based on nightly invoice item estimates, for the requested period */
+                    data_points: components["schemas"]["billing_data_point"][];
+                    /**
+                     * @description Total number of items available across all pages
+                     * @example 250
+                     */
+                    total_items: number;
+                    /**
+                     * @description Total number of pages available
+                     * @example 3
+                     */
+                    total_pages: number;
+                    /**
+                     * @description Current page number
+                     * @example 1
+                     */
+                    current_page: number;
+                };
+            };
+        };
         /** @description A JSON string with a key of `options`. */
         options: {
             headers: {
@@ -17745,6 +24948,7 @@ export interface components {
                  *             "fra1",
                  *             "lon1",
                  *             "nyc1",
+                 *             "nyc2",
                  *             "nyc3",
                  *             "sfo2",
                  *             "sfo3",
@@ -17753,8 +24957,7 @@ export interface components {
                  *             "tor1"
                  *           ],
                  *           "versions": [
-                 *             "3.6",
-                 *             "3.7"
+                 *             "3.8"
                  *           ],
                  *           "layouts": [
                  *             {
@@ -17787,7 +24990,8 @@ export interface components {
                  *                 "gd-4vcpu-16gb"
                  *               ]
                  *             }
-                 *           ]
+                 *           ],
+                 *           "default_version": "3.8"
                  *         },
                  *         "mongodb": {
                  *           "regions": [
@@ -17796,6 +25000,7 @@ export interface components {
                  *             "fra1",
                  *             "lon1",
                  *             "nyc1",
+                 *             "nyc2",
                  *             "nyc3",
                  *             "sfo2",
                  *             "sfo3",
@@ -17804,7 +25009,6 @@ export interface components {
                  *             "tor1"
                  *           ],
                  *           "versions": [
-                 *             "5.0",
                  *             "6.0",
                  *             "7.0"
                  *           ],
@@ -17857,7 +25061,8 @@ export interface components {
                  *                 "so1_5-32vcpu-256gb"
                  *               ]
                  *             }
-                 *           ]
+                 *           ],
+                 *           "default_version": "7.0"
                  *         },
                  *         "mysql": {
                  *           "regions": [
@@ -17866,6 +25071,7 @@ export interface components {
                  *             "fra1",
                  *             "lon1",
                  *             "nyc1",
+                 *             "nyc2",
                  *             "nyc3",
                  *             "sfo2",
                  *             "sfo3",
@@ -17985,7 +25191,8 @@ export interface components {
                  *                 "db-intel-16vcpu-64gb"
                  *               ]
                  *             }
-                 *           ]
+                 *           ],
+                 *           "default_version": "8"
                  *         },
                  *         "opensearch": {
                  *           "regions": [
@@ -17994,6 +25201,7 @@ export interface components {
                  *             "fra1",
                  *             "lon1",
                  *             "nyc1",
+                 *             "nyc2",
                  *             "nyc3",
                  *             "sfo2",
                  *             "sfo3",
@@ -18061,7 +25269,8 @@ export interface components {
                  *                 "m3-8vcpu-64gb"
                  *               ]
                  *             }
-                 *           ]
+                 *           ],
+                 *           "default_version": "2"
                  *         },
                  *         "pg": {
                  *           "regions": [
@@ -18070,6 +25279,7 @@ export interface components {
                  *             "fra1",
                  *             "lon1",
                  *             "nyc1",
+                 *             "nyc2",
                  *             "nyc3",
                  *             "sfo2",
                  *             "sfo3",
@@ -18081,7 +25291,8 @@ export interface components {
                  *             "13",
                  *             "14",
                  *             "15",
-                 *             "16"
+                 *             "16",
+                 *             "17"
                  *           ],
                  *           "layouts": [
                  *             {
@@ -18192,7 +25403,8 @@ export interface components {
                  *                 "db-intel-16vcpu-64gb"
                  *               ]
                  *             }
-                 *           ]
+                 *           ],
+                 *           "default_version": "17"
                  *         },
                  *         "redis": {
                  *           "regions": [
@@ -18201,6 +25413,7 @@ export interface components {
                  *             "fra1",
                  *             "lon1",
                  *             "nyc1",
+                 *             "nyc2",
                  *             "nyc3",
                  *             "sfo2",
                  *             "sfo3",
@@ -18265,84 +25478,172 @@ export interface components {
                  *               ]
                  *             }
                  *           ]
+                 *         },
+                 *         "valkey": {
+                 *           "regions": [
+                 *             "ams3",
+                 *             "blr1",
+                 *             "fra1",
+                 *             "lon1",
+                 *             "nyc1",
+                 *             "nyc3",
+                 *             "sfo2",
+                 *             "sfo3",
+                 *             "sgp1",
+                 *             "syd1",
+                 *             "tor1"
+                 *           ],
+                 *           "versions": [
+                 *             "8"
+                 *           ],
+                 *           "layouts": [
+                 *             {
+                 *               "num_nodes": 1,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-1gb",
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "db-s-8vcpu-32gb",
+                 *                 "db-s-16vcpu-64gb",
+                 *                 "m-2vcpu-16gb",
+                 *                 "m-4vcpu-32gb",
+                 *                 "m-8vcpu-64gb",
+                 *                 "m-16vcpu-128gb",
+                 *                 "m-24vcpu-192gb",
+                 *                 "m-32vcpu-256gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 2,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "db-s-8vcpu-32gb",
+                 *                 "db-s-16vcpu-64gb",
+                 *                 "m-2vcpu-16gb",
+                 *                 "m-4vcpu-32gb",
+                 *                 "m-8vcpu-64gb",
+                 *                 "m-16vcpu-128gb",
+                 *                 "m-24vcpu-192gb",
+                 *                 "m-32vcpu-256gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 3,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "db-s-8vcpu-32gb",
+                 *                 "db-s-16vcpu-64gb",
+                 *                 "m-2vcpu-16gb",
+                 *                 "m-4vcpu-32gb",
+                 *                 "m-8vcpu-64gb",
+                 *                 "m-16vcpu-128gb",
+                 *                 "m-24vcpu-192gb",
+                 *                 "m-32vcpu-256gb"
+                 *               ]
+                 *             }
+                 *           ],
+                 *           "default_version": "8"
                  *         }
                  *       },
                  *       "version_availability": {
                  *         "kafka": [
                  *           {
                  *             "end_of_life": null,
-                 *             "end_of_availability": "2024-07-18T00:00:00Z",
-                 *             "version": "3.6"
-                 *           },
-                 *           {
-                 *             "end_of_life": null,
-                 *             "end_of_availability": "2025-01-17T00:00:00Z",
-                 *             "version": "3.7"
+                 *             "end_of_availability": "2025-06-03T00:00:00Z",
+                 *             "version": "3.8",
+                 *             "default": true
                  *           }
                  *         ],
                  *         "mongodb": [
                  *           {
-                 *             "end_of_life": "2024-10-01T07:00:00Z",
-                 *             "end_of_availability": null,
-                 *             "version": "5.0"
-                 *           },
-                 *           {
                  *             "end_of_life": "2025-07-01T07:00:00Z",
                  *             "end_of_availability": null,
-                 *             "version": "6.0"
+                 *             "version": "6.0",
+                 *             "default": false
                  *           },
                  *           {
                  *             "end_of_life": "2026-08-01T07:00:00Z",
                  *             "end_of_availability": null,
-                 *             "version": "7.0"
+                 *             "version": "7.0",
+                 *             "default": true
                  *           }
                  *         ],
                  *         "mysql": [
                  *           {
                  *             "end_of_life": null,
                  *             "end_of_availability": null,
-                 *             "version": "8"
+                 *             "version": "8",
+                 *             "default": true
                  *           }
                  *         ],
                  *         "opensearch": [
                  *           {
                  *             "end_of_life": null,
                  *             "end_of_availability": null,
-                 *             "version": "1"
+                 *             "version": "1",
+                 *             "default": false
                  *           },
                  *           {
                  *             "end_of_life": null,
                  *             "end_of_availability": null,
-                 *             "version": "2"
+                 *             "version": "2",
+                 *             "default": true
                  *           }
                  *         ],
                  *         "pg": [
                  *           {
                  *             "end_of_life": "2025-11-13T00:00:00Z",
                  *             "end_of_availability": "2025-05-13T00:00:00Z",
-                 *             "version": "13"
+                 *             "version": "13",
+                 *             "default": false
                  *           },
                  *           {
                  *             "end_of_life": "2026-11-12T00:00:00Z",
                  *             "end_of_availability": "2026-05-12T00:00:00Z",
-                 *             "version": "14"
+                 *             "version": "14",
+                 *             "default": false
                  *           },
                  *           {
                  *             "end_of_life": "2027-11-11T00:00:00Z",
                  *             "end_of_availability": "2027-05-12T00:00:00Z",
-                 *             "version": "15"
+                 *             "version": "15",
+                 *             "default": false
                  *           },
                  *           {
                  *             "end_of_life": "2028-11-09T00:00:00Z",
                  *             "end_of_availability": "2028-05-09T00:00:00Z",
-                 *             "version": "16"
+                 *             "version": "16",
+                 *             "default": false
+                 *           },
+                 *           {
+                 *             "end_of_life": "2029-11-08T00:00:00Z",
+                 *             "end_of_availability": "2029-05-08T00:00:00Z",
+                 *             "version": "17",
+                 *             "default": true
                  *           }
                  *         ],
                  *         "redis": [
                  *           {
+                 *             "end_of_life": "2025-06-30T00:00:00Z",
+                 *             "end_of_availability": "2025-04-30T00:00:00Z",
+                 *             "version": "7",
+                 *             "default": true
+                 *           }
+                 *         ],
+                 *         "valkey": [
+                 *           {
                  *             "end_of_life": null,
                  *             "end_of_availability": null,
-                 *             "version": "7"
+                 *             "version": "8",
+                 *             "default": true
                  *           }
                  *         ]
                  *       }
@@ -18422,7 +25723,7 @@ export interface components {
                  *     }
                  */
                 "application/json": {
-                    databases?: components["schemas"]["database_cluster"][];
+                    databases?: components["schemas"]["database_cluster_read"][];
                 };
             };
         };
@@ -18509,12 +25810,18 @@ export interface components {
                  *         "private_network_uuid": "d455e75d-4858-4eec-8c95-da2f0a5f93a7",
                  *         "version_end_of_life": "2023-11-09T00:00:00Z",
                  *         "version_end_of_availability": "2023-05-09T00:00:00Z",
-                 *         "storage_size_mib": 61440
+                 *         "storage_size_mib": 61440,
+                 *         "do_settings": {
+                 *           "service_cnames": [
+                 *             "db.example.com",
+                 *             "database.myapp.io"
+                 *           ]
+                 *         }
                  *       }
                  *     }
                  */
                 "application/json": {
-                    database: components["schemas"]["database_cluster"];
+                    database: components["schemas"]["database_cluster_read"];
                 };
             };
         };
@@ -18536,7 +25843,7 @@ export interface components {
                  *     }
                  */
                 "application/json": {
-                    config: components["schemas"]["mysql_advanced_config"] | components["schemas"]["postgres_advanced_config"] | components["schemas"]["redis_advanced_config"] | components["schemas"]["kafka_advanced_config"] | components["schemas"]["opensearch_advanced_config"] | components["schemas"]["mongo_advanced_config"];
+                    config: components["schemas"]["mysql_advanced_config"] | components["schemas"]["postgres_advanced_config"] | components["schemas"]["redis_advanced_config"] | components["schemas"]["valkey_advanced_config"] | components["schemas"]["kafka_advanced_config"] | components["schemas"]["opensearch_advanced_config"] | components["schemas"]["mongo_advanced_config"];
                 };
             };
         };
@@ -18580,7 +25887,7 @@ export interface components {
                 "application/json": components["schemas"]["online_migration"];
             };
         };
-        /** @description The does not indicate the success or failure of any operation, just that the request has been accepted for processing. */
+        /** @description This does not indicate the success or failure of any operation, just that the request has been accepted for processing. */
         accepted: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -18613,6 +25920,7 @@ export interface components {
                  *           "uuid": "adfe81a8-0fa1-4e2d-973f-06aa5af19b44",
                  *           "cluster_uuid": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
                  *           "type": "ip_addr",
+                 *           "description": "a development IP address",
                  *           "value": "192.168.1.1",
                  *           "created_at": "2019-11-14T20:30:28Z"
                  *         },
@@ -18652,17 +25960,47 @@ export interface components {
                  *       "backups": [
                  *         {
                  *           "created_at": "2019-01-11T18:42:27Z",
-                 *           "size_gigabytes": 0.03357696
+                 *           "size_gigabytes": 0.03357696,
+                 *           "incremental": false
                  *         },
                  *         {
                  *           "created_at": "2019-01-12T18:42:29Z",
-                 *           "size_gigabytes": 0.03364864
+                 *           "size_gigabytes": 0.03364864,
+                 *           "incremental": true
                  *         }
-                 *       ]
+                 *       ],
+                 *       "scheduled_backup_time": {
+                 *         "backup_hour": 20,
+                 *         "backup_minute": 40,
+                 *         "backup_interval_hours": 24
+                 *       },
+                 *       "backup_progress": "36"
                  *     }
                  */
                 "application/json": {
                     backups: components["schemas"]["backup"][];
+                    scheduled_backup_time?: {
+                        /**
+                         * @description The hour of the day when the backup is scheduled (in UTC).
+                         * @example 20
+                         */
+                        backup_hour?: number;
+                        /**
+                         * @description The minute of the hour when the backup is scheduled.
+                         * @example 40
+                         */
+                        backup_minute?: number;
+                        /**
+                         * @description The frequency, in hours, at which backups are taken.
+                         * @example 24
+                         */
+                        backup_interval_hours?: number;
+                    };
+                    /**
+                     * @description If a backup is currently in progress, this attribute shows the percentage of completion. If no backup is in progress, this attribute will be hidden.
+                     * @example 36
+                     */
+                    backup_progress?: string;
                 };
             };
         };
@@ -18706,7 +26044,7 @@ export interface components {
                  *     }
                  */
                 "application/json": {
-                    replicas?: components["schemas"]["database_replica"][];
+                    replicas?: components["schemas"]["database_replica_read"][];
                 };
             };
         };
@@ -18743,12 +26081,18 @@ export interface components {
                  *         },
                  *         "region": "nyc3",
                  *         "status": "online",
-                 *         "created_at": "2019-01-11T18:37:36Z"
+                 *         "created_at": "2019-01-11T18:37:36Z",
+                 *         "do_settings": {
+                 *           "service_cnames": [
+                 *             "replica-db.example.com",
+                 *             "read-replica.myapp.io"
+                 *           ]
+                 *         }
                  *       }
                  *     }
                  */
                 "application/json": {
-                    replica?: components["schemas"]["database_replica"];
+                    replica?: components["schemas"]["database_replica_read"];
                 };
             };
         };
@@ -18990,6 +26334,50 @@ export interface components {
                 "application/json": components["schemas"]["sql_mode"];
             };
         };
+        /** @description A JSON object with autoscale configuration details. */
+        autoscale: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "autoscale": {
+                 *         "storage": {
+                 *           "enabled": true,
+                 *           "threshold_percent": 80,
+                 *           "increment_gib": 10
+                 *         }
+                 *       }
+                 *     }
+                 */
+                "application/json": {
+                    autoscale?: components["schemas"]["database_autoscale_params"];
+                };
+            };
+        };
+        /** @description Unprocessable Entity */
+        unprocessable_entity: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "id": "unprocessable_entity",
+                 *       "message": "request payload validation failed",
+                 *       "request_id": "4851a473-1621-42ea-b2f9-5071c0ea8414"
+                 *     }
+                 */
+                "application/json": components["schemas"]["error"];
+            };
+        };
         /** @description A JSON object with a key of `topics`. */
         kafka_topics: {
             headers: {
@@ -19133,7 +26521,7 @@ export interface components {
                  *     }
                  */
                 "application/json": {
-                    sinks?: components["schemas"]["logsink_verbose"][];
+                    sinks?: components["schemas"]["logsink_schema"][];
                 };
             };
         };
@@ -19147,7 +26535,106 @@ export interface components {
             };
             content: {
                 "application/json": {
-                    sink?: components["schemas"]["logsink_verbose"];
+                    sink?: components["schemas"]["logsink_schema"];
+                };
+            };
+        };
+        /** @description A JSON object with logsink properties. */
+        logsink_data: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["logsink_schema"];
+            };
+        };
+        /** @description A JSON object with a key of `subjects`. */
+        kafka_schemas: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    subjects?: components["schemas"]["kafka_schema_verbose"][];
+                };
+            };
+        };
+        /** @description A JSON object. */
+        kafka_schema: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": WithRequired<components["schemas"]["kafka_schema_verbose"], "schema_id" | "subject_name" | "schema_type" | "schema">;
+            };
+        };
+        /** @description A JSON object. */
+        kafka_schema_version: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": WithRequired<components["schemas"]["kafka_schema_version_verbose"], "schema_id" | "subject_name" | "schema_type" | "schema" | "version">;
+            };
+        };
+        /** @description A JSON object with a key of `compatibility_level`. */
+        database_schema_registry_config: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "compatibility_level": "BACKWARD"
+                 *     }
+                 */
+                "application/json": {
+                    /**
+                     * @description The compatibility level of the schema registry.
+                     * @enum {string}
+                     */
+                    compatibility_level: "NONE" | "BACKWARD" | "BACKWARD_TRANSITIVE" | "FORWARD" | "FORWARD_TRANSITIVE" | "FULL" | "FULL_TRANSITIVE";
+                };
+            };
+        };
+        /** @description A JSON object with a key of `compatibility_level`. */
+        database_schema_registry_subject_config: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "subject_name": "my-schema-subject",
+                 *       "compatibility_level": "BACKWARD"
+                 *     }
+                 */
+                "application/json": {
+                    /** @description The name of the schema subject. */
+                    subject_name: string;
+                    /**
+                     * @description The compatibility level of the schema registry.
+                     * @enum {string}
+                     */
+                    compatibility_level: "NONE" | "BACKWARD" | "BACKWARD_TRANSITIVE" | "FORWARD" | "FORWARD_TRANSITIVE" | "FULL" | "FULL_TRANSITIVE";
                 };
             };
         };
@@ -19867,10 +27354,15 @@ export interface components {
                  *     }
                  */
                 "application/json": {
+                    /** @description Reserved IPs that are associated with this Droplet.<br>Requires `reserved_ip:read` scope. */
                     reserved_ips?: components["schemas"]["associated_resource"][];
+                    /** @description Floating IPs that are associated with this Droplet.<br>Requires `reserved_ip:read` scope. */
                     floating_ips?: components["schemas"]["associated_resource"][];
+                    /** @description Snapshots that are associated with this Droplet.<br>Requires `image:read` scope. */
                     snapshots?: components["schemas"]["associated_resource"][];
+                    /** @description Volumes that are associated with this Droplet.<br>Requires `block_storage:read` scope. */
                     volumes?: components["schemas"]["associated_resource"][];
+                    /** @description Volume Snapshots that are associated with this Droplet.<br>Requires `block_storage_snapshot:read` scope. */
                     volume_snapshots?: components["schemas"]["associated_resource"][];
                 };
             };
@@ -19929,7 +27421,7 @@ export interface components {
                 "application/json": components["schemas"]["associated_resource_status"];
             };
         };
-        /** @description Conflict */
+        /** @description The request could not be completed due to a conflict. */
         conflict: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20020,7 +27512,7 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description To list all of the firewalls available on your account, send a GET request to `/v2/firewalls`. */
+        /** @description To list all of the firewalls available on your account, send a GET request to `/v2/firewalls`.<br><br>Firewalls responses will include only the resources that you are granted to see. Ensure that your API token includes all necessary `<resource>:read` permissions for requested firewall. */
         list_firewalls_response: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20090,7 +27582,7 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description The response will be a JSON object with a firewall key. This will be set to an object containing the standard firewall attributes */
+        /** @description The response will be a JSON object with a firewall key. This will be set to an object containing the standard firewall attributes. */
         create_firewall_response: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20160,7 +27652,7 @@ export interface components {
                 };
             };
         };
-        /** @description Bad Request */
+        /** @description There was an error parsing the request body. */
         bad_request: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20179,7 +27671,7 @@ export interface components {
                 "application/json": components["schemas"]["error"];
             };
         };
-        /** @description The response will be a JSON object with a firewall key. This will be set to an object containing the standard firewall attributes. */
+        /** @description The response will be a JSON object with a firewall key. This will be set to an object containing the standard firewall attributes.<br><br>Firewalls responses will include only the resources that you are granted to see. Ensure that your API token includes all necessary `<resource>:read` permissions for requested firewall. */
         get_firewall_response: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20921,7 +28413,7 @@ export interface components {
             };
             content: {
                 "application/json": {
-                    kubernetes_clusters?: components["schemas"]["cluster"][];
+                    kubernetes_clusters?: components["schemas"]["cluster_read"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
@@ -20962,7 +28454,7 @@ export interface components {
             };
             content: {
                 "application/json": {
-                    kubernetes_cluster?: components["schemas"]["cluster"];
+                    kubernetes_cluster?: components["schemas"]["cluster_read"];
                 };
             };
         };
@@ -21292,6 +28784,20 @@ export interface components {
                 };
             };
         };
+        /** @description The response is a JSON object which contains status messages for a Kubernetes cluster. Each message object contains a timestamp and an indication of what issue the cluster is experiencing at a given time. */
+        status_messages: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    messages?: components["schemas"]["status_messages"][];
+                };
+            };
+        };
         /** @description A JSON object with a key of `load_balancers`. This will be set to an array of objects, each of which will contain the standard load balancer attributes. */
         all_load_balancers: {
             headers: {
@@ -21499,6 +29005,211 @@ export interface components {
                 };
             };
         };
+        /** @description The response will be a JSON object with a key called `shares`.  The value will be an array of objects, each containing the standard  attributes associated with  an NFS share. */
+        nfs_list: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["nfs_list_response"];
+            };
+        };
+        /** @description A JSON response containing details about the new NFS share. */
+        nfs_create: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["nfs_create_response"];
+            };
+        };
+        /** @description Size must be greater than or equal to 50Gib */
+        "bad_request-2": {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "id": "bad_request",
+                 *       "message": "The value for 'size_gib' must be greater than or equal to 50Gib."
+                 *     }
+                 */
+                "application/json": components["schemas"]["error"];
+            };
+        };
+        /** @description The response will be a JSON object with a key called `share`. The value will be an object containing the standard attributes associated with an NFS share. */
+        nfs_get: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["nfs_get_response"];
+            };
+        };
+        /** @description The response will be a JSON object with a key called `action`. */
+        nfs_actions: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["nfs_actions_response"];
+            };
+        };
+        /** @description The response will be a JSON object with a key called `snapshots`.  The value will be an array of objects, each containing the standard  attributes associated with an NFS snapshot. */
+        nfs_snapshot_list: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["nfs_snapshot_list_response"];
+            };
+        };
+        /** @description The response will be a JSON object with a key called `snapshot`. The value will be an object containing the standard attributes associated with an NFS snapshot. */
+        nfs_snapshot_get: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["nfs_snapshot_get_response"];
+            };
+        };
+        /**
+         * @description The response will be a JSON object with a `partner_attachments` key
+         *     that contains an array of all partner attachments
+         */
+        all_partner_attachments: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    partner_attachments?: components["schemas"]["partner_attachment"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /**
+         * @description The response will be a JSON object with details about the partner attachment
+         *     including attached VPC network IDs and BGP configuration information
+         */
+        single_partner_attachment: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    partner_attachment?: components["schemas"]["partner_attachment"];
+                };
+            };
+        };
+        /**
+         * @description The response will be a JSON object with details about the partner attachment
+         *     and `"state": "DELETING"` to indicate that the partner attachment is being deleted.
+         */
+        single_partner_attachment_deleting: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    partner_attachment?: components["schemas"]["partner_attachment"];
+                };
+            };
+        };
+        /**
+         * @description The response will be a JSON object with a `bgp_auth_key` object containing a
+         *     `value` field with the BGP auth key value
+         */
+        single_partner_attachment_bgp_auth_key: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    bgp_auth_key?: Record<string, never>;
+                };
+            };
+        };
+        /**
+         * @description The response will be a JSON object with a `remote_routes` array containing
+         *     information on all the remote routes associated with the partner attachment
+         */
+        all_partner_attachment_remote_routes: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    remote_routes?: components["schemas"]["partner_attachment_remote_route"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /**
+         * @description The response will be a JSON object with a `service_key` object containing
+         *     the service key value and creation information
+         */
+        single_partner_attachment_service_key: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    service_key?: Record<string, never>;
+                };
+            };
+        };
+        /** @description The response is an empty JSON object. */
+        empty_json_object: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /** @example {} */
+                "application/json": Record<string, never>;
+            };
+        };
         /** @description The response will be a JSON object with a key called `projects`. The value of this will be an object with the standard project attributes */
         projects_list: {
             headers: {
@@ -21559,7 +29270,12 @@ export interface components {
                 "application/json": components["schemas"]["error"];
             };
         };
-        /** @description The response will be a JSON object with a key called `resources`. The value of this will be an object with the standard resource attributes. */
+        /**
+         * @description The response will be a JSON object with a key called `resources`.
+         *     The value of this will be an object with the standard resource attributes.
+         *
+         *     Only resources that you are authorized to see will be returned.
+         */
         resources_list: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21569,11 +29285,17 @@ export interface components {
             };
             content: {
                 "application/json": {
+                    /** @description The resources that are assigned to this project. Only resources that you are authorized to see will be returned. */
                     resources?: components["schemas"]["resource"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description The response will be a JSON object with a key called `resources`. The value of this will be an object with the standard resource attributes. */
+        /**
+         * @description The response will be a JSON object with a key called `resources`.
+         *     The value of this will be an object with the standard resource attributes.
+         *
+         *     Only resources that you are authorized to see will be returned.
+         */
         assigned_resources_list: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21583,6 +29305,7 @@ export interface components {
             };
             content: {
                 "application/json": {
+                    /** @description All resources, including the ones added in the request, that are assigned to the project. Only resources that you are authorized to see will be returned. */
                     resources?: components["schemas"]["resource"][];
                 };
             };
@@ -21602,7 +29325,7 @@ export interface components {
             };
         };
         /** @description The response will be a JSON object with the key `registry` containing information about your registry. */
-        registry_info: {
+        all_registries_info: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
                 "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
@@ -21611,12 +29334,12 @@ export interface components {
             };
             content: {
                 "application/json": {
-                    registry?: components["schemas"]["registry"];
+                    registries?: components["schemas"]["registry"][];
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `subscription` containing information about your subscription. */
-        subscription_response: {
+        /** @description The response will be a JSON object with the key `registry` containing information about your registry. */
+        multiregistry_info: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
                 "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
@@ -21625,7 +29348,7 @@ export interface components {
             };
             content: {
                 "application/json": {
-                    subscription?: components["schemas"]["subscription"];
+                    registry?: components["schemas"]["multiregistry"];
                 };
             };
         };
@@ -21641,8 +29364,8 @@ export interface components {
                 "application/json": components["schemas"]["docker_credentials"];
             };
         };
-        /** @description The response body will be a JSON object with a key of `repositories`. This will be set to an array containing objects each representing a repository. */
-        all_repositories: {
+        /** @description The response will be a JSON object with a key called `subscription` containing information about your subscription. */
+        subscription_response: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
                 "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
@@ -21651,95 +29374,7 @@ export interface components {
             };
             content: {
                 "application/json": {
-                    repositories?: components["schemas"]["repository"][];
-                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
-            };
-        };
-        /** @description The response body will be a JSON object with a key of `repositories`. This will be set to an array containing objects each representing a repository. */
-        all_repositories_v2: {
-            headers: {
-                "ratelimit-limit": components["headers"]["ratelimit-limit"];
-                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
-                "ratelimit-reset": components["headers"]["ratelimit-reset"];
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    repositories?: components["schemas"]["repository_v2"][];
-                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
-            };
-        };
-        /** @description The response body will be a JSON object with a key of `tags`. This will be set to an array containing objects each representing a tag. */
-        repository_tags: {
-            headers: {
-                "ratelimit-limit": components["headers"]["ratelimit-limit"];
-                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
-                "ratelimit-reset": components["headers"]["ratelimit-reset"];
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    tags?: components["schemas"]["repository_tag"][];
-                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
-            };
-        };
-        /** @description The response body will be a JSON object with a key of `manifests`. This will be set to an array containing objects each representing a manifest. */
-        repository_manifests: {
-            headers: {
-                "ratelimit-limit": components["headers"]["ratelimit-limit"];
-                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
-                "ratelimit-reset": components["headers"]["ratelimit-reset"];
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    manifests?: components["schemas"]["repository_manifest"][];
-                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
-            };
-        };
-        /** @description The response will be a JSON object with a key of `garbage_collection`. This will be a json object with attributes representing the currently-active garbage collection. */
-        garbage_collection: {
-            headers: {
-                "ratelimit-limit": components["headers"]["ratelimit-limit"];
-                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
-                "ratelimit-reset": components["headers"]["ratelimit-reset"];
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": {
-                    garbage_collection?: components["schemas"]["garbage_collection"];
-                };
-            };
-        };
-        /** @description The response will be a JSON object with a key of `garbage_collections`. This will be set to an array containing objects representing each past garbage collection. Each will contain the standard Garbage Collection attributes. */
-        garbage_collections: {
-            headers: {
-                "ratelimit-limit": components["headers"]["ratelimit-limit"];
-                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
-                "ratelimit-reset": components["headers"]["ratelimit-reset"];
-                [name: string]: unknown;
-            };
-            content: {
-                /**
-                 * @example {
-                 *       "garbage_collections": [
-                 *         {
-                 *           "uuid": "eff0feee-49c7-4e8f-ba5c-a320c109c8a8",
-                 *           "registry_name": "example",
-                 *           "status": "requested",
-                 *           "created_at": "2020-10-30T21:03:24.000Z",
-                 *           "updated_at": "2020-10-30T21:03:44.000Z",
-                 *           "blobs_deleted": 42,
-                 *           "freed_bytes": 667
-                 *         }
-                 *       ],
-                 *       "meta": {
-                 *         "total": 1
-                 *       }
-                 *     }
-                 */
-                "application/json": {
-                    garbage_collections?: components["schemas"]["garbage_collection"][];
+                    subscription?: components["schemas"]["subscription"];
                 };
             };
         };
@@ -21811,6 +29446,158 @@ export interface components {
                         subscription_tiers?: (components["schemas"]["subscription_tier_base"] & components["schemas"]["subscription_tier_extended"])[];
                     };
                 };
+            };
+        };
+        /** @description The response will be a JSON object with a key of `garbage_collection`. This will be a json object with attributes representing the currently-active garbage collection. */
+        garbage_collection: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    garbage_collection?: components["schemas"]["garbage_collection"];
+                };
+            };
+        };
+        /** @description The response will be a JSON object with a key of `garbage_collections`. This will be set to an array containing objects representing each past garbage collection. Each will contain the standard Garbage Collection attributes. */
+        garbage_collections: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "garbage_collections": [
+                 *         {
+                 *           "uuid": "eff0feee-49c7-4e8f-ba5c-a320c109c8a8",
+                 *           "registry_name": "example",
+                 *           "status": "requested",
+                 *           "created_at": "2020-10-30T21:03:24.000Z",
+                 *           "updated_at": "2020-10-30T21:03:44.000Z",
+                 *           "blobs_deleted": 42,
+                 *           "freed_bytes": 667
+                 *         }
+                 *       ],
+                 *       "meta": {
+                 *         "total": 1
+                 *       }
+                 *     }
+                 */
+                "application/json": {
+                    garbage_collections?: components["schemas"]["garbage_collection"][];
+                };
+            };
+        };
+        /** @description The response body will be a JSON object with a key of `repositories`. This will be set to an array containing objects each representing a repository. */
+        all_repositories_v2: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    repositories?: components["schemas"]["repository_v2"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description The response body will be a JSON object with a key of `tags`. This will be set to an array containing objects each representing a tag. */
+        repository_tags: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    tags?: components["schemas"]["repository_tag"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description The response body will be a JSON object with a key of `manifests`. This will be set to an array containing objects each representing a manifest. */
+        repository_manifests: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    manifests?: components["schemas"]["repository_manifest"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description The response will be a JSON object with the key `registry` containing information about your registry. */
+        registry_info: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    registry?: components["schemas"]["registry"];
+                };
+            };
+        };
+        /** @description There are more than one registries in the DO account. */
+        registries_precondition_fail: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "id": "precondition_failed",
+                 *       "message": "This API is not supported if you have created multiple registries. Please use \n‘/v2/registries/{registry_name}’ instead. Refer to \nhttps://docs.digitalocean.com/reference/api/digitalocean/#tag/Container-Registry for more info."
+                 *     }
+                 */
+                "application/json": components["schemas"]["error"];
+            };
+        };
+        /** @description There are more than one registries in the DO account. */
+        registries_over_limit: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "id": "precondition_failed",
+                 *       "message": "registry is not eligible for tier because: [OverRegistryLimit]"
+                 *     }
+                 */
+                "application/json": components["schemas"]["error"];
+            };
+        };
+        /** @description The response body will be a JSON object with a key of `repositories`. This will be set to an array containing objects each representing a repository. */
+        all_repositories: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    repositories?: components["schemas"]["repository"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
         /** @description A JSON object with an `neighbor_ids` key. */
@@ -21909,6 +29696,272 @@ export interface components {
                 };
             };
         };
+        /** @description The response will be a JSON object with a key called `reserved_ipv6s`. This will be set to an array of reserved IP objects, each of which will contain the standard reserved IP attributes */
+        reserved_ipv6_list: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["reserved_ipv6_list"] & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description The response will be a JSON object with key `reserved_ipv6`. The value of this will be an object that contains the standard attributes associated with a reserved IPv6. */
+        reserved_ipv6_create: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    reserved_ipv6?: {
+                        /**
+                         * Format: ipv6
+                         * @description The public IP address of the reserved IPv6. It also serves as its identifier.
+                         * @example 2409:40d0:f7:1017:74b4:3a96:105e:4c6e
+                         */
+                        ip?: string;
+                        /**
+                         * @description The region that the reserved IPv6 is reserved to. When you query a reserved IPv6,the region_slug will be returned.
+                         * @example nyc3
+                         */
+                        region_slug?: string;
+                        /**
+                         * Format: date-time
+                         * @example 2024-11-20T11:08:30Z
+                         */
+                        reserved_at?: string;
+                    };
+                };
+            };
+        };
+        /** @description The response will be a JSON object with key `reserved_ipv6`. The value of this will be an object that contains the standard attributes associated with a reserved IPv6. */
+        reserved_ipv6: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    reserved_ipv6?: components["schemas"]["reserved_ipv6"];
+                };
+            };
+        };
+        /** @description The response will be an object with a key called `action`. The value of this will be an object that contains the standard reserved IP action attributes. */
+        reserved_ipv6_action: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    action?: components["schemas"]["action"] & {
+                        /**
+                         * @description The ID of the resource that the action is being taken on.
+                         * @example 758604968
+                         */
+                        resource_id?: number;
+                        /**
+                         * @description The type of resource that the action is being taken on.
+                         * @example reserved_ipv6
+                         */
+                        resource_type?: string;
+                        /**
+                         * @description The slug identifier for the region the resource is located in.
+                         * @example nyc3
+                         */
+                        region_slug?: string;
+                    };
+                };
+            };
+        };
+        /** @description List of BYOIP prefixes as an array of BYOIP prefix JSON objects */
+        byoip_prefix_list: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "byoip_prefixes": [
+                 *         {
+                 *           "uuid": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                 *           "status": "active",
+                 *           "region": "nyc3",
+                 *           "prefix": "203.0.113.0/24",
+                 *           "validations": [],
+                 *           "failure_reason": "",
+                 *           "advertised": true,
+                 *           "locked": false,
+                 *           "project_id": "12345678-1234-1234-1234-123456789012"
+                 *         },
+                 *         {
+                 *           "uuid": "123e4567-e89b-12d3-a456-426614174001",
+                 *           "status": "in_progress",
+                 *           "region": "sfo2",
+                 *           "prefix": "203.1.113.0/24",
+                 *           "validations": [],
+                 *           "failure_reason": "",
+                 *           "advertised": false,
+                 *           "locked": false,
+                 *           "project_id": "12345678-1234-1234-1234-123456789012"
+                 *         }
+                 *       ],
+                 *       "links": {},
+                 *       "meta": {
+                 *         "total": 2
+                 *       }
+                 *     }
+                 */
+                "application/json": {
+                    byoip_prefixes?: components["schemas"]["byoip_prefix"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description BYOIP prefix request accepted, response will contain the details of the created prefix. */
+        byoip_prefix_create: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "byoip_prefix": {
+                 *         "uuid": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                 *         "status": "in_progress",
+                 *         "region": "nyc3"
+                 *       }
+                 *     }
+                 */
+                "application/json": {
+                    /**
+                     * @description The unique identifier for the BYOIP prefix
+                     * @example 123e4567-e89b-12d3-a456-426614174000
+                     */
+                    uuid?: string;
+                    /**
+                     * @description The region where the prefix is created
+                     * @example nyc3
+                     */
+                    region?: string;
+                    /**
+                     * @description The status of the BYOIP prefix
+                     * @example in_progress
+                     */
+                    status?: string;
+                };
+            };
+        };
+        /** @description Details of the requested BYOIP prefix */
+        byoip_prefix_get: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "byoip_prefix": {
+                 *         "uuid": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                 *         "status": "active",
+                 *         "region": "nyc3",
+                 *         "prefix": "203.0.113.0/24",
+                 *         "validations": [],
+                 *         "failure_reason": "",
+                 *         "advertised": true,
+                 *         "locked": false,
+                 *         "project_id": "12345678-1234-1234-1234-123456789012"
+                 *       }
+                 *     }
+                 */
+                "application/json": {
+                    byoip_prefix?: components["schemas"]["byoip_prefix"];
+                };
+            };
+        };
+        /** @description Details of the updated BYOIP prefix */
+        byoip_prefix_update: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "byoip_prefix": {
+                 *         "uuid": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                 *         "status": "active",
+                 *         "region": "nyc3",
+                 *         "prefix": "203.0.113.0/24",
+                 *         "validations": [],
+                 *         "failure_reason": "",
+                 *         "advertised": true,
+                 *         "locked": false,
+                 *         "project_id": "12345678-1234-1234-1234-123456789012"
+                 *       }
+                 *     }
+                 */
+                "application/json": {
+                    byoip_prefix?: components["schemas"]["byoip_prefix"];
+                };
+            };
+        };
+        /** @description List of IP addresses assigned to resources (such as Droplets) in a BYOIP prefix */
+        byoip_prefix_list_resources: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "ips": [
+                 *         {
+                 *           "id": 11111023,
+                 *           "byoip": "203.0.113.2",
+                 *           "region": "nyc3",
+                 *           "resource": "do:droplet:fa3c10b-58cc-4372-a567-0e02b2c3d479",
+                 *           "assigned_at": "2025-06-25T12:00:00Z"
+                 *         },
+                 *         {
+                 *           "id": 11111024,
+                 *           "byoip": "203.0.113.3",
+                 *           "region": "nyc3",
+                 *           "resource": "do:droplet:fa3c10b-58cc-4372-a567-0e02b2c3d480",
+                 *           "assigned_at": "2025-06-25T13:00:00Z"
+                 *         }
+                 *       ],
+                 *       "links": {},
+                 *       "meta": {
+                 *         "total": 2
+                 *       }
+                 *     }
+                 */
+                "application/json": {
+                    ips?: components["schemas"]["byoip_prefix_resource"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
         /** @description A JSON object with a key called `sizes`. The value of this will be an array of `size` objects each of which contain the standard size attributes. */
         all_sizes: {
             headers: {
@@ -21970,6 +30023,80 @@ export interface components {
                 "application/json": components["schemas"]["error"];
             };
         };
+        /** @description A JSON response containing a list of keys. */
+        key_list: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    keys?: components["schemas"]["key"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description A JSON response containing details about the new key. */
+        key_create: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    key?: components["schemas"]["key_create_response"];
+                };
+            };
+        };
+        /** @description Cannot mix fullaccess permission with scoped permissions */
+        "bad_request-3": {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "id": "bad_request",
+                 *       "message": "cannot mix fullaccess permission with scoped permissions."
+                 *     }
+                 */
+                "application/json": components["schemas"]["error"];
+            };
+        };
+        /** @description A JSON response containing details about the key. */
+        key_get: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    keys?: components["schemas"]["key"][];
+                };
+            };
+        };
+        /** @description The response will be a JSON object */
+        key_update: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    key?: components["schemas"]["key"];
+                };
+            };
+        };
         /** @description To list all of your tags, you can send a `GET` request to `/v2/tags`. */
         tags_all: {
             headers: {
@@ -22011,7 +30138,12 @@ export interface components {
                 "application/json": components["schemas"]["error_with_root_causes"];
             };
         };
-        /** @description The response will be a JSON object with a key called `tag`.  The value of this will be a tag object containing the standard tag attributes. */
+        /**
+         * @description The response will be a JSON object with a key called `tag`.
+         *     The value of this will be a tag object containing the standard tag attributes.
+         *
+         *     Tagged resources will only include resources that you are authorized to see.
+         */
         tags_existing: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -22110,7 +30242,7 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description The response will be a JSON object with a key called `vpcs`. This will be set to an array of objects, each of which will contain the standard attributes associated with a VPC */
+        /** @description The response will be a JSON object with a key called `vpcs`. This will be set to an array of objects, each of which will contain the standard attributes associated with a VPC. */
         all_vpcs: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -22138,7 +30270,14 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called members. This will be set to an array of objects, each of which will contain the standard attributes associated with a VPC member. */
+        /**
+         * @description The response will be a JSON object with a key called members. This will be set
+         *     to an array of objects, each of which will contain the standard attributes
+         *     associated with a VPC member.
+         *
+         *     Only resources that you are authorized to see will be returned (e.g. to see Droplets,
+         *     you must have `droplet:read`).
+         */
         vpc_members: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -22233,6 +30372,71 @@ export interface components {
             content: {
                 "application/json": {
                     vpc_peering?: components["schemas"]["vpc_peering"];
+                };
+            };
+        };
+        /** @description A JSON object with a key of `vpc_nat_gateways`. */
+        vpc_nat_gateways: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    vpc_nat_gateways?: components["schemas"]["vpc_nat_gateway_get"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /**
+         * @description The response will be a JSON object with a key called `vpc_nat_gateway`. This will be
+         *     set to a JSON object that contains the standard VPC NAT gateway attributes.
+         */
+        vpc_nat_gateway_create: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    vpc_nat_gateway?: components["schemas"]["vpc_nat_gateway_create"];
+                };
+            };
+        };
+        /**
+         * @description The response will be a JSON object with a key called `vpc_nat_gateway`. This will be
+         *     set to a JSON object that contains the standard VPC NAT gateway attributes.
+         */
+        vpc_nat_gateway: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    vpc_nat_gateway?: components["schemas"]["vpc_nat_gateway_get"];
+                };
+            };
+        };
+        /**
+         * @description The response will be a JSON object with a key called `vpc_nat_gateway`. This will be
+         *     set to a JSON object that contains the standard VPC NAT gateway attributes.
+         */
+        vpc_nat_gateway_update: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    vpc_nat_gateway?: components["schemas"]["vpc_nat_gateway_update"];
                 };
             };
         };
@@ -22334,6 +30538,11 @@ export interface components {
          */
         action_id: number;
         /**
+         * @description A unique identifier for the add-on resource.
+         * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+         */
+        resource_uuid: string;
+        /**
          * @description Whether the project_id of listed apps should be fetched and included.
          * @example true
          */
@@ -22388,10 +30597,38 @@ export interface components {
          */
         time_wait: string;
         /**
+         * @description The name of the actively running ephemeral compute instance
+         * @example go-app-d768568df-zz77d
+         */
+        instance_name: string;
+        /**
          * @description The deployment ID
          * @example 3aa4d20e-5527-4c00-b496-601fbd22520a
          */
         deployment_id: string;
+        /**
+         * @description The job names to list job invocations for.
+         * @example [
+         *       "component1",
+         *       "component2"
+         *     ]
+         */
+        job_names: components["schemas"]["schema"][];
+        /**
+         * @description The ID of the job invocation to retrieve.
+         * @example 123e4567-e89b-12d3-a456-426
+         */
+        job_invocation_id: string;
+        /**
+         * @description The job name to list job invocations for.
+         * @example component
+         */
+        job_name: string;
+        /**
+         * @description The number of lines from the end of the logs to retrieve.
+         * @example 100
+         */
+        number_lines: string;
         /**
          * @description The slug of the instance size
          * @example apps-s-1vcpu-0.5gb
@@ -22423,7 +30660,22 @@ export interface components {
          */
         invoice_uuid: string;
         /**
-         * @description Limits the results to database clusters with a specific tag.
+         * @description URN of the customer account, can be a team (do:team:uuid) or an organization (do:teamgroup:uuid)
+         * @example do:team:12345678-1234-1234-1234-123456789012
+         */
+        account_urn: string;
+        /**
+         * @description Start date for billing insights in YYYY-MM-DD format
+         * @example 2025-01-01
+         */
+        start_date: string;
+        /**
+         * @description End date for billing insights in YYYY-MM-DD format. Must be within 31 days of start_date
+         * @example 2025-01-31
+         */
+        end_date: string;
+        /**
+         * @description Limits the results to database clusters with a specific tag.<br><br>Requires `tag:read` scope.
          * @example production
          */
         tag_name: string;
@@ -22468,6 +30720,16 @@ export interface components {
          */
         logsink_id: string;
         /**
+         * @description The name of the Kafka schema subject.
+         * @example customer-schema
+         */
+        kafka_schema_subject_name: string;
+        /**
+         * @description The version of the Kafka schema subject.
+         * @example 1
+         */
+        kafka_schema_version: string;
+        /**
          * @description The name of the OpenSearch index.
          * @example logs-*
          */
@@ -22493,7 +30755,7 @@ export interface components {
          */
         domain_record_id: number;
         /**
-         * @description Used to filter Droplets by a specific tag. Can not be combined with `name` or `type`.
+         * @description Used to filter Droplets by a specific tag. Can not be combined with `name` or `type`.<br>Requires `tag:read` scope.
          * @example env:prod
          */
         droplet_tag_name: string;
@@ -22613,6 +30875,11 @@ export interface components {
          */
         clusterlint_run_id: string;
         /**
+         * @description A timestamp used to return status messages emitted since the specified time. The timestamp should be in ISO8601 format.
+         * @example 2018-11-15T16:00:11Z
+         */
+        kubernetes_status_messages_since: string;
+        /**
          * @description A unique identifier for a load balancer.
          * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
          */
@@ -22668,6 +30935,41 @@ export interface components {
          */
         parameters_autoscale_pool_id: string;
         /**
+         * @description The DBaaS cluster UUID (database ID).
+         * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+         */
+        db_id: string;
+        /**
+         * @description Aggregation over the time range (avg, max, or min).
+         * @example avg
+         */
+        aggregate_avg_max_min: "avg" | "max" | "min";
+        /**
+         * @description Load window: **load1** (1-minute), **load5** (5-minute), **load15** (15-minute). The value is either average or max over that window, depending on the **aggregate** parameter (avg or max).
+         * @example load1
+         */
+        metric_load: "load1" | "load5" | "load15";
+        /**
+         * @description Aggregation over the time range (avg or max).
+         * @example avg
+         */
+        aggregate_avg_max: "avg" | "max";
+        /**
+         * @description Operation type (select, insert, update, or delete).
+         * @example select
+         */
+        metric_op_rates: "select" | "insert" | "update" | "delete";
+        /**
+         * @description The schema (database) name.
+         * @example defaultdb
+         */
+        schema: string;
+        /**
+         * @description Table I/O operation (insert, fetch, update, or delete).
+         * @example insert
+         */
+        metric_schema_io: "insert" | "fetch" | "update" | "delete";
+        /**
          * @description A unique identifier for a destination.
          * @example 1a64809f-1708-48ee-a742-dec8d481b8d1
          */
@@ -22683,25 +30985,45 @@ export interface components {
          */
         sink_uuid: string;
         /**
+         * @description The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+         * @example atl1
+         */
+        region: string;
+        /**
+         * @description The unique ID of the NFS share
+         * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+         */
+        nfs_id: string;
+        /**
+         * @description The unique ID of an NFS share. If provided, only snapshots of this specific share will be returned.
+         * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+         */
+        share_id: string;
+        /**
+         * @description The unique ID of the NFS snapshot
+         * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+         */
+        nfs_snapshot_id: string;
+        /**
+         * @description A unique identifier for a partner attachment.
+         * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+         */
+        pa_id: string;
+        /**
          * @description A unique identifier for a project.
          * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
          */
         project_id: string;
         /**
-         * @description The duration in seconds that the returned registry credentials will be valid. If not set or 0, the credentials will not expire.
-         * @example 3600
-         */
-        registry_expiry_seconds: number;
-        /**
-         * @description By default, the registry credentials allow for read-only access. Set this query parameter to `true` to obtain read-write credentials.
-         * @example true
-         */
-        registry_read_write: boolean;
-        /**
          * @description The name of a container registry.
          * @example example
          */
         registry_name: string;
+        /**
+         * @description The UUID of a garbage collection run.
+         * @example eff0feee-49c7-4e8f-ba5c-a320c109c8a8
+         */
+        garbage_collection_uuid: string;
         /**
          * @description Which 'page' of paginated results to return. Ignored when 'page_token' is provided.
          * @example 1
@@ -22728,15 +31050,30 @@ export interface components {
          */
         registry_manifest_digest: string;
         /**
-         * @description The UUID of a garbage collection run.
-         * @example eff0feee-49c7-4e8f-ba5c-a320c109c8a8
+         * @description The duration in seconds that the returned registry credentials will be valid. If not set or 0, the credentials will not expire.
+         * @example 3600
          */
-        garbage_collection_uuid: string;
+        registry_expiry_seconds: number;
+        /**
+         * @description By default, the registry credentials allow for read-only access. Set this query parameter to `true` to obtain read-write credentials.
+         * @example true
+         */
+        registry_read_write: boolean;
         /**
          * @description A reserved IP address.
          * @example 45.55.96.47
          */
         reserved_ip: string;
+        /**
+         * @description A reserved IPv6 address.
+         * @example 2409:40d0:f7:1017:74b4:3a96:105e:4c6e
+         */
+        reserved_ipv6: string;
+        /**
+         * @description The unique identifier for the BYOIP Prefix.
+         * @example f47ac10b-58cc-4372-a567-0e02b2c3d479
+         */
+        byoip_prefix: string;
         /**
          * @description Used to filter snapshots by a resource type.
          * @example droplet
@@ -22747,6 +31084,36 @@ export interface components {
          * @example 6372321
          */
         snapshot_id: number | string;
+        /**
+         * @description The field to sort by.
+         * @example created_at
+         */
+        sort: string;
+        /**
+         * @description The direction to sort by. Possible values are `asc` or `desc`.
+         * @example desc
+         */
+        sort_direction: string;
+        /**
+         * @description The access key's name.
+         * @example my-access-key
+         */
+        name: string;
+        /**
+         * @description The bucket's name.
+         * @example my-bucket
+         */
+        bucket: string;
+        /**
+         * @description The permission of the access key. Possible values are `read`, `readwrite`, `fullaccess`, or an empty string.
+         * @example read
+         */
+        permission: string;
+        /**
+         * @description The access key's ID.
+         * @example DOACCESSKEYEXAMPLE
+         */
+        access_key_id: string;
         /**
          * @description The name of the tag. Tags may contain letters, numbers, colons, dashes, and underscores. There is a limit of 255 characters per tag.
          * @example awesome
@@ -22761,7 +31128,7 @@ export interface components {
          * @description The slug identifier for the region where the resource is available.
          * @example nyc3
          */
-        region: components["schemas"]["region_slug"];
+        parameters_region: components["schemas"]["region_slug"];
         /**
          * @description The unique identifier for the snapshot.
          * @example fbe805e8-866b-11e6-96bf-000f53315a41
@@ -22787,6 +31154,31 @@ export interface components {
          * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
          */
         vpc_peering_id: string;
+        /**
+         * @description The current state of the VPC NAT gateway.
+         * @example active
+         */
+        vpc_nat_gateway_state: "new" | "provisioning" | "active" | "deleting" | "error" | "invalid";
+        /**
+         * @description The region where the VPC NAT gateway is located.
+         * @example tor1
+         */
+        vpc_nat_gateway_region: "nyc1" | "nyc2" | "nyc3" | "ams2" | "ams3" | "sfo1" | "sfo2" | "sfo3" | "sgp1" | "lon1" | "fra1" | "tor1" | "blr1" | "syd1" | "atl1";
+        /**
+         * @description The type of the VPC NAT gateway.
+         * @example public
+         */
+        vpc_nat_gateway_type: "public";
+        /**
+         * @description The name of the VPC NAT gateway.
+         * @example my-vpc-nat-gateway
+         */
+        vpc_nat_gateway_name: string;
+        /**
+         * @description The unique identifier of the VPC NAT gateway.
+         * @example 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+         */
+        vpc_nat_gateway_id: string;
         /**
          * @description A unique identifier for a check.
          * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
@@ -23066,6 +31458,193 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    addons_get_app: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["addons_get_app"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    addons_get_app_metadata: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The slug identifier for the application whose metadata is being requested.
+                 * @example example_app
+                 */
+                app_slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["addons_get_app_metadata"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    addons_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["addons_list"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    addons_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": WithRequired<components["schemas"]["addons_resource_new"], "name" | "app_slug" | "plan_slug" | "metadata">;
+            };
+        };
+        responses: {
+            200: components["responses"]["addons_create"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    addons_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The UUID of the add-on resource to retrieve.
+                 * @example 123e4567-e89b-12d3-a456-426614174000
+                 */
+                resource_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["addons_get"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    addons_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for the add-on resource.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                resource_uuid: components["parameters"]["resource_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    addons_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The UUID of the add-on resource to rename.
+                 * @example 123e4567-e89b-12d3-a456-426614174000
+                 */
+                resource_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The new name for the add-on resource.
+                     * @example new-name
+                     */
+                    name: string;
+                };
+            };
+        };
+        responses: {
+            200: components["responses"]["addons_update"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    addons_patch_plan: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The UUID of the add-on resource to update.
+                 * @example 123e4567-e89b-12d3-a456-426614174000
+                 */
+                resource_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The slug identifier for the new plan to apply to the add-on resource.
+                     * @example basic_plan
+                     */
+                    plan_slug: string;
+                };
+            };
+        };
+        responses: {
+            200: components["responses"]["addons_update"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     apps_list: {
         parameters: {
             query?: {
@@ -23123,6 +31702,9 @@ export interface operations {
                  *       "spec": {
                  *         "name": "web-app",
                  *         "region": "nyc",
+                 *         "disable_edge_cache": true,
+                 *         "disable_email_obfuscation": false,
+                 *         "enhanced_threat_control_enabled": true,
                  *         "services": [
                  *           {
                  *             "name": "api",
@@ -23144,6 +31726,9 @@ export interface operations {
                  *         ],
                  *         "egress": {
                  *           "type": "DEDICATED_IP"
+                 *         },
+                 *         "vpc": {
+                 *           "id": "c22d8f48-4bc4-49f5-8ca0-58e7164427ac"
                  *         }
                  *       }
                  *     }
@@ -23315,7 +31900,13 @@ export interface operations {
     };
     apps_get_exec_active_deployment: {
         parameters: {
-            query?: never;
+            query?: {
+                /**
+                 * @description The name of the actively running ephemeral compute instance
+                 * @example go-app-d768568df-zz77d
+                 */
+                instance_name?: components["parameters"]["instance_name"];
+            };
             header?: never;
             path: {
                 /**
@@ -23341,6 +31932,29 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    apps_get_instances: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The app ID
+                 * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+                 */
+                app_id: components["parameters"]["app_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["apps_instances"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     apps_list_deployments: {
         parameters: {
             query?: {
@@ -23354,6 +31968,21 @@ export interface operations {
                  * @example 2
                  */
                 per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Optional. Filter deployments by deployment_type
+                 *       - MANUAL: manual deployment
+                 *       - DEPLOY_ON_PUSH: deployment triggered by a push to the app's repository
+                 *       - MAINTENANCE: deployment for maintenance purposes
+                 *       - MANUAL_ROLLBACK: manual revert to a previous deployment
+                 *       - AUTO_ROLLBACK: automatic revert to a previous deployment
+                 *       - UPDATE_DATABASE_TRUSTED_SOURCES: update database trusted sources
+                 *       - AUTOSCALED: deployment that has been autoscaled
+                 * @example [
+                 *       "MANUAL",
+                 *       "AUTOSCALED"
+                 *     ]
+                 */
+                deployment_types?: ("MANUAL" | "DEPLOY_ON_PUSH" | "MAINTENANCE" | "MANUAL_ROLLBACK" | "AUTO_ROLLBACK" | "UPDATE_DATABASE_TRUSTED_SOURCES" | "AUTOSCALED")[];
             };
             header?: never;
             path: {
@@ -23561,7 +32190,13 @@ export interface operations {
     };
     apps_get_exec: {
         parameters: {
-            query?: never;
+            query?: {
+                /**
+                 * @description The name of the actively running ephemeral compute instance
+                 * @example go-app-d768568df-zz77d
+                 */
+                instance_name?: components["parameters"]["instance_name"];
+            };
             header?: never;
             path: {
                 /**
@@ -23628,6 +32263,180 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["list_logs"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    apps_list_job_invocations: {
+        parameters: {
+            query?: {
+                /**
+                 * @description The job names to list job invocations for.
+                 * @example [
+                 *       "component1",
+                 *       "component2"
+                 *     ]
+                 */
+                job_names?: components["parameters"]["job_names"];
+                /**
+                 * @description The deployment ID
+                 * @example 3aa4d20e-5527-4c00-b496-601fbd22520a
+                 */
+                deployment_id?: string;
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The app ID
+                 * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+                 */
+                app_id: components["parameters"]["app_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["list_job_invocations"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    apps_get_job_invocation: {
+        parameters: {
+            query?: {
+                /**
+                 * @description The job name to list job invocations for.
+                 * @example component
+                 */
+                job_name?: components["parameters"]["job_name"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The app ID
+                 * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+                 */
+                app_id: components["parameters"]["app_id"];
+                /**
+                 * @description The ID of the job invocation to retrieve.
+                 * @example 123e4567-e89b-12d3-a456-426
+                 */
+                job_invocation_id: components["parameters"]["job_invocation_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["get_job_invocation"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    apps_cancel_job_invocation: {
+        parameters: {
+            query?: {
+                /**
+                 * @description The job name to list job invocations for.
+                 * @example component
+                 */
+                job_name?: components["parameters"]["job_name"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The app ID
+                 * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+                 */
+                app_id: components["parameters"]["app_id"];
+                /**
+                 * @description The ID of the job invocation to retrieve.
+                 * @example 123e4567-e89b-12d3-a456-426
+                 */
+                job_invocation_id: components["parameters"]["job_invocation_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["cancel_job_invocation"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    apps_get_job_invocation_logs: {
+        parameters: {
+            query: {
+                /**
+                 * @description The deployment ID
+                 * @example 3aa4d20e-5527-4c00-b496-601fbd22520a
+                 */
+                deployment_id?: string;
+                /**
+                 * @description Whether the logs should follow live updates.
+                 * @example true
+                 */
+                follow?: components["parameters"]["live_updates"];
+                /**
+                 * @description The type of logs to retrieve
+                 * @example JOB_INVOCATION
+                 */
+                type: "JOB_INVOCATION";
+                /**
+                 * @description An optional time duration to wait if the underlying component instance is not immediately available. Default: `3m`.
+                 * @example 3m
+                 */
+                pod_connection_timeout?: components["parameters"]["time_wait"];
+                /**
+                 * @description The number of lines from the end of the logs to retrieve.
+                 * @example 100
+                 */
+                tail_lines?: components["parameters"]["number_lines"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The app ID
+                 * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+                 */
+                app_id: components["parameters"]["app_id"];
+                /**
+                 * @description The job name to list job invocations for.
+                 * @example component
+                 */
+                job_name: string;
+                /**
+                 * @description The ID of the job invocation to retrieve.
+                 * @example 123e4567-e89b-12d3-a456-426
+                 */
+                job_invocation_id: components["parameters"]["job_invocation_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["apps_get_logs"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -23945,6 +32754,29 @@ export interface operations {
         };
         responses: {
             200: components["responses"]["list_metrics_bandwidth_usage"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    apps_get_health: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The app ID
+                 * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+                 */
+                app_id: components["parameters"]["app_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["apps_health"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -24361,6 +33193,50 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    billingInsights_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description URN of the customer account, can be a team (do:team:uuid) or an organization (do:teamgroup:uuid)
+                 * @example do:team:12345678-1234-1234-1234-123456789012
+                 */
+                account_urn: components["parameters"]["account_urn"];
+                /**
+                 * @description Start date for billing insights in YYYY-MM-DD format
+                 * @example 2025-01-01
+                 */
+                start_date: components["parameters"]["start_date"];
+                /**
+                 * @description End date for billing insights in YYYY-MM-DD format. Must be within 31 days of start_date
+                 * @example 2025-01-31
+                 */
+                end_date: components["parameters"]["end_date"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["billing_insights"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     databases_list_options: {
         parameters: {
             query?: never;
@@ -24382,7 +33258,7 @@ export interface operations {
         parameters: {
             query?: {
                 /**
-                 * @description Limits the results to database clusters with a specific tag.
+                 * @description Limits the results to database clusters with a specific tag.<br><br>Requires `tag:read` scope.
                  * @example production
                  */
                 tag_name?: components["parameters"]["tag_name"];
@@ -24767,7 +33643,8 @@ export interface operations {
                  *         },
                  *         {
                  *           "type": "tag",
-                 *           "value": "backend"
+                 *           "value": "backend",
+                 *           "description": "a backend tag"
                  *         }
                  *       ]
                  *     }
@@ -24903,14 +33780,6 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /**
-                 * @example {
-                 *       "name": "read-nyc3-01",
-                 *       "region": "nyc3",
-                 *       "size": "db-s-2vcpu-4gb",
-                 *       "storage_size_mib": 61440
-                 *     }
-                 */
                 "application/json": WithRequired<components["schemas"]["database_replica"], "name" | "size">;
             };
         };
@@ -25070,7 +33939,8 @@ export interface operations {
             content: {
                 "application/json": components["schemas"]["database_user"] & {
                     /**
-                     * @description For MongoDB clusters, set to `true` to create a read-only user.
+                     * @description (To be deprecated: use settings.mongo_user_settings.role instead for access controls to MongoDB databases).
+                     *     For MongoDB clusters, set to `true` to create a read-only user.
                      *     This option is not currently supported for other database engines.
                      * @example true
                      */
@@ -25628,6 +34498,66 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    databases_get_autoscale: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["autoscale"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_update_autoscale: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "storage": {
+                 *         "enabled": true,
+                 *         "threshold_percent": 80,
+                 *         "increment_gib": 10
+                 *       }
+                 *     }
+                 */
+                "application/json": components["schemas"]["database_autoscale_params"];
+            };
+        };
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            422: components["responses"]["unprocessable_entity"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     databases_list_kafka_topics: {
         parameters: {
             query?: never;
@@ -25802,7 +34732,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            201: components["responses"]["logsinks"];
+            200: components["responses"]["logsinks"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -25857,7 +34787,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            201: components["responses"]["logsink"];
+            200: components["responses"]["logsink_data"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -25928,6 +34858,281 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_list_kafka_schemas: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["kafka_schemas"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_create_kafka_schema: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "subject_name": "customer-schema",
+                 *       "schema_type": "AVRO",
+                 *       "schema": "{\n  \"type\": \"record\",\n  \"name\": \"Customer\",\n  \"fields\": [\n    {\"name\": \"id\", \"type\": \"string\"},\n    {\"name\": \"name\", \"type\": \"string\"},\n    {\"name\": \"email\", \"type\": \"string\"},\n    {\"name\": \"created_at\", \"type\": \"long\"}\n  ]\n}\n"
+                 *     }
+                 */
+                "application/json": WithRequired<components["schemas"]["database_kafka_schema_create"], "subject_name" | "schema_type" | "schema">;
+            };
+        };
+        responses: {
+            201: components["responses"]["kafka_schema"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_get_kafka_schema: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name of the Kafka schema subject.
+                 * @example customer-schema
+                 */
+                subject_name: components["parameters"]["kafka_schema_subject_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["kafka_schema_version"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+        };
+    };
+    databases_delete_kafka_schema: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name of the Kafka schema subject.
+                 * @example customer-schema
+                 */
+                subject_name: components["parameters"]["kafka_schema_subject_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+        };
+    };
+    databases_get_kafka_schema_version: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name of the Kafka schema subject.
+                 * @example customer-schema
+                 */
+                subject_name: components["parameters"]["kafka_schema_subject_name"];
+                /**
+                 * @description The version of the Kafka schema subject.
+                 * @example 1
+                 */
+                version: components["parameters"]["kafka_schema_version"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["kafka_schema_version"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+        };
+    };
+    databases_get_kafka_schema_config: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["database_schema_registry_config"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_update_kafka_schema_config: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "compatibility_level": "BACKWARD"
+                 *     }
+                 */
+                "application/json": {
+                    /**
+                     * @description The compatibility level of the schema registry.
+                     * @enum {string}
+                     */
+                    compatibility_level: "NONE" | "BACKWARD" | "BACKWARD_TRANSITIVE" | "FORWARD" | "FORWARD_TRANSITIVE" | "FULL" | "FULL_TRANSITIVE";
+                };
+            };
+        };
+        responses: {
+            200: components["responses"]["database_schema_registry_config"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_get_kafka_schema_subject_config: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name of the Kafka schema subject.
+                 * @example customer-schema
+                 */
+                subject_name: components["parameters"]["kafka_schema_subject_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["database_schema_registry_subject_config"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_update_kafka_schema_subject_config: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name of the Kafka schema subject.
+                 * @example customer-schema
+                 */
+                subject_name: components["parameters"]["kafka_schema_subject_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "compatibility_level": "BACKWARD"
+                 *     }
+                 */
+                "application/json": {
+                    /**
+                     * @description The compatibility level of the schema registry.
+                     * @enum {string}
+                     */
+                    compatibility_level: "NONE" | "BACKWARD" | "BACKWARD_TRANSITIVE" | "FORWARD" | "FORWARD_TRANSITIVE" | "FULL" | "FULL_TRANSITIVE";
+                };
+            };
+        };
+        responses: {
+            200: components["responses"]["database_schema_registry_subject_config"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -26359,7 +35564,7 @@ export interface operations {
                  */
                 page?: components["parameters"]["page"];
                 /**
-                 * @description Used to filter Droplets by a specific tag. Can not be combined with `name` or `type`.
+                 * @description Used to filter Droplets by a specific tag. Can not be combined with `name` or `type`.<br>Requires `tag:read` scope.
                  * @example env:prod
                  */
                 tag_name?: components["parameters"]["droplet_tag_name"];
@@ -26682,7 +35887,7 @@ export interface operations {
         parameters: {
             query?: {
                 /**
-                 * @description Used to filter Droplets by a specific tag. Can not be combined with `name` or `type`.
+                 * @description Used to filter Droplets by a specific tag. Can not be combined with `name` or `type`.<br>Requires `tag:read` scope.
                  * @example env:prod
                  */
                 tag_name?: components["parameters"]["droplet_tag_name"];
@@ -26692,7 +35897,7 @@ export interface operations {
             cookie?: never;
         };
         /**
-         * @description The `type` attribute set in the request body will specify the  action that
+         * @description The `type` attribute set in the request body will specify the action that
          *     will be taken on the Droplet. Some actions will require additional
          *     attributes to be set as well.
          */
@@ -28919,7 +38124,7 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["cluster_registries"];
+                "application/json": components["schemas"]["cluster_registry"];
             };
         };
         responses: {
@@ -28939,12 +38144,81 @@ export interface operations {
         };
         requestBody?: {
             content: {
+                "application/json": components["schemas"]["cluster_registry"];
+            };
+        };
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    kubernetes_add_registries: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
                 "application/json": components["schemas"]["cluster_registries"];
             };
         };
         responses: {
             204: components["responses"]["no_content"];
             401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    kubernetes_remove_registries: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["cluster_registries"];
+            };
+        };
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    kubernetes_get_status_messages: {
+        parameters: {
+            query?: {
+                /**
+                 * @description A timestamp used to return status messages emitted since the specified time. The timestamp should be in ISO8601 format.
+                 * @example 2018-11-15T16:00:11Z
+                 */
+                since?: components["parameters"]["kubernetes_status_messages_since"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description A unique ID that can be used to reference a Kubernetes cluster.
+                 * @example bd5f5959-5e1e-4205-a714-a914373942af
+                 */
+                cluster_id: components["parameters"]["kubernetes_cluster_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["status_messages"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
             500: components["responses"]["server_error"];
             default: components["responses"]["unexpected_error"];
@@ -30956,6 +40230,419 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    monitoring_get_database_mysql_cpu_usage: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description Aggregation over the time range (avg, max, or min).
+                 * @example avg
+                 */
+                aggregate: components["parameters"]["aggregate_avg_max_min"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_load: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description Load window: **load1** (1-minute), **load5** (5-minute), **load15** (15-minute). The value is either average or max over that window, depending on the **aggregate** parameter (avg or max).
+                 * @example load1
+                 */
+                metric: components["parameters"]["metric_load"];
+                /**
+                 * @description Aggregation over the time range (avg or max).
+                 * @example avg
+                 */
+                aggregate: components["parameters"]["aggregate_avg_max"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_memory_usage: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description Aggregation over the time range (avg, max, or min).
+                 * @example avg
+                 */
+                aggregate: components["parameters"]["aggregate_avg_max_min"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_disk_usage: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description Aggregation over the time range (avg, max, or min).
+                 * @example avg
+                 */
+                aggregate: components["parameters"]["aggregate_avg_max_min"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_threads_connected: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_threads_created_rate: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_threads_active: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_index_vs_sequential_reads: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_op_rates: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description Operation type (select, insert, update, or delete).
+                 * @example select
+                 */
+                metric: components["parameters"]["metric_op_rates"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_schema_throughput: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description The schema (database) name.
+                 * @example defaultdb
+                 */
+                schema: components["parameters"]["schema"];
+                /**
+                 * @description Table I/O operation (insert, fetch, update, or delete).
+                 * @example insert
+                 */
+                metric: components["parameters"]["metric_schema_io"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_database_mysql_schema_latency: {
+        parameters: {
+            query: {
+                /**
+                 * @description The DBaaS cluster UUID (database ID).
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                db_id: components["parameters"]["db_id"];
+                /**
+                 * @description The schema (database) name.
+                 * @example defaultdb
+                 */
+                schema: components["parameters"]["schema"];
+                /**
+                 * @description Table I/O operation (insert, fetch, update, or delete).
+                 * @example insert
+                 */
+                metric: components["parameters"]["metric_schema_io"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     monitoring_list_destinations: {
         parameters: {
             query?: never;
@@ -31158,6 +40845,452 @@ export interface operations {
         requestBody?: never;
         responses: {
             204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    nfs_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+                 * @example atl1
+                 */
+                region?: components["parameters"]["region"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["nfs_list"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    nfs_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["nfs_request"];
+            };
+        };
+        responses: {
+            201: components["responses"]["nfs_create"];
+            400: components["responses"]["bad_request-2"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    nfs_get: {
+        parameters: {
+            query?: {
+                /**
+                 * @description The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+                 * @example atl1
+                 */
+                region?: components["parameters"]["region"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The unique ID of the NFS share
+                 * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+                 */
+                nfs_id: components["parameters"]["nfs_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["nfs_get"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    nfs_delete: {
+        parameters: {
+            query?: {
+                /**
+                 * @description The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+                 * @example atl1
+                 */
+                region?: components["parameters"]["region"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The unique ID of the NFS share
+                 * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+                 */
+                nfs_id: components["parameters"]["nfs_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    nfs_create_action: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The unique ID of the NFS share
+                 * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+                 */
+                nfs_id: components["parameters"]["nfs_id"];
+            };
+            cookie?: never;
+        };
+        /**
+         * @description The `type` attribute set in the request body will specify the  action that
+         *     will be taken on the NFS share. Some actions will require additional
+         *     attributes to be set as well.
+         */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["nfs_action_resize"] | components["schemas"]["nfs_action_snapshot"] | components["schemas"]["nfs_action_attach"] | components["schemas"]["nfs_action_detach"] | components["schemas"]["nfs_action_switch_performance_tier"];
+            };
+        };
+        responses: {
+            201: components["responses"]["nfs_actions"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    nfs_list_snapshot: {
+        parameters: {
+            query?: {
+                /**
+                 * @description The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+                 * @example atl1
+                 */
+                region?: components["parameters"]["region"];
+                /**
+                 * @description The unique ID of an NFS share. If provided, only snapshots of this specific share will be returned.
+                 * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+                 */
+                share_id?: components["parameters"]["share_id"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["nfs_snapshot_list"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    nfs_get_snapshot: {
+        parameters: {
+            query?: {
+                /**
+                 * @description The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+                 * @example atl1
+                 */
+                region?: components["parameters"]["region"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The unique ID of the NFS snapshot
+                 * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+                 */
+                nfs_snapshot_id: components["parameters"]["nfs_snapshot_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["nfs_snapshot_get"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    nfs_delete_snapshot: {
+        parameters: {
+            query?: {
+                /**
+                 * @description The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+                 * @example atl1
+                 */
+                region?: components["parameters"]["region"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The unique ID of the NFS snapshot
+                 * @example 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+                 */
+                nfs_snapshot_id: components["parameters"]["nfs_snapshot_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    partnerAttachments_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["all_partner_attachments"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    partnerAttachments_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["partner_attachment_writable"];
+            };
+        };
+        responses: {
+            202: components["responses"]["single_partner_attachment"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            422: components["responses"]["unprocessable_entity"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    partnerAttachments_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a partner attachment.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                pa_id: components["parameters"]["pa_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["single_partner_attachment"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    partnerAttachments_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a partner attachment.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                pa_id: components["parameters"]["pa_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            202: components["responses"]["single_partner_attachment_deleting"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    partnerAttachments_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a partner attachment.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                pa_id: components["parameters"]["pa_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["partner_attachment_updatable"];
+            };
+        };
+        responses: {
+            202: components["responses"]["single_partner_attachment"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    partnerAttachments_get_bgp_auth_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a partner attachment.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                pa_id: components["parameters"]["pa_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["single_partner_attachment_bgp_auth_key"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    partnerAttachments_list_remote_routes: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a partner attachment.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                pa_id: components["parameters"]["pa_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["all_partner_attachment_remote_routes"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    partnerAttachments_get_service_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a partner attachment.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                pa_id: components["parameters"]["pa_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["single_partner_attachment_service_key"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    partnerAttachments_create_service_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a partner attachment.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                pa_id: components["parameters"]["pa_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            202: components["responses"]["empty_json_object"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -31508,6 +41641,516 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    registries_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["all_registries_info"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["multiregistry_create"];
+            };
+        };
+        responses: {
+            201: components["responses"]["multiregistry_info"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["multiregistry_info"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_get_dockerCredentials: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["docker_credentials"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_get_subscription: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["subscription_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_update_subscription: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The slug of the subscription tier to sign up for.
+                     * @example basic
+                     * @enum {string}
+                     */
+                    tier_slug?: "starter" | "basic" | "professional";
+                };
+            };
+        };
+        responses: {
+            200: components["responses"]["subscription_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_get_options: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["registry_options_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_get_garbageCollection: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["garbage_collection"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_run_garbageCollection: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            201: components["responses"]["garbage_collection"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_list_garbageCollections: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["garbage_collections"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_update_garbageCollection: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+                /**
+                 * @description The UUID of a garbage collection run.
+                 * @example eff0feee-49c7-4e8f-ba5c-a320c109c8a8
+                 */
+                garbage_collection_uuid: components["parameters"]["garbage_collection_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["update_registry"];
+            };
+        };
+        responses: {
+            200: components["responses"]["garbage_collection"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_list_repositoriesV2: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return. Ignored when 'page_token' is provided.
+                 * @example 1
+                 */
+                page?: components["parameters"]["token_pagination_page"];
+                /**
+                 * @description Token to retrieve of the next or previous set of results more quickly than using 'page'.
+                 * @example eyJUb2tlbiI6IkNnZGpiMjlz
+                 */
+                page_token?: components["parameters"]["token_pagination_page_token"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["all_repositories_v2"];
+            400: components["responses"]["bad_request"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_delete_repository: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+                /**
+                 * @description The name of a container registry repository. If the name contains `/` characters, they must be URL-encoded, e.g. `%2F`.
+                 * @example repo-1
+                 */
+                repository_name: components["parameters"]["registry_repository_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_list_repositoryTags: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+                /**
+                 * @description The name of a container registry repository. If the name contains `/` characters, they must be URL-encoded, e.g. `%2F`.
+                 * @example repo-1
+                 */
+                repository_name: components["parameters"]["registry_repository_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["repository_tags"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_delete_repositoryTag: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+                /**
+                 * @description The name of a container registry repository. If the name contains `/` characters, they must be URL-encoded, e.g. `%2F`.
+                 * @example repo-1
+                 */
+                repository_name: components["parameters"]["registry_repository_name"];
+                /**
+                 * @description The name of a container registry repository tag.
+                 * @example 06a447a
+                 */
+                repository_tag: components["parameters"]["registry_repository_tag"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_list_repositoryManifests: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+                /**
+                 * @description The name of a container registry repository. If the name contains `/` characters, they must be URL-encoded, e.g. `%2F`.
+                 * @example repo-1
+                 */
+                repository_name: components["parameters"]["registry_repository_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["repository_manifests"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_delete_repositoryManifest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The name of a container registry.
+                 * @example example
+                 */
+                registry_name: components["parameters"]["registry_name"];
+                /**
+                 * @description The name of a container registry repository. If the name contains `/` characters, they must be URL-encoded, e.g. `%2F`.
+                 * @example repo-1
+                 */
+                repository_name: components["parameters"]["registry_repository_name"];
+                /**
+                 * @description The manifest digest of a container registry repository tag.
+                 * @example sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
+                 */
+                manifest_digest: components["parameters"]["registry_manifest_digest"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    registries_validate_name: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["validate_registry"];
+            };
+        };
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            409: components["responses"]["conflict"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     registry_get: {
         parameters: {
             query?: never;
@@ -31519,6 +42162,7 @@ export interface operations {
         responses: {
             200: components["responses"]["registry_info"];
             401: components["responses"]["unauthorized"];
+            412: components["responses"]["registries_precondition_fail"];
             429: components["responses"]["too_many_requests"];
             500: components["responses"]["server_error"];
             default: components["responses"]["unexpected_error"];
@@ -31556,6 +42200,7 @@ export interface operations {
             204: components["responses"]["no_content"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
+            412: components["responses"]["registries_precondition_fail"];
             429: components["responses"]["too_many_requests"];
             500: components["responses"]["server_error"];
             default: components["responses"]["unexpected_error"];
@@ -31599,6 +42244,7 @@ export interface operations {
         responses: {
             200: components["responses"]["subscription_response"];
             401: components["responses"]["unauthorized"];
+            412: components["responses"]["registries_over_limit"];
             429: components["responses"]["too_many_requests"];
             500: components["responses"]["server_error"];
             default: components["responses"]["unexpected_error"];
@@ -31906,7 +42552,11 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["registry_run_gc"];
+            };
+        };
         responses: {
             201: components["responses"]["garbage_collection"];
             401: components["responses"]["unauthorized"];
@@ -32190,6 +42840,289 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    reservedIPv6_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["reserved_ipv6_list"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    reservedIPv6_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["reserved_ipv6_create"];
+            };
+        };
+        responses: {
+            201: components["responses"]["reserved_ipv6_create"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    reservedIPv6_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A reserved IPv6 address.
+                 * @example 2409:40d0:f7:1017:74b4:3a96:105e:4c6e
+                 */
+                reserved_ipv6: components["parameters"]["reserved_ipv6"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["reserved_ipv6"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    reservedIPv6_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A reserved IPv6 address.
+                 * @example 2409:40d0:f7:1017:74b4:3a96:105e:4c6e
+                 */
+                reserved_ipv6: components["parameters"]["reserved_ipv6"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            422: components["responses"]["unprocessable_entity"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    reservedIPv6Actions_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A reserved IPv6 address.
+                 * @example 2409:40d0:f7:1017:74b4:3a96:105e:4c6e
+                 */
+                reserved_ipv6: components["parameters"]["reserved_ipv6"];
+            };
+            cookie?: never;
+        };
+        /**
+         * @description The `type` attribute set in the request body will specify the action that
+         *     will be taken on the reserved IPv6.
+         */
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["reserved_ipv6_action_unassign"] | components["schemas"]["reserved_ipv6_action_assign"];
+            };
+        };
+        responses: {
+            201: components["responses"]["reserved_ipv6_action"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    byoipPrefixes_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["byoip_prefix_list"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    byoipPrefixes_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["byoip_prefix_create"];
+            };
+        };
+        responses: {
+            202: components["responses"]["byoip_prefix_create"];
+            401: components["responses"]["unauthorized"];
+            422: components["responses"]["unprocessable_entity"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    byoipPrefixes_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The unique identifier for the BYOIP Prefix.
+                 * @example f47ac10b-58cc-4372-a567-0e02b2c3d479
+                 */
+                byoip_prefix_uuid: components["parameters"]["byoip_prefix"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["byoip_prefix_get"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            422: components["responses"]["unprocessable_entity"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    byoipPrefixes_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The unique identifier for the BYOIP Prefix.
+                 * @example f47ac10b-58cc-4372-a567-0e02b2c3d479
+                 */
+                byoip_prefix_uuid: components["parameters"]["byoip_prefix"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            202: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            422: components["responses"]["unprocessable_entity"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    byoipPrefixes_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a BYOIP prefix.
+                 * @example f47ac10b-58cc-4372-a567-0e02b2c3d479
+                 */
+                byoip_prefix_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["byoip_prefix_update"];
+            };
+        };
+        responses: {
+            202: components["responses"]["byoip_prefix_update"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            422: components["responses"]["unprocessable_entity"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    byoipPrefixes_list_resources: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The unique identifier for the BYOIP Prefix.
+                 * @example f47ac10b-58cc-4372-a567-0e02b2c3d479
+                 */
+                byoip_prefix_uuid: components["parameters"]["byoip_prefix"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["byoip_prefix_list_resources"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     sizes_list: {
         parameters: {
             query?: {
@@ -32290,6 +43223,181 @@ export interface operations {
         responses: {
             204: components["responses"]["no_content"];
             400: components["responses"]["not_a_snapshot"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    spacesKey_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+                /**
+                 * @description The field to sort by.
+                 * @example created_at
+                 */
+                sort?: components["parameters"]["sort"];
+                /**
+                 * @description The direction to sort by. Possible values are `asc` or `desc`.
+                 * @example desc
+                 */
+                sort_direction?: components["parameters"]["sort_direction"];
+                /**
+                 * @description The access key's name.
+                 * @example my-access-key
+                 */
+                name?: components["parameters"]["name"];
+                /**
+                 * @description The bucket's name.
+                 * @example my-bucket
+                 */
+                bucket?: components["parameters"]["bucket"];
+                /**
+                 * @description The permission of the access key. Possible values are `read`, `readwrite`, `fullaccess`, or an empty string.
+                 * @example read
+                 */
+                permission?: components["parameters"]["permission"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["key_list"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    spacesKey_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["key"];
+            };
+        };
+        responses: {
+            201: components["responses"]["key_create"];
+            400: components["responses"]["bad_request-3"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    spacesKey_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The access key's ID.
+                 * @example DOACCESSKEYEXAMPLE
+                 */
+                access_key: components["parameters"]["access_key_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["key_get"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    spacesKey_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The access key's ID.
+                 * @example DOACCESSKEYEXAMPLE
+                 */
+                access_key: components["parameters"]["access_key_id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["key"];
+            };
+        };
+        responses: {
+            200: components["responses"]["key_update"];
+            400: components["responses"]["bad_request-3"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    spacesKey_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The access key's ID.
+                 * @example DOACCESSKEYEXAMPLE
+                 */
+                access_key: components["parameters"]["access_key_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    spacesKey_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The access key's ID.
+                 * @example DOACCESSKEYEXAMPLE
+                 */
+                access_key: components["parameters"]["access_key_id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["key"];
+            };
+        };
+        responses: {
+            200: components["responses"]["key_update"];
+            400: components["responses"]["bad_request-3"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -32457,7 +43565,7 @@ export interface operations {
                  * @description The slug identifier for the region where the resource is available.
                  * @example nyc3
                  */
-                region?: components["parameters"]["region"];
+                region?: components["parameters"]["parameters_region"];
                 /**
                  * @description Number of items returned per page
                  * @example 2
@@ -32516,7 +43624,7 @@ export interface operations {
                  * @description The slug identifier for the region where the resource is available.
                  * @example nyc3
                  */
-                region?: components["parameters"]["region"];
+                region?: components["parameters"]["parameters_region"];
             };
             header?: never;
             path?: never;
@@ -33150,7 +44258,7 @@ export interface operations {
                  * @description The slug identifier for the region where the resource is available.
                  * @example nyc3
                  */
-                region?: components["parameters"]["region"];
+                region?: components["parameters"]["parameters_region"];
             };
             header?: never;
             path?: never;
@@ -33252,6 +44360,146 @@ export interface operations {
         };
         responses: {
             200: components["responses"]["active_vpc_peering"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcnatgateways_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+                /**
+                 * @description The current state of the VPC NAT gateway.
+                 * @example active
+                 */
+                state?: components["parameters"]["vpc_nat_gateway_state"];
+                /**
+                 * @description The region where the VPC NAT gateway is located.
+                 * @example tor1
+                 */
+                region?: components["parameters"]["vpc_nat_gateway_region"];
+                /**
+                 * @description The type of the VPC NAT gateway.
+                 * @example public
+                 */
+                type?: components["parameters"]["vpc_nat_gateway_type"];
+                /**
+                 * @description The name of the VPC NAT gateway.
+                 * @example my-vpc-nat-gateway
+                 */
+                name?: components["parameters"]["vpc_nat_gateway_name"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["vpc_nat_gateways"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcnatgateways_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["vpc_nat_gateway_create"];
+            };
+        };
+        responses: {
+            202: components["responses"]["vpc_nat_gateway_create"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcnatgateways_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The unique identifier of the VPC NAT gateway.
+                 * @example 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+                 */
+                id: components["parameters"]["vpc_nat_gateway_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["vpc_nat_gateway"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcnatgateways_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The unique identifier of the VPC NAT gateway.
+                 * @example 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+                 */
+                id: components["parameters"]["vpc_nat_gateway_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["vpc_nat_gateway_update"];
+            };
+        };
+        responses: {
+            200: components["responses"]["vpc_nat_gateway_update"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcnatgateways_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The unique identifier of the VPC NAT gateway.
+                 * @example 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+                 */
+                id: components["parameters"]["vpc_nat_gateway_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            202: components["responses"]["no_content"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -33731,7 +44979,7 @@ export interface operations {
                  */
                 agent_uuid: string;
                 /**
-                 * @description Api key id
+                 * @description API key ID
                  * @example "123e4567-e89b-12d3-a456-426614174000"
                  */
                 api_key_uuid: string;
@@ -33813,7 +45061,7 @@ export interface operations {
                  */
                 agent_uuid: string;
                 /**
-                 * @description Api key id
+                 * @description API key ID
                  * @example "123e4567-e89b-12d3-a456-426614174000"
                  */
                 api_key_uuid: string;
@@ -33952,6 +45200,117 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["apiUnlinkAgentFunctionOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_attach_agent_guardrails: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The UUID of the agent.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiLinkAgentGuardrailsInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiLinkAgentGuardrailOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_detach_agent_guardrail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The UUID of the agent.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+                /**
+                 * @description The UUID of the guardrail to detach.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                guardrail_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUnlinkAgentGuardrailOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_attach_knowledge_bases: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for an agent.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiLinkKnowledgeBaseOutput"];
                 };
             };
             401: components["responses"]["unauthorized"];
@@ -34188,7 +45547,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["apiGetAgentOutputPublic"];
+                    "application/json": components["schemas"]["apiGetAgentOutput"];
                 };
             };
             401: components["responses"]["unauthorized"];
@@ -34342,6 +45701,776 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    genai_get_agent_usage: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Return all usage data from this date.
+                 * @example "example string"
+                 */
+                start?: string;
+                /**
+                 * @description Return all usage data up to this date, if omitted, will return up to the current date.
+                 * @example "example string"
+                 */
+                stop?: string;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description Agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetAgentUsageOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_agent_versions: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description Agent uuid
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListAgentVersionsOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_rollback_to_agent_version: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Agent unique identifier
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiRollbackToAgentVersionInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiRollbackToAgentVersionOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_anthropic_api_keys: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListAnthropicAPIKeysOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_anthropic_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateAnthropicAPIKeyInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateAnthropicAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_anthropic_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description API key ID
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetAnthropicAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_anthropic_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description API key ID
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateAnthropicAPIKeyInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateAnthropicAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_delete_anthropic_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description API key ID
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDeleteAnthropicAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_agents_by_anthropic_key: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description Unique ID of Anthropic key
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListAgentsByAnthropicKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_evaluation_dataset: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateEvaluationDatasetInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateEvaluationDatasetOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_evaluation_dataset_file_upload_presigned_urls: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateDataSourceFileUploadPresignedUrlsInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateDataSourceFileUploadPresignedUrlsOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_evaluation_metrics: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListEvaluationMetricsOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_run_evaluation_test_case: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiRunEvaluationTestCaseInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiRunEvaluationTestCaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_evaluation_run: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Evaluation run UUID.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                evaluation_run_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetEvaluationRunOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_evaluation_run_results: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description Evaluation run UUID.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                evaluation_run_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetEvaluationRunResultsOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_evaluation_run_prompt_results: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Evaluation run UUID.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                evaluation_run_uuid: string;
+                /**
+                 * @description Prompt ID to get results for.
+                 * @example 1
+                 */
+                prompt_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetEvaluationRunPromptResultsOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_evaluation_test_cases: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListEvaluationTestCasesOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_evaluation_test_case: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateEvaluationTestCaseInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateEvaluationTestCaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_evaluation_runs_by_test_case: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Version of the test case.
+                 * @example 1
+                 */
+                evaluation_test_case_version?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description Evaluation run UUID.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                evaluation_test_case_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListEvaluationRunsByTestCaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_evaluation_test_case: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Version of the test case.
+                 * @example 1
+                 */
+                evaluation_test_case_version?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description The test case uuid to retrieve.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                test_case_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetEvaluationTestCaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_evaluation_test_case: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Test-case UUID to update
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                test_case_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateEvaluationTestCaseInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateEvaluationTestCaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     genai_list_indexing_jobs: {
         parameters: {
             query?: {
@@ -34438,6 +46567,40 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["apiListIndexingJobDataSourcesOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_indexing_job_details_signed_url: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The uuid of the indexing job
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                indexing_job_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetIndexingJobDetailsSignedURLOutput"];
                 };
             };
             401: components["responses"]["unauthorized"];
@@ -34590,6 +46753,38 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    genai_create_data_source_file_upload_presigned_urls: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateDataSourceFileUploadPresignedUrlsInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateDataSourceFileUploadPresignedUrlsOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     genai_list_knowledge_base_data_sources: {
         parameters: {
             query?: {
@@ -34673,6 +46868,49 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    genai_update_knowledge_base_data_source: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Knowledge Base ID (Path Parameter)
+                 * @example 123e4567-e89b-12d3-a456-426614174000
+                 */
+                knowledge_base_uuid: string;
+                /**
+                 * @description Data Source ID (Path Parameter)
+                 * @example 123e4567-e89b-12d3-a456-426614174000
+                 */
+                data_source_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateKnowledgeBaseDataSourceInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateKnowledgeBaseDataSourceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     genai_delete_knowledge_base_data_source: {
         parameters: {
             query?: never;
@@ -34703,6 +46941,40 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["apiDeleteKnowledgeBaseDataSourceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_indexing_jobs_by_knowledge_base: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Knowledge base uuid in string
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                knowledge_base_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListKnowledgeBaseIndexingJobsOutput"];
                 };
             };
             401: components["responses"]["unauthorized"];
@@ -34829,11 +47101,13 @@ export interface operations {
                  *      - MODEL_USECASE_FINETUNED: The model maybe used for fine tuning
                  *      - MODEL_USECASE_KNOWLEDGEBASE: The model maybe used for knowledge bases (embedding models)
                  *      - MODEL_USECASE_GUARDRAIL: The model maybe used for guardrails
+                 *      - MODEL_USECASE_REASONING: The model usecase for reasoning
+                 *      - MODEL_USECASE_SERVERLESS: The model usecase for serverless inference
                  * @example [
                  *       "MODEL_USECASE_UNKNOWN"
                  *     ]
                  */
-                usecases?: ("MODEL_USECASE_UNKNOWN" | "MODEL_USECASE_AGENT" | "MODEL_USECASE_FINETUNED" | "MODEL_USECASE_KNOWLEDGEBASE" | "MODEL_USECASE_GUARDRAIL")[];
+                usecases?: ("MODEL_USECASE_UNKNOWN" | "MODEL_USECASE_AGENT" | "MODEL_USECASE_FINETUNED" | "MODEL_USECASE_KNOWLEDGEBASE" | "MODEL_USECASE_GUARDRAIL" | "MODEL_USECASE_REASONING" | "MODEL_USECASE_SERVERLESS")[];
                 /**
                  * @description Only include models that are publicly available.
                  * @example true
@@ -34875,6 +47149,476 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    genai_list_model_api_keys: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListModelAPIKeysOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_model_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateModelAPIKeyInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateModelAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_model_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description API key ID
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateModelAPIKeyInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateModelAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_delete_model_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description API key for an agent.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDeleteModelAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_regenerate_model_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description API key ID
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiRegenerateModelAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_oauth2_dropbox_tokens: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiDropboxOauth2GetTokensInput"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDropboxOauth2GetTokensOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_oauth2_url: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Type "google" / "dropbox".
+                 * @example "example string"
+                 */
+                type?: string;
+                /**
+                 * @description The redirect url.
+                 * @example "example string"
+                 */
+                redirect_url?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGenerateOauth2URLOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_openai_api_keys: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListOpenAIAPIKeysOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_openai_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateOpenAIAPIKeyInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateOpenAIAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_openai_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description API key ID
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetOpenAIAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_openai_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description API key ID
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateOpenAIAPIKeyInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateOpenAIAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_delete_openai_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description API key ID
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDeleteOpenAIAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_agents_by_openai_key: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description Unique ID of OpenAI key
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListAgentsByOpenAIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     genai_list_datacenter_regions: {
         parameters: {
             query?: {
@@ -34905,6 +47649,394 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["apiListRegionsOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_scheduled_indexing: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateScheduledIndexingInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateScheduledIndexingOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_scheduled_indexing: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description UUID of the scheduled indexing entry
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                knowledge_base_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetScheduledIndexingOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_delete_scheduled_indexing: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description UUID of the scheduled indexing
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDeleteScheduledIndexingOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_workspaces: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListWorkspacesOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_workspace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateWorkspaceInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateWorkspaceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_workspace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Workspace UUID.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                workspace_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetWorkspaceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_workspace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Workspace UUID.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                workspace_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateWorkspaceInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateWorkspaceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_delete_workspace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Workspace UUID.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                workspace_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDeleteWorkspaceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_agents_by_workspace: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Only list agents that are deployed.
+                 * @example true
+                 */
+                only_deployed?: boolean;
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description Workspace UUID.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                workspace_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListAgentsByWorkspaceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_agents_workspace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Workspace uuid to move agents to
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                workspace_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiMoveAgentsToWorkspaceInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiMoveAgentsToWorkspaceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_evaluation_test_cases_by_workspace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Workspace UUID.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                workspace_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListEvaluationTestCasesByWorkspaceOutput"];
                 };
             };
             401: components["responses"]["unauthorized"];
